@@ -1,2 +1,200 @@
-div a {
-  color: green; }
+* {
+  box-sizing: border-box;
+  font-family: 'Lato', sans-serif; }
+
+header {
+  position: relative; }
+  header a#sign-out {
+    background-color: yellow;
+    color: purple;
+    position: absolute;
+    top: 10px;
+    right: 10px; }
+
+main.login-main {
+  margin: 0 auto;
+  width: 50%;
+  text-align: center;
+  min-height: 300px;
+  background-color: #ccc;
+  position: relative;
+  /* h3 {
+		background-color: green;
+		margin: 0 auto;
+	} */ }
+  main.login-main div.logo {
+    min-width: 150px;
+    min-height: 150px;
+    background-color: #ddd;
+    float: left; }
+  main.login-main form {
+    background-color: #aaa;
+    margin-left: auto;
+    padding: 25px;
+    width: 33%; }
+    main.login-main form div {
+      margin: 0 auto; }
+      main.login-main form div label {
+        margin: 0 auto; }
+
+div.this-user {
+  margin: 10px auto;
+  width: 60%;
+  overflow: hidden;
+  position: relative;
+  background-color: green; }
+  div.this-user div.image {
+    height: 125px;
+    width: 125px;
+    background-color: blue;
+    float: left;
+    margin: 15px; }
+  div.this-user h3 {
+    padding: 25px;
+    margin-left: 300px;
+    background-color: #333;
+    text-align: center;
+    margin: 15px;
+    display: inline-block;
+    width: 300px; }
+  div.this-user a {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    background-color: salmon; }
+
+div.toppings {
+  margin: 0 auto;
+  width: 60%;
+  background-color: orange;
+  min-height: 150px;
+  overflow: hidden;
+  position: relative; }
+  div.toppings * + * {
+    margin-bottom: 10px; }
+  div.toppings h3 {
+    padding: 5px; }
+  div.toppings .topping {
+    padding: 15px;
+    float: left;
+    width: 250px;
+    height: 40px;
+    margin-left: auto;
+    margin-right: auto; }
+    div.toppings .topping a {
+      background-color: green;
+      color: white; }
+      div.toppings .topping a::before {
+        display: inline-block;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        /*character for the font-awesome icon...have to still import FA*/
+        content: "\f164";
+        color: rgba(255, 255, 255, 0.5);
+        text-decoration: none; }
+      div.toppings .topping a.selected {
+        background-color: red; }
+        div.toppings .topping a.selected::before {
+          content: "\f165"; }
+      div.toppings .topping a i.fa {
+        color: rgba(255, 255, 255, 0.5); }
+  div.toppings a#suggestions {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background-color: pink;
+    font-size: 2em; }
+
+div.friends {
+  margin: 0 auto;
+  width: 60%;
+  background-color: orange;
+  min-height: 150px;
+  overflow: hidden;
+  margin-bottom: 15px; }
+  div.friends > a {
+    padding: 3px;
+    margin-left: 5px;
+    font-size: 2em;
+    background-color: salmon;
+    color: white; }
+  div.friends * + * {
+    margin-bottom: 10px; }
+  div.friends div {
+    overflow: hidden; }
+  div.friends h3 {
+    margin: 5px;
+    padding: 5px; }
+    div.friends h3#user {
+      display: inline-block;
+      min-width: 200px; }
+  div.friends img {
+    height: 50px;
+    width: 50px;
+    background-color: #777;
+    margin: 10px;
+    float: left; }
+  div.friends .friend {
+    padding: 15px;
+    float: left;
+    width: 250px;
+    height: 50px;
+    margin-left: auto;
+    margin-right: auto; }
+    div.friends .friend img {
+      height: 25px;
+      width: 25px;
+      margin: 0px; }
+    div.friends .friend a {
+      background-color: green;
+      color: white; }
+      div.friends .friend a::before {
+        display: inline-block;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        /*character for the font-awesome icon...have to still import FA*/
+        content: "\f164";
+        color: rgba(255, 255, 255, 0.5);
+        text-decoration: none; }
+      div.friends .friend a.selected {
+        background-color: red; }
+        div.friends .friend a.selected::before {
+          content: "\f165"; }
+      div.friends .friend a i.fa {
+        color: rgba(255, 255, 255, 0.5); }
+
+div.suggestions {
+  margin: 0 auto;
+  width: 60%;
+  background-color: orange;
+  min-height: 150px;
+  overflow: hidden;
+  margin-bottom: 25px; }
+  div.suggestions > * + * {
+    margin-bottom: 20px; }
+  div.suggestions > a {
+    padding: 3px;
+    margin-left: 5px;
+    font-size: 2em;
+    background-color: salmon;
+    color: white; }
+  div.suggestions .suggestion {
+    width: 80%;
+    min-height: 85px;
+    background-color: blue;
+    margin: 0 auto; }
+    div.suggestions .suggestion div {
+      min-height: 45px; }
+      div.suggestions .suggestion div h3 {
+        margin-left: 5px;
+        float: left;
+        background-color: red; }
+      div.suggestions .suggestion div p {
+        margin-left: 135px;
+        background-color: green; }
+    div.suggestions .suggestion a {
+      background-color: salmon; }

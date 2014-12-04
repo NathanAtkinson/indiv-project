@@ -1,5 +1,273 @@
-div {
-	a {
-		color: green;
+// Reset
+* {
+	box-sizing: border-box;
+	font-family: 'Lato', sans-serif;
+	// color: #FFFFF0;
+}
+
+header {
+	position: relative;
+	a#sign-out {
+		background-color: yellow;
+		color: purple;
+		position: absolute;
+		top: 10px;
+		right: 10px;
 	}
 }
+
+main.login-main {
+	margin: 0 auto;
+	width: 50%;
+	text-align: center;
+	min-height: 300px;
+	background-color: #ccc;
+	position: relative;
+	/* h3 {
+		background-color: green;
+		margin: 0 auto;
+	} */
+	div.logo{
+		min-width: 150px;
+		min-height: 150px;
+		background-color: #ddd;
+		float: left;
+	}
+	form {
+		background-color: #aaa;
+		margin-left:auto;
+		padding: 25px;
+		width: 33%;
+		div {
+			margin: 0 auto;
+			label {
+				margin: 0 auto;
+			}
+		}
+	}
+}
+
+div.this-user {
+	margin: 10px auto;
+	width: 60%;
+	overflow: hidden;
+	position: relative;
+	background-color: green;
+	div.image {
+		height: 125px;
+		width: 125px;
+		background-color: blue;
+		float: left;
+		margin: 15px;
+	}
+	h3 {
+		padding: 25px;
+		margin-left: 300px;
+		background-color: #333;
+		text-align: center;
+		margin: 15px;
+		display: inline-block;
+		width: 300px;
+	}
+	a {
+		position: absolute;
+		right: 20px;
+		bottom: 20px;
+		background-color: salmon;
+
+	}
+
+}
+
+
+//formatting for options. extended below by users and toppings
+.option {
+	//will need to pull updated options once get working
+	// padding: 25px;
+	// float: left;
+	// width: 250px;
+	// height:  50px;
+	// margin-left: auto;
+	// margin-right: auto;
+}
+
+div.toppings {
+	margin: 0 auto;
+	width: 60%;
+	background-color: orange;
+	min-height: 150px;
+	overflow: hidden;
+	position: relative;
+	* + * {
+		margin-bottom: 10px;
+	}
+	h3 {
+		padding: 5px;
+	}
+	.topping {
+		// @extends .option;
+		//TODO how to overcome this error so I cna use above line?
+		//error: nested selectors may not be extended
+		padding: 15px;
+		float: left;
+		width: 250px;
+		height:  40px;
+		margin-left: auto;
+		margin-right: auto;
+
+		a {
+		background-color: green;
+		color: white;
+		&::before {
+			display: inline-block;
+			font: normal normal normal 14px/1 FontAwesome;
+			font-size: inherit;
+			text-rendering: auto;
+			-webkit-font-smoothing: antialiased;
+			/*character for the font-awesome icon...have to still import FA*/
+			content: "\f164";
+			color: rgba(255, 255, 255, 0.5);
+			text-decoration: none;
+		}
+	 	&.selected {
+			background-color: red;
+			&::before {
+			content: "\f165";
+			}
+		}
+			i.fa {
+			color: rgba(255, 255, 255, 0.5);
+			}
+		}	
+	}
+	a#suggestions {
+		position: absolute;
+		right: 10px;
+		top: 10px;
+		background-color: pink;
+		font-size: 2em;
+	}
+	
+}
+
+div.friends {
+	margin: 0 auto;
+	width: 60%;
+	background-color: orange;
+	min-height: 150px;
+	overflow: hidden;
+	margin-bottom: 15px;
+	> a {
+		padding: 3px;
+		margin-left: 5px;
+		font-size: 2em;
+		background-color: salmon;
+		color: white;
+	}
+	* + * {
+		margin-bottom: 10px;
+	}
+	div {
+		overflow: hidden;
+	}
+	h3 {
+		margin: 5px;
+		padding: 5px;
+		&#user {
+			display: inline-block;
+			min-width: 200px;
+		}
+	}
+	img {
+		height: 50px;
+		width: 50px;
+		background-color: #777;
+		margin: 10px;
+		float: left;
+	}
+	.friend {
+		// @extends .option;
+		padding: 15px;
+		float: left;
+		width: 250px;
+		height:  50px;
+		margin-left: auto;
+		margin-right: auto;
+		img {
+			height: 25px;
+			width: 25px;
+			
+			margin: 0px;
+		}
+		a {
+			background-color: green;
+			color: white;
+			&::before {
+				display: inline-block;
+				font: normal normal normal 14px/1 FontAwesome;
+				font-size: inherit;
+				text-rendering: auto;
+				-webkit-font-smoothing: antialiased;
+				/*character for the font-awesome icon...have to still import FA*/
+				content: "\f164";
+				color: rgba(255, 255, 255, 0.5);
+				text-decoration: none;
+			}
+		 	&.selected {
+				background-color: red;
+				&::before {
+				content: "\f165";
+				}
+			}
+				i.fa {
+				color: rgba(255, 255, 255, 0.5);
+				}
+			}
+		}
+	
+}
+
+
+div.suggestions {
+	margin: 0 auto;
+	width: 60%;
+	background-color: orange;
+	min-height: 150px;
+	overflow: hidden;
+	margin-bottom: 25px;
+	> * + * {
+		margin-bottom: 20px;
+	}
+	> a {
+		padding: 3px;
+		margin-left: 5px;
+		font-size: 2em;
+		background-color: salmon;
+		color: white;
+	}
+	.suggestion {
+		width: 80%;
+		min-height: 85px;
+		background-color: blue;
+		margin: 0 auto;
+		div {
+			min-height: 45px;
+			h3 {
+				margin-left: 5px;
+				float: left;
+				background-color: red;
+			}
+			p {
+				margin-left: 135px;
+				background-color:green;
+			}
+		}
+		
+		a {
+			background-color: salmon;
+
+		}
+	}
+}
+
+

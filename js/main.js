@@ -30,4 +30,10 @@
 		$('body').append('<p>Submittion Error</p>');
 	});
 
+
+
+	$('a').on('click', function() {
+		$(this).toggleClass('selected');
+	});
+
 })();

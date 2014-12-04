@@ -9,7 +9,7 @@
 	<!-- Main CSS -->
 	<link rel="stylesheet" href="/bower_components/ReptileForms/dist/reptileforms.min.css">
 	<link rel="stylesheet" href="/css/styles.css">
-
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 	<!-- Modernizr -->
 	<script src="/bower_components/modernizr/modernizr.js"></script>
 

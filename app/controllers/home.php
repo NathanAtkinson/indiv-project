@@ -1,23 +1,34 @@
 <?php
 
-// Controller
 class Controller extends AppController {
 	protected function init() {
 		
-		// Send a variable to the main view
-		$this->view->welcome = 'Welcome to MVC';
-
-		// Send a variable to a sub view
-		$this->view->primary_header->welcome = 'Welcome Student!';
-
 	}
 }
 $controller = new Controller();
 
-// Extract Main Controller Vars
 extract($controller->view->vars);
 
 ?>
 
-<!-- Notice this welcome variable was created above and passed into the view -->
-<h3><?php echo $welcome; ?></h3>
+<div class="login-content">
+    <main class="login-main">
+        <div>
+        <div class="logo">
+            
+        </div>
+        <!-- <h3>LOGIN</h3> -->
+        <form action="/login" method="POST" class="login-form">
+            <input class="user_name" type="text" name="user_name" title="Username">
+            <input class="password" type="password" name="password" data-exp-name="password" title="Password">
+            <!-- <input class="email" type="email" name="email" data-exp-name="email" title="E-mail"> -->
+            <br>
+            <button class="submit">submit</button><br>
+            <!-- <button class="sign-up">sign up</button> -->
+        </form>
+        <div class="errormsg"></div>
+        </div>
+    </main>
+</div>
+
+    
