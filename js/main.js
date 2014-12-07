@@ -34,6 +34,35 @@
 
 	$('a').on('click', function() {
 		$(this).toggleClass('selected');
+		//TODO logic to determine if new dislike or removing dislike. Then AJAX call
+		//to complete this.  Currently, "changes" are reflected without actually occuring
 	});
+
+
+
+
+	/*
+	* Gets from payload the list of user's dislikes.  It then finds those 
+	* topping id's and reflects them as disliked
+	*/
+	// console.log(app.settings.dislikes);
+	var dislikes = app.settings.dislikes;
+
+	for (var dislike in dislikes){
+		// console.log(dislike);
+		// console.log(dislikes[dislike]);
+		var topping_id = dislikes[dislike].topping_id;
+		// console.log('topping id: ' + topping_id);
+		// var points = dislikes[dislike].points;
+		// console.log('points: ' + points);
+
+		$("div[data-topping-id='" + topping_id + "']")
+      	.find('a')
+      	.addClass('selected');
+  	}
+
+
+
+
 
 })();
