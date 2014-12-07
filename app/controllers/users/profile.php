@@ -4,7 +4,41 @@
 class Controller extends AppController {
 	protected function init() {
 
-		// More code could go here depending on what you want to do with this page
+		// $user_id = UserLogin::getUserID();
+		$user_id = 8;
+		$user = new User($user_id);
+
+		// $this->view->user_name = 'Username here';
+		$user_name = $user->getUserName();
+
+
+
+		//gets votes that user has made in the past
+		$user_dislikes = $user->getPreferences();
+		while ($row = $user_dislikes->fetch_assoc()){
+			$dislikes[] = ['topping_id'=>$row['topping_id']];
+		}
+	    //pass the results to payload so that jQuery can use them 
+	    //to select the dropdowns.
+		Payload::add('dislikes', $dislikes);
+		
+
+		$profile_creator = new ProfileViewFragment();
+		$profile_creator->user_name = xss::protection($user_name);
+		$this->view->profile = $profile_creator->render();
+
+
+		//gets list of toppings from DB
+		$toppings_from_DB = Topping::getAll();
+
+		$topping_populator = new ToppingViewFragment();
+		//Creates object to populate the topping fragments
+		//Uses results from DB to dynamically create with ID and name
+		while($topping = $toppings_from_DB->fetch_assoc()) {
+			$topping_populator->topping_id = xss::protection($topping['topping_id']);
+			$topping_populator->name = xss::protection($topping['name']);
+			$this->view->toppings .= $topping_populator->render();
+		}
 
 	}
 
@@ -15,78 +49,19 @@ $controller = new Controller();
 extract($controller->view->vars);
 
 ?>
-
-
-
-	<div class="this-user">
+	
+	<?php echo $profile ?>
+	<!-- <div class="this-user">
 		<div class="profile-info">
 			<div class="image">image here</div>
-			<h3>Username here</h3>
+			<h3><?php echo $user_name ?></h3>
 			<img src="" alt="">
 		</div>
 		<a id="build-suggestion" href="/build">Build Suggestion</a>
-		
-	</div>
-
+	</div> -->
 
 <div class="toppings">
 	<h3>My Dislikes:</h3>
-	<div class="topping">
-		<!-- <a href="#"><i class="fa fa-thumbs-up"></i>Topping One</a> -->
-		<a href="#"></i>Topping One</a>
-	</div>
-	<div class="topping">
-		<!-- <a href="#"><i class="fa fa-thumbs-up"></i>Topping One</a> -->
-		<a href="#"></i>Topping One</a>
-	</div>
-	<div class="topping">
-		<!-- <a href="#"><i class="fa fa-thumbs-up"></i>Topping One</a> -->
-		<a href="#"></i>Topping One</a>
-	</div>
-	<div class="topping">
-		<!-- <a href="#"><i class="fa fa-thumbs-up"></i>Topping One</a> -->
-		<a href="#"></i>Topping One</a>
-	</div>
-	<div class="topping">
-		<!-- <a href="#"><i class="fa fa-thumbs-up"></i>Topping One</a> -->
-		<a href="#"></i>Topping One</a>
-	</div>
-	<div class="topping">
-		<!-- <a href="#"><i class="fa fa-thumbs-up"></i>Topping One</a> -->
-		<a href="#"></i>Topping One</a>
-	</div>
-	<div class="topping">
-		<!-- <a href="#"><i class="fa fa-thumbs-up"></i>Topping One</a> -->
-		<a href="#"></i>Topping One</a>
-	</div>
-	<div class="topping">
-		<!-- <a href="#"><i class="fa fa-thumbs-up"></i>Topping One</a> -->
-		<a href="#"></i>Topping One</a>
-	</div>
-	<div class="topping">
-		<!-- <a href="#"><i class="fa fa-thumbs-up"></i>Topping One</a> -->
-		<a href="#"></i>Topping One</a>
-	</div>
-	<div class="topping">
-		<!-- <a href="#"><i class="fa fa-thumbs-up"></i>Topping One</a> -->
-		<a href="#"></i>Topping One</a>
-	</div>
-	<div class="topping">
-		<!-- <a href="#"><i class="fa fa-thumbs-up"></i>Topping One</a> -->
-		<a href="#"></i>Topping One</a>
-	</div><div class="topping">
-		<!-- <a href="#"><i class="fa fa-thumbs-up"></i>Topping One</a> -->
-		<a href="#"></i>Topping One</a>
-	</div><div class="topping">
-		<!-- <a href="#"><i class="fa fa-thumbs-up"></i>Topping One</a> -->
-		<a href="#"></i>Topping One</a>
-	</div>
-	<div class="topping">
-		<!-- <a href="#"><i class="fa fa-thumbs-up"></i>Topping One</a> -->
-		<a href="#"></i>Topping One</a>
-	</div>
-	<div class="topping">
-		<!-- <a href="#"><i class="fa fa-thumbs-up"></i>Topping One</a> -->
-		<a href="#"></i>Topping One</a>
-	</div>
+	<?php echo $toppings ?>
+	
 </div>
