@@ -2,63 +2,31 @@
 
 /**
  * User
+ * TODO change from past project to incorporate needed functionality
  */
-class User extends Model {
+class Recommend extends CustomModel {
 
-	/**
-	 * Insert User
-	 */
-	protected function insert($input) {
 
-		// Note that Server Side validation is not being done here
-		// and should be implemented by you
+	public static function getRecs() {
 
-		// Prepare SQL Values
-		$sql_values = [
-			'user_id' => $input['user_id'],
-			'first_name' => $input['first_name'],
-			'last_name' => $input['last_name'],
-			'email' => $input['email'],
-			'password' => $input['password'],
-			'datetime_added' => 'NOW()'
-		];
+		//insert array of users to get results TODO
+		//then filter results by getting recipes that use only returned ingredients
+		//BACKLOG: then filter based on order history
 
-		// Ensure values are encompassed with quote marks
-		$sql_values = db::auto_quote($sql_values, ['datetime_added']);
+		$getRecs =<<<sql
+        SELECT
+            *
+        FROM topping
+        WHERE topping_id NOT IN 
+        (SELECT 
+        	topping_id
+		FROM user
+		JOIN user_topping_dislike USING (user_id)
+		WHERE user_id IN (1,2,7))
+		LIMIT 5;
+sql;
 
-		// Insert
-		$results = db::insert('user', $sql_values);
-		
-		// Return the Insert ID
-		return $results->insert_id;
-
-	}
-
-	/**
-	 * Update User
-	 */
-	public function update($input) {
-
-		// Note that Server Side validation is not being done here
-		// and should be implemented by you
-
-		// Prepare SQL Values
-		$sql_values = [
-			'first_name' => $input['first_name'],
-			'last_name' => $input['last_name'],
-			'email' => $input['email'],
-			'password' => $input['password']
-		];
-
-		// Ensure values are encompassed with quote marks
-		$sql_values = db::auto_quote($sql_values);
-
-		// Update
-		db::update('user', $sql_values, "WHERE user_id = {$this->user_id}");
-		
-		// Return a new instance of this user as an object
-		return new User($this->user_id);
-
+        return db::execute($getRecs);
 	}
 
 }

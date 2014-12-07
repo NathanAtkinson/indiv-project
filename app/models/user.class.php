@@ -3,7 +3,28 @@
 /**
  * User
  */
-class User extends Model {
+class User extends CustomModel {
+
+
+	/*
+	* Validation
+	*/
+	protected function validators() {
+        return [
+            'user_name' => [FILTER_CALLBACK,
+                ['options' => function ($value) {
+                    return (strlen($value) > 3) ? $value : false;
+            }]],
+            'user_id' => [FILTER_VALIDATE_INT],
+            'password' => [FILTER_CALLBACK,
+                ['options' => function ($value) {
+                    return (strlen($value) > 5) ? $value : false;
+            }]],
+            'points' => [FILTER_VALIDATE_INT,
+                ['min_range' => 0, 'max_range' => 5]],
+            'email' => [FILTER_VALIDATE_EMAIL]
+        ];
+    }
 
 	/**
 	 * Insert User
@@ -60,5 +81,83 @@ class User extends Model {
 		return new User($this->user_id);
 
 	}
+
+	/*
+	* Gets list of all users
+	*/
+	public static function getAll() {
+        $getusers =<<<sql
+        SELECT
+            *
+        FROM user;
+sql;
+
+        return db::execute($getusers);
+    }
+
+
+    /*
+    * Checks if username and password are valid
+    */
+    public function isValid($input) {
+
+        // validate user name
+        $cleanedInput = $this->cleanInput(['user_name', 'password'], $input);
+        if (is_string($cleanedInput)) return null;
+
+        $sqlPasswordValidation =<<<sql
+            SELECT user_id
+            FROM user
+            WHERE user_name = {$cleanedInput['user_name']}
+            AND `password` =
+            PASSWORD(CONCAT({$cleanedInput['user_name']},
+                            {$cleanedInput['password']}));
+sql;
+
+        $result = db::execute($sqlPasswordValidation);
+        $user = null;
+        if ($row = $result->fetch_assoc()) {
+            $user = new User($row['user_id']);
+        }
+        return $user;
+    }
+
+
+    //gets the user_name by using the user_id
+    public function getUserName() {
+
+        $getUserName =<<<sql
+        SELECT user_name
+        FROM user
+        WHERE user_id = {$this->user_id};
+sql;
+
+        $results = db::execute($getUserName);
+
+        $user_name = null;
+        if ($result = $results->fetch_assoc()) {
+            $user_name = $result['user_name'];
+        }
+        return $user_name;
+    }
+
+//TODO need to finish this up to pull topping prefs for user
+    public function getPreferences(){
+        $getPreferences =<<<sql
+        SELECT * 
+        FROM user 
+        JOIN user_topping_dislike USING (user_id)
+        WHERE user_id = {$this->user_id}
+sql;
+
+        return db::execute($getPreferences);
+
+       /* $user_name = null;
+        if ($result = $results->fetch_assoc()) {
+            $user_name = $result['user_name'];
+        }
+        return $user_name;*/
+    }
+
 
 }
