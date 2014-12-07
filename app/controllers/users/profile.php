@@ -5,6 +5,7 @@ class Controller extends AppController {
 	protected function init() {
 
 		// $user_id = UserLogin::getUserID();
+		//TODO CHANGE FROM fixed user_id to dynamic
 		$user_id = 8;
 		$user = new User($user_id);
 
@@ -25,6 +26,7 @@ class Controller extends AppController {
 
 		$profile_creator = new ProfileViewFragment();
 		$profile_creator->user_name = xss::protection($user_name);
+		$profile_creator->user_id = xss::protection($user_id);
 		$this->view->profile = $profile_creator->render();
 
 

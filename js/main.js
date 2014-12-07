@@ -36,6 +36,17 @@
 		$(this).toggleClass('selected');
 		//TODO logic to determine if new dislike or removing dislike. Then AJAX call
 		//to complete this.  Currently, "changes" are reflected without actually occuring
+		if ($(this).hasClass('selected')) {
+			var topping_id = $(this).parents('div.topping').attr('data-topping-id');
+			console.log("topping_id: " + topping_id);
+			var user_id = $('div.profile-info').attr('data-user_id');
+			console.log("user_id: " + user_id);
+		} else {
+			var topping_id = $(this).parents('div.topping').attr('data-topping-id');
+			console.log("topping_id: " + topping_id);
+			var user_id = $('div.profile-info').attr('data-user_id');
+			console.log("user_id: " + user_id);
+		}
 	});
 
 
