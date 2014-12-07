@@ -1,6 +1,7 @@
 <header>
-	<h1>Pizza Picker</h1>
-	<?php echo $welcome; ?>
-	<a id="sign-out" href="/">Sign Out</a>
+	<div>
+		<h1>PIZZA PICKER</h1>
+		<?php echo $welcome; ?>
+		<a id="sign-out" href="/">SIGN OUT</a>
+	</div>
 </header>
-<hr>

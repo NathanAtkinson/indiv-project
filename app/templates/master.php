@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-ui" />
-	<title>Page Title</title>
+	<title>Pizza Picker</title>
 	
 	<!-- Main CSS -->
 	<link rel="stylesheet" href="/bower_components/ReptileForms/dist/reptileforms.min.css">
@@ -13,13 +13,16 @@
 	<!-- Modernizr -->
 	<script src="/bower_components/modernizr/modernizr.js"></script>
 
+	<!-- Font -->
+	<link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
+	
 </head>
 <body>
 
-	<div class="page">
+	<!-- <div class="page"> -->
 		<?php echo $primary_header; ?>
 		<?php echo $main_content; ?>
-	</div>
+	<!-- </div> -->
 
 	<!-- Include Common Scripts -->
 	<script src="/bower_components/jquery/dist/jquery.js"></script>
