@@ -34,18 +34,56 @@
 
 	$('a').on('click', function() {
 		$(this).toggleClass('selected');
-		//TODO logic to determine if new dislike or removing dislike. Then AJAX call
-		//to complete this.  Currently, "changes" are reflected without actually occuring
+		//TODO AJAX call to complete this.  Currently, "changes" are reflected 
+		//without actually occuring
+		//TODO will have to add functionality to determine if from user profile page or not
+		//so that this doesn't update on the build suggestion page
 		if ($(this).hasClass('selected')) {
 			var topping_id = $(this).parents('div.topping').attr('data-topping-id');
 			console.log("topping_id: " + topping_id);
 			var user_id = $('div.profile-info').attr('data-user_id');
 			console.log("user_id: " + user_id);
+			
+			$array = $.ajax({
+				url: '/toppings/add',
+				type: 'POST',
+				dataType: 'json',
+				cache: false,
+				data: {user_id: user_id, topping_id: topping_id},
+				// async: false,
+				success: function(data){
+					var topping_id = data.topping_id;
+					console.log(data);
+					// location.href = "/profile";
+				},
+				error: function(){
+					console.log('error');
+					console.log('data: ' + data);
+				}
+			});
 		} else {
 			var topping_id = $(this).parents('div.topping').attr('data-topping-id');
 			console.log("topping_id: " + topping_id);
 			var user_id = $('div.profile-info').attr('data-user_id');
 			console.log("user_id: " + user_id);
+
+			$array = $.ajax({
+				url: '/toppings/remove',
+				type: 'POST',
+				dataType: 'json',
+				cache: false,
+				data: {user_id: user_id, topping_id: topping_id},
+				// async: false,
+				success: function(data){
+					var topping_id = data.topping_id;
+					console.log(data);
+					// location.href = "/profile";
+				},
+				error: function(){
+					console.log('error');
+					console.log('data: ' + data);
+				}
+			});
 		}
 	});
 
