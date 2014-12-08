@@ -31,13 +31,9 @@
 	});
 
 
-
-	$('a').on('click', function() {
+	$('div.toppings').on('click', 'a', function() {
 		$(this).toggleClass('selected');
-		//TODO AJAX call to complete this.  Currently, "changes" are reflected 
-		//without actually occuring
-		//TODO will have to add functionality to determine if from user profile page or not
-		//so that this doesn't update on the build suggestion page
+		
 		if ($(this).hasClass('selected')) {
 			var topping_id = $(this).parents('div.topping').attr('data-topping-id');
 			console.log("topping_id: " + topping_id);
@@ -87,8 +83,55 @@
 		}
 	});
 
+	// when users are added to/from recommednation
+	$('div.friends').on('click', 'a', function() {
+		$(this).toggleClass('selected');
+		console.log(this);
+		if ($(this).hasClass('selected')) {
+			var user_id = $(this).attr('data-user-id');
+			console.log("user_id: " + user_id);
+			
+			// $array = $.ajax({
+			// 	url: '/toppings/add',
+			// 	type: 'POST',
+			// 	dataType: 'json',
+			// 	cache: false,
+			// 	data: {user_id: user_id, topping_id: topping_id},
+			// 	// async: false,
+			// 	success: function(data){
+			// 		var topping_id = data.topping_id;
+			// 		console.log(data);
+			// 		// location.href = "/profile";
+			// 	},
+			// 	error: function(){
+			// 		console.log('error');
+			// 		console.log('data: ' + data);
+			// 	}
+			// });
+		} else {
+			var user_id = $(this).attr('data-user-id');
+			console.log("user_id: " + user_id);
 
-
+			/*$array = $.ajax({
+				url: '/toppings/remove',
+				type: 'POST',
+				dataType: 'json',
+				cache: false,
+				data: {user_id: user_id, topping_id: topping_id},
+				// async: false,
+				success: function(data){
+					var topping_id = data.topping_id;
+					console.log(data);
+					// location.href = "/profile";
+				},
+				error: function(){
+					console.log('error');
+					console.log('data: ' + data);
+				}
+			});*/
+		}
+	});
+	
 
 	/*
 	* Gets from payload the list of user's dislikes.  It then finds those 
@@ -98,19 +141,14 @@
 	var dislikes = app.settings.dislikes;
 
 	for (var dislike in dislikes){
-		// console.log(dislike);
-		// console.log(dislikes[dislike]);
 		var topping_id = dislikes[dislike].topping_id;
-		// console.log('topping id: ' + topping_id);
-		// var points = dislikes[dislike].points;
-		// console.log('points: ' + points);
 
 		$("div[data-topping-id='" + topping_id + "']")
       	.find('a')
       	.addClass('selected');
   	}
 
-
+  	
 
 
 
