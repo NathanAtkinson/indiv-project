@@ -26,6 +26,7 @@
 	<!-- <div class="page"> -->
 		<?php echo $primary_header; ?>
 		<?php echo $main_content; ?>
+		<?php echo $primary_footer; ?>
 	<!-- </div> -->
 
 	<!-- Include Common Scripts -->
