@@ -6,21 +6,24 @@
     text-decoration: none;
     color: white; }
   * h3 {
-    font-size: 1.5em;
+    font-size: 1.25em;
     padding: 5px;
     margin: 5px; }
 
-body {
-  background: url("/app/images/bg01.jpg");
-  background-size: cover; }
-
 header {
-  margin: 0; }
+  margin-bottom: 10px;
+  position: relative; }
   header h1 {
-    padding: 5px;
-    margin-left: 5px; }
+    margin-left: 10px;
+    display: inline-block;
+    width: 25%; }
+  header h3 {
+    display: inline-block;
+    width: 50%;
+    margin: 10px; }
   header > div {
     border-radius: 5px;
+    margin: 10px auto;
     background-color: rgba(5, 5, 5, 0.9);
     position: relative;
     margin: 0 auto;
@@ -28,20 +31,54 @@ header {
     position: relative; }
     header > div > a {
       padding: 3px 10px;
-      font-size: 2em;
+      font-size: 1.5em;
       background-color: #000;
       color: white;
-      border-radius: 5px; }
+      border-radius: 5px;
+      border: 1px solid #333; }
       header > div > a:hover {
         background-color: #C66320; }
-  header a#sign-out {
-    position: absolute;
-    right: 0px;
-    bottom: 0;
-    top: 0; }
+  header span.font-awesome {
+    float: right;
+    margin: 10px; }
+    header span.font-awesome i {
+      padding: 0 3px; }
+
+body {
+  background: url("/app/images/bg01.jpg");
+  background-size: cover; }
+  body nav {
+    border-radius: 5px;
+    margin: 10px auto;
+    background-color: rgba(5, 5, 5, 0.9);
+    position: relative;
+    margin: 10px auto;
+    width: 60%;
+    position: relative;
+    display: block; }
+    body nav > a {
+      padding: 3px 10px;
+      font-size: 1.5em;
+      background-color: #000;
+      color: white;
+      border-radius: 5px;
+      border: 1px solid #333; }
+      body nav > a:hover {
+        background-color: #C66320; }
+    body nav a {
+      width: 33%;
+      display: inline-block;
+      margin: 0px auto; }
+    body nav #build-suggestion {
+      width: 35%; }
+    body nav #sign-out {
+      position: absolute;
+      right: 0;
+      text-align: right; }
 
 main.login-main {
   border-radius: 5px;
+  margin: 10px auto;
   background-color: rgba(5, 5, 5, 0.9);
   position: relative;
   margin: 0 auto;
@@ -50,31 +87,30 @@ main.login-main {
   min-height: 450px; }
   main.login-main > a {
     padding: 3px 10px;
-    font-size: 2em;
+    font-size: 1.5em;
     background-color: #000;
     color: white;
-    border-radius: 5px; }
+    border-radius: 5px;
+    border: 1px solid #333; }
     main.login-main > a:hover {
       background-color: #C66320; }
   main.login-main div.logo {
     min-width: 150px;
     min-height: 150px;
-    background-color: #ddd;
-    float: left; }
+    background-color: #111;
+    float: left;
+    vertical-align: middle; }
+    main.login-main div.logo h3:first-child {
+      margin-top: 15%; }
   main.login-main form {
     background-color: #222;
     margin-left: auto;
     padding: 25px;
-    width: 33%;
-    /* div {
-			margin: 0 auto;
-			label {
-				margin: 0 auto;
-			}
-		} */ }
+    width: 33%; }
 
 div.this-user {
   border-radius: 5px;
+  margin: 10px auto;
   background-color: rgba(5, 5, 5, 0.9);
   position: relative;
   margin: 10px auto;
@@ -82,14 +118,14 @@ div.this-user {
   overflow: hidden; }
   div.this-user > a {
     padding: 3px 10px;
-    font-size: 2em;
+    font-size: 1.5em;
     background-color: #000;
     color: white;
-    border-radius: 5px; }
+    border-radius: 5px;
+    border: 1px solid #333; }
     div.this-user > a:hover {
       background-color: #C66320; }
   div.this-user div.image {
-    background-color: blue;
     float: left;
     margin: 15px; }
     div.this-user div.image img {
@@ -103,40 +139,36 @@ div.this-user {
     margin: 15px;
     display: inline-block;
     width: 200px; }
-  div.this-user a {
-    position: absolute;
-    right: 0;
-    bottom: 0; }
 
 div.toppings {
   border-radius: 5px;
+  margin: 10px auto;
   background-color: rgba(5, 5, 5, 0.9);
   position: relative;
-  margin: 0 auto;
   width: 60%;
   min-height: 150px;
-  overflow: hidden;
-  padding-bottom: 10px; }
+  overflow: hidden; }
   div.toppings > a {
     padding: 3px 10px;
-    font-size: 2em;
+    font-size: 1.5em;
     background-color: #000;
     color: white;
-    border-radius: 5px; }
+    border-radius: 5px;
+    border: 1px solid #333; }
     div.toppings > a:hover {
       background-color: #C66320; }
   div.toppings * + * {
-    margin-bottom: 8px; }
+    margin-bottom: 10px; }
   div.toppings h3 {
     padding-left: 5px; }
   div.toppings .topping {
-    padding: 15px;
+    padding: 5px 15px;
     width: 32%;
-    height: 40px;
+    height: 35px;
     display: inline-block; }
     div.toppings .topping a {
       display: block;
-      padding: 3px 10px;
+      padding: 1px 10px;
       border-radius: 5px;
       background-color: green;
       color: white; }
@@ -146,7 +178,6 @@ div.toppings {
         font-size: inherit;
         text-rendering: auto;
         -webkit-font-smoothing: antialiased;
-        /*character for the font-awesome icon...have to still import FA*/
         content: "\f164";
         color: rgba(255, 255, 255, 0.5);
         text-decoration: none; }
@@ -163,29 +194,28 @@ div.toppings {
 
 div.friends {
   border-radius: 5px;
+  margin: 10px auto;
   background-color: rgba(5, 5, 5, 0.9);
   position: relative;
-  margin: 0 auto;
   width: 60%;
   min-height: 150px;
-  overflow: hidden;
-  margin-bottom: 15px; }
+  overflow: hidden; }
   div.friends > a {
     padding: 3px 10px;
-    font-size: 2em;
+    font-size: 1.5em;
     background-color: #000;
     color: white;
-    border-radius: 5px; }
+    border-radius: 5px;
+    border: 1px solid #333; }
     div.friends > a:hover {
       background-color: #C66320; }
   div.friends * + * {
     margin-bottom: 10px; }
   div.friends h3 {
-    margin: 5px;
+    margin-left: 5px;
     padding: 5px;
     display: inline-block;
-    width: 75%;
-    text-align: center; }
+    width: 75%; }
     div.friends h3#user {
       display: inline-block;
       min-width: 200px; }
@@ -196,13 +226,12 @@ div.friends {
     margin: 10px;
     float: left; }
   div.friends .friend {
-    padding: 15px;
+    padding: 5px 15px;
     width: 32%;
-    height: 50px;
     display: inline-block; }
     div.friends .friend a {
       display: block;
-      padding: 3px 10px;
+      padding: 1px 10px;
       border-radius: 5px;
       background-color: green;
       color: white; }
@@ -212,7 +241,6 @@ div.friends {
         font-size: inherit;
         text-rendering: auto;
         -webkit-font-smoothing: antialiased;
-        /*character for the font-awesome icon...have to still import FA*/
         content: "\f164";
         color: rgba(255, 255, 255, 0.5);
         text-decoration: none; }
@@ -225,41 +253,52 @@ div.friends {
     div.friends .friend img {
       height: 25px;
       width: 25px; }
+    div.friends .friend a {
+      border: 1px solid #555;
+      background-color: #000; }
+      div.friends .friend a::before {
+        content: "\f096"; }
+      div.friends .friend a.selected {
+        background-color: #191816; }
+        div.friends .friend a.selected::before {
+          content: "\f046"; }
+      div.friends .friend a i.fa {
+        color: rgba(255, 255, 255, 0.5); }
 
 div.suggestions {
   border-radius: 5px;
+  margin: 10px auto;
   background-color: rgba(5, 5, 5, 0.9);
   position: relative;
-  margin: 0 auto;
   width: 60%;
   min-height: 150px;
   overflow: hidden; }
   div.suggestions > a {
     padding: 3px 10px;
-    font-size: 2em;
+    font-size: 1.5em;
     background-color: #000;
     color: white;
-    border-radius: 5px; }
+    border-radius: 5px;
+    border: 1px solid #333; }
     div.suggestions > a:hover {
       background-color: #C66320; }
   div.suggestions > * + * {
-    margin-bottom: 20px; }
+    margin-bottom: 15px; }
   div.suggestions .suggestion {
     width: 80%;
-    min-height: 85px;
-    background-color: #191816;
-    margin: 15px auto;
+    min-height: 65px;
+    background-color: #383224;
+    margin: 20px auto;
     border-radius: 5px; }
-    div.suggestions .suggestion div {
-      min-height: 45px; }
-      div.suggestions .suggestion div h3 {
-        margin-left: 5px; }
-      div.suggestions .suggestion div p {
-        margin-left: 135px;
-        background-color: green; }
+    div.suggestions .suggestion div h3 {
+      margin-left: 5px; }
+    div.suggestions .suggestion div p {
+      margin-left: 135px;
+      background-color: green; }
     div.suggestions .suggestion a {
       background-color: #000;
-      padding: 2px 5px;
-      clear: both; }
+      padding: 3px 5px;
+      border-radius: 5px;
+      float: right; }
       div.suggestions .suggestion a:hover {
         background-color: #C66320; }
