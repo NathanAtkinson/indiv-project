@@ -22,10 +22,12 @@ define('SCRIPT_BASENAME', basename($_SERVER['SCRIPT_FILENAME'], '.php'));
 // App Settings
 include(ROOT . '/app/app_settings.php');
 
-
 /****************************************
   CLASS LOADER
 *****************************************/
 
 include(ROOT . '/app/core/class_loader.class.php');
 ClassLoader::setup();
+
+// Starts sessions
+session_start();
