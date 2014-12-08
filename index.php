@@ -13,6 +13,11 @@ Router::add('/logout', '/app/controllers/users/logout.php');
 // Router::add('/users/register', '/app/controllers/users/register/form.php');
 // Router::add('/users/register/process_form/', '/app/controllers/users/register/process_form.php');
 
+//Toppings
+Router::add('/toppings/add', '/app/controllers/toppings/add.php');
+Router::add('/toppings/remove', '/app/controllers/toppings/remove.php');
+
+
 //Suggestions
 Router::add('/build', '/app/controllers/build_suggestion.php');
 Router::add('/suggestions', '/app/controllers/suggestions.php');
