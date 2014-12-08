@@ -29,44 +29,10 @@ extract($controller->view->vars);
 
 ?>
 
-<div class="suggestions">
+<nav>
 	<a href="/build">BACK</a>
+	<a id="sign-out" href="/">SIGN OUT</a>
+</nav>
+<div class="suggestions">
 	<?php echo $suggestions ?>
-	<!-- <div class="suggestion">
-		<div>
-			<h3>Recipe Title</h3>
-			<p>ingredients in the pizzaingredients in the pizzaingredients in the pizzaingredients in the pizzaingredients in the pizzaingredients in the pizzaingredients in the pizzaingredients in the pizza</p>
-		</div>
-		<a href="/selected">Was this a good suggestion?</a>
-	</div>
-	<div class="suggestion">
-		<div>
-			<h3>Recipe Title</h3>
-			<p>ingredients in the pizza</p>
-		</div>
-		<a href="/selected">Was this a good suggestion?</a>
-	</div>
-	<div class="suggestion">
-		<div>
-			<h3>Recipe Title</h3>
-			<p>ingredients in the pizzaingredients in the pizzaingredients in the pizzaingredients in the pizzaingredients in the pizza</p>
-		</div>
-		<a href="/selected">Was this a good suggestion?</a>
-	</div>
-	<div class="suggestion">
-		<div>
-			<h3>Recipe Title</h3>
-			<p>ingredients in the pizza</p>
-		</div>
-		<a href="/selected">Was this a good suggestion?</a>
-	</div>
-	<div class="suggestion">
-		<div>
-			<h3>Recipe Title</h3>
-			<p>ingredients in the pizza</p>
-		</div>
-		<a href="/selected">Was this a good suggestion?</a>
-	</div> -->
-
-
 </div>

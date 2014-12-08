@@ -4,9 +4,7 @@
 class Controller extends AppController {
 	protected function init() {
 
-		// $user_id = UserLogin::getUserID();
-		//TODO CHANGE FROM fixed user_id to dynamic
-		$user_id = 8;
+		$user_id = UserLogin::getUserID();
 		$user = new User($user_id);
 
 		// $this->view->user_name = 'Username here';
@@ -51,7 +49,11 @@ $controller = new Controller();
 extract($controller->view->vars);
 
 ?>
-	
+	<nav>
+		<a id="build-suggestion" href="/build">Build Suggestion</a>
+		<a id="sign-out" href="/">SIGN OUT</a>
+	</nav>
+
 	<?php echo $profile ?>
 	<!-- <div class="this-user">
 		<div class="profile-info">
@@ -61,6 +63,7 @@ extract($controller->view->vars);
 		</div>
 		<a id="build-suggestion" href="/build">Build Suggestion</a>
 	</div> -->
+
 
 <div class="toppings">
 	<h3>My Dislikes:</h3>

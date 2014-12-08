@@ -5,7 +5,18 @@ class Controller extends AppController {
 	protected function init() {
 
 		// More code could go here depending on what you want to do with this page
+		$user_id = UserLogin::getUserID();
+		$user = new User($user_id);
 
+
+		//gets votes that user has made in the past
+		$user_dislikes = $user->getPreferences();
+		while ($row = $user_dislikes->fetch_assoc()){
+			$dislikes[] = ['topping_id'=>$row['topping_id']];
+		}
+	    //pass the results to payload so that jQuery can use them 
+	    //to select the dropdowns.
+		Payload::add('dislikes', $dislikes);
 
 
 		$friend_populator = new FriendViewFragment();
@@ -41,8 +52,12 @@ extract($controller->view->vars);
 
 
 <div class="primary-content">
+	<nav>
+		<a href="/profile">BACK</a>
+		<a href="/suggestions" id="suggestions">Get suggestions</a>
+		<a id="sign-out" href="/">SIGN OUT</a>
+	</nav>
 	<div class="friends">
-	<a href="/profile">BACK</a>
 		<h3>Other Users:</h3>
 		<?php echo $friends ?>
 	</div>
@@ -50,7 +65,6 @@ extract($controller->view->vars);
 	<div class="toppings">
 		<h3>Other toppings you don't want this time:</h3>
 		<?php echo $toppings ?>
-		<a href="/suggestions" id="suggestions">Get suggestions</a>
 	</div>
 
 </div>

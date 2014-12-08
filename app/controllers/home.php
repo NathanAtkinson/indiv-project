@@ -16,8 +16,7 @@ extract($controller->view->vars);
     <main class="login-main">
         <div>
             <div class="logo">
-                <h3>The Best Thing </h3>
-                <h3>Since Sliced Pizza!</h3>
+                <img src="/app/images/pizza-icon.png" alt="">
             </div>
             <!-- <h3>LOGIN</h3> -->
             <form action="/login" method="POST" class="login-form">
