@@ -10,7 +10,6 @@ class ProfileViewFragment extends ViewFragment {
   			<div class="image"><img src="/app/images/nathan.jpg"></div>
   			<h3>{{user_name}}</h3>
   		</div>
-  		<a id="build-suggestion" href="/build">Build Suggestion</a>
 	</div>
 html;
 
