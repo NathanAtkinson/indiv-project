@@ -10,7 +10,9 @@ class Controller extends AppController {
 
 		$suggestion_populator = new SuggestionViewFragment();
 
-		$suggestions_from_DB = Recommend::getRecs();
+		//TODO need to build array here.  Need to make it so mySQL will use array
+		$users = 7;
+		$suggestions_from_DB = Recommend::getRecs($users);
 
 		while($suggestion = $suggestions_from_DB->fetch_assoc()) {
 			$suggestion_populator->topping_id = xss::protection($suggestion['topping_id']);

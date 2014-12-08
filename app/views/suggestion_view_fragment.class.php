@@ -4,11 +4,11 @@
 class SuggestionViewFragment extends ViewFragment {
 
 
+      // <p>{{ingredient_list?}}</p>
   private $template =<<<html
   <div class="suggestion">
     <div>
       <h3>{{name}}</h3>
-      <p>{{ingredient_list?}}</p>
     </div>
     <a href="/selected">Was this a good suggestion?</a>
   </div>
