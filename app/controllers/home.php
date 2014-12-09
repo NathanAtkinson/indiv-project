@@ -19,7 +19,7 @@ extract($controller->view->vars);
                 <img src="/app/images/pizza-icon.png" alt="">
             </div>
             <!-- <h3>LOGIN</h3> -->
-            <form action="/login" method="POST" class="login-form">
+            <form action="/login" method="POST" class="login-form reptile-form">
                 <input class="user_name" type="text" name="user_name" title="Username">
                 <input class="password" type="password" name="password" data-exp-name="password" title="Password">
                 <!-- <input class="email" type="email" name="email" data-exp-name="email" title="E-mail"> -->
