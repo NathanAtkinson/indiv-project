@@ -52,19 +52,26 @@ extract($controller->view->vars);
 
 
 <div class="primary-content">
+	
 	<nav>
 		<a href="/profile">BACK</a>
-		<a href="/suggestions" id="suggestions">Get suggestions</a>
+		<!-- <a href="/suggestions" id="suggestions">Get suggestions</a> -->
+		<!-- <div id="suggestions">get suggestions</div> -->
+		<!-- <a href="" id="suggestions">Get suggestions</a> -->
 		<a id="sign-out" href="/">SIGN OUT</a>
 	</nav>
 	<div class="friends">
 		<h3>Other Users:</h3>
+		<form action="/suggestions" method="POST">
+			<input type="hidden" name="user-ids" id="user-ids">
+			<input type="hidden" name="toppings" id="toppings">
+			<button id="suggestions">Get suggestions</button>
+		</form>
 		<?php echo $friends ?>
 	</div>
 
-	<div class="toppings">
+	<div class="build toppings">
 		<h3>Other toppings you don't want this time:</h3>
 		<?php echo $toppings ?>
 	</div>
-
 </div>
