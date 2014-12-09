@@ -178,7 +178,7 @@
 		// make the array a string
 		var tops = toppings.join(',');
 		//set a hidden value field in form with a value of the string'
-		$('#toppings').val(tops);
+		$('#topping-ids').val(tops);
 
 	});
 
