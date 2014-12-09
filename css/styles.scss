@@ -8,6 +8,7 @@
 	border-radius: 5px;
 	background-color: green;
 	color: white;
+	margin-left: 15px;
 	&::before {
 		display: inline-block;
 		font: normal normal normal 14px/1 FontAwesome;
@@ -34,7 +35,7 @@
 //also formats the links contained by them consistently
 @mixin stainedglass {
 	border-radius: 5px;
-	margin: 10px auto;
+	margin: 8px auto;
 	background-color: rgba(5, 5, 5, .9);
 	position: relative;
 	& > a {
@@ -122,6 +123,16 @@ body {
 
 }
 
+footer {
+	@include stainedglass;
+	margin: 0 auto;
+	width: 60%;
+	text-align: center;
+	div {
+		color: #FFF;
+	}
+}
+
 main.login-main {
 	@include stainedglass;
 	margin: 0 auto;
@@ -138,11 +149,18 @@ main.login-main {
 		float: left;
 		vertical-align: middle;
 	}
-	form {
+	.reptile-form {
 		background-color: #222;
 		margin-left:auto;
 		padding: 25px;
 		width: 33%;
+		label {
+			margin: 0 auto;
+			float: none;
+		}
+		div.field-input {
+			margin: 0 auto;
+		}
 	}
 }
 
@@ -206,7 +224,7 @@ div.friends {
 	width: 60%;
 	min-height: 150px;
 	overflow: hidden;
-	
+	display: relative;
 	* + * {
 		margin-bottom: 10px;
 	}
@@ -218,6 +236,21 @@ div.friends {
 		&#user {
 			display: inline-block;
 			min-width: 200px;
+		}
+	}
+	button {
+		@include stainedglass;
+		position: absolute;
+		right: 0;
+		top: 0;
+		margin: 0;
+		font-size: 1.5em;
+		border: 1px solid #555;
+		width: 33%;
+		color: white;
+		text-align: right;
+		&:hover {
+			background-color: #C66320;
 		}
 	}
 	img {
@@ -246,7 +279,7 @@ div.friends {
 				
 			}
 		 	&.selected {
-				background-color: #191816;
+				background-color: #151515;
 				&::before {
 				content: "\f046";
 				}

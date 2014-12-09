@@ -23,7 +23,7 @@ header {
     margin: 10px; }
   header > div {
     border-radius: 5px;
-    margin: 10px auto;
+    margin: 8px auto;
     background-color: rgba(5, 5, 5, 0.9);
     position: relative;
     margin: 0 auto;
@@ -49,7 +49,7 @@ body {
   background-size: cover; }
   body nav {
     border-radius: 5px;
-    margin: 10px auto;
+    margin: 8px auto;
     background-color: rgba(5, 5, 5, 0.9);
     position: relative;
     margin: 10px auto;
@@ -76,9 +76,29 @@ body {
       right: 0;
       text-align: right; }
 
+footer {
+  border-radius: 5px;
+  margin: 8px auto;
+  background-color: rgba(5, 5, 5, 0.9);
+  position: relative;
+  margin: 0 auto;
+  width: 60%;
+  text-align: center; }
+  footer > a {
+    padding: 3px 10px;
+    font-size: 1.5em;
+    background-color: #000;
+    color: white;
+    border-radius: 5px;
+    border: 1px solid #333; }
+    footer > a:hover {
+      background-color: #C66320; }
+  footer div {
+    color: #FFF; }
+
 main.login-main {
   border-radius: 5px;
-  margin: 10px auto;
+  margin: 8px auto;
   background-color: rgba(5, 5, 5, 0.9);
   position: relative;
   margin: 0 auto;
@@ -102,15 +122,20 @@ main.login-main {
     vertical-align: middle; }
     main.login-main div.logo h3:first-child {
       margin-top: 15%; }
-  main.login-main form {
+  main.login-main .reptile-form {
     background-color: #222;
     margin-left: auto;
     padding: 25px;
     width: 33%; }
+    main.login-main .reptile-form label {
+      margin: 0 auto;
+      float: none; }
+    main.login-main .reptile-form div.field-input {
+      margin: 0 auto; }
 
 div.this-user {
   border-radius: 5px;
-  margin: 10px auto;
+  margin: 8px auto;
   background-color: rgba(5, 5, 5, 0.9);
   position: relative;
   margin: 10px auto;
@@ -142,7 +167,7 @@ div.this-user {
 
 div.toppings {
   border-radius: 5px;
-  margin: 10px auto;
+  margin: 8px auto;
   background-color: rgba(5, 5, 5, 0.9);
   position: relative;
   width: 60%;
@@ -171,7 +196,8 @@ div.toppings {
       padding: 1px 10px;
       border-radius: 5px;
       background-color: green;
-      color: white; }
+      color: white;
+      margin-left: 15px; }
       div.toppings .topping a::before {
         display: inline-block;
         font: normal normal normal 14px/1 FontAwesome;
@@ -194,12 +220,13 @@ div.toppings {
 
 div.friends {
   border-radius: 5px;
-  margin: 10px auto;
+  margin: 8px auto;
   background-color: rgba(5, 5, 5, 0.9);
   position: relative;
   width: 60%;
   min-height: 150px;
-  overflow: hidden; }
+  overflow: hidden;
+  display: relative; }
   div.friends > a {
     padding: 3px 10px;
     font-size: 1.5em;
@@ -219,6 +246,31 @@ div.friends {
     div.friends h3#user {
       display: inline-block;
       min-width: 200px; }
+  div.friends button {
+    border-radius: 5px;
+    margin: 8px auto;
+    background-color: rgba(5, 5, 5, 0.9);
+    position: relative;
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 0;
+    font-size: 1.5em;
+    border: 1px solid #555;
+    width: 33%;
+    color: white;
+    text-align: right; }
+    div.friends button > a {
+      padding: 3px 10px;
+      font-size: 1.5em;
+      background-color: #000;
+      color: white;
+      border-radius: 5px;
+      border: 1px solid #333; }
+      div.friends button > a:hover {
+        background-color: #C66320; }
+    div.friends button:hover {
+      background-color: #C66320; }
   div.friends img {
     height: 50px;
     width: 50px;
@@ -234,7 +286,8 @@ div.friends {
       padding: 1px 10px;
       border-radius: 5px;
       background-color: green;
-      color: white; }
+      color: white;
+      margin-left: 15px; }
       div.friends .friend a::before {
         display: inline-block;
         font: normal normal normal 14px/1 FontAwesome;
@@ -259,7 +312,7 @@ div.friends {
       div.friends .friend a::before {
         content: "\f096"; }
       div.friends .friend a.selected {
-        background-color: #191816; }
+        background-color: #151515; }
         div.friends .friend a.selected::before {
           content: "\f046"; }
       div.friends .friend a i.fa {
@@ -267,7 +320,7 @@ div.friends {
 
 div.suggestions {
   border-radius: 5px;
-  margin: 10px auto;
+  margin: 8px auto;
   background-color: rgba(5, 5, 5, 0.9);
   position: relative;
   width: 60%;
