@@ -25,20 +25,8 @@ sql;
 
 	public static function getGoodRecipes($recipe_ids) {
 
-		//insert array of users to get results TODO
-		//then filter results by getting recipes that use only returned ingredients
-		//BACKLOG: then filter based on order history
-
-		//refined search: 
-
-
 		//TODO how should I extract or build the array of users for below query?
-		//gets recipes that have the dislikes
-		/*$getGoodRecipes =<<<sql
-        SELECT * 
-        FROM pizza_recipe
-        WHERE pizza_recipe_id NOT IN ({$recipe_ids})
-sql;*/
+
 		$getGoodRecipes =<<<sql
 		SELECT user_id, pizza_recipe_id, name, count(pizza_recipe_id) as total
         FROM pizza_recipe
@@ -49,7 +37,7 @@ sql;*/
         ORDER BY total DESC
         LIMIT 5
 sql;
-		
+
 		return db::execute($getGoodRecipes);
 	}
 		
