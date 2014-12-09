@@ -6,16 +6,91 @@
  */
 class Recommend extends CustomModel {
 
+	//gets dislikes from a string of users
+	public static function getDislikes($users) {
+		// gets topping dislikes
+		$getDislikes =<<<sql
+        SELECT *
+        FROM topping
+        WHERE topping_id IN 
+        (SELECT 
+        	topping_id
+		FROM user
+		JOIN user_topping_dislike USING (user_id)
+		WHERE user_id IN ({$users}));
+sql;
+		return db::execute($getDislikes);
+		
+	}
 
-	public static function getRecs($users) {
+	public static function getGoodRecipes($recipe_ids) {
 
 		//insert array of users to get results TODO
 		//then filter results by getting recipes that use only returned ingredients
 		//BACKLOG: then filter based on order history
 
-		//refined search: SELECT * FROM pizza_recipe_topping JOIN pizza_recipe USING (pizza_recipe_id) JOIN topping USING (topping_id) where topping_id IN (1,2)
+		//refined search: 
 
-		$getRecs =<<<sql
+
+		//TODO how should I extract or build the array of users for below query?
+		//gets recipes that have the dislikes
+		/*$getGoodRecipes =<<<sql
+        SELECT * 
+        FROM pizza_recipe
+        WHERE pizza_recipe_id NOT IN ({$recipe_ids})
+sql;*/
+		$getGoodRecipes =<<<sql
+		SELECT user_id, pizza_recipe_id, name, count(pizza_recipe_id) as total
+        FROM pizza_recipe
+        LEFT JOIN past_order USING (pizza_recipe_id)
+        LEFT JOIN `user` USING (user_id)
+        WHERE pizza_recipe_id NOT IN ({$recipe_ids})
+        GROUP BY pizza_recipe_id
+        ORDER BY total DESC
+        LIMIT 5
+sql;
+		
+		return db::execute($getGoodRecipes);
+	}
+		
+
+
+
+	public static function getBadRecipes($toppings) {
+		// gets topping dislikes
+		$getBadRecipes =<<<sql
+        SELECT * 
+        FROM pizza_recipe_topping 
+        JOIN pizza_recipe USING (pizza_recipe_id) 
+        JOIN topping USING (topping_id) 
+        WHERE topping_id IN ({$toppings})
+        GROUP BY pizza_recipe_id
+sql;
+		return db::execute($getBadRecipes);
+		
+	}
+
+
+
+	public static function getPastOrders($user_ids, $badRecipes) {
+
+		$getPastOrders =<<<sql
+		SELECT pizza_recipe_id, count(pizza_recipe_id) as total
+		FROM past_order
+		JOIN user USING (user_id)
+		JOIN pizza_recipe USING (pizza_recipe_id)
+		WHERE user_id IN ({$user_ids})
+sql;
+		// AND pizza_recipe_id NOT IN ({$badRecipes})
+
+		return db::execute($getPastOrders);
+	}
+
+
+
+
+	//past query, to save for now
+	/*$getRecs =<<<sql
         SELECT
             *
         FROM topping
@@ -29,6 +104,6 @@ class Recommend extends CustomModel {
 sql;
 
         return db::execute($getRecs);
-	}
+	}*/
 
 }
