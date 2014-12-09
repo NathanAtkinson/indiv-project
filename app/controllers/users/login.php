@@ -2,13 +2,13 @@
 
 class Controller extends AjaxController {
     protected function init() {
-        // if($_POST['email']){
-        //     $user = new User($_POST);
-        // } 
-        // else {
+        if($_POST['email']){
+            $user = new User($_POST);
+        } 
+        else {
             $user_id = $_POST['user_id'];
             $user = (new User())->isValid($_POST);
-        // }
+        }
 
         if($user){
             $this->view['redirect'] = '/profile?user_id=' . $user->user_id;
