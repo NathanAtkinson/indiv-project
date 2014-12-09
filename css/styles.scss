@@ -1,6 +1,6 @@
 // Formats options (users and toppings) throughout the app
 @mixin option {
-	padding: 5px 15px;
+	padding: 3px 15px;
 	width: 32%;
 	a {
 	display: block;
@@ -96,16 +96,28 @@ header {
 		}
 	}
 }
-
+   
+html {
+    height: 100%
+}
 body {
-	background: url("/app/images/bg01.jpg");
-	background-size: cover;
+	background: 
+		radial-gradient(
+			circle, 
+	      rgba(0, 0, 0, .4),
+	      rgba(0, 0, 0, .5) 
+	    ), url("/app/images/bg04.jpg");
+   		background-size: 100% 100%;
+		
+		background-size: cover;
+		background-repeat: no-repeat;
 	nav {
 		@include stainedglass;
 		margin: 10px auto;
 		width: 60%;
 		position: relative;
 		display: block;
+		font-weight: 500;
 		a {
 			width: 33%;
 			display: inline-block;
@@ -134,12 +146,12 @@ footer {
 }
 
 main.login-main {
-	@include stainedglass;
-	margin: 0 auto;
+	// @include stainedglass;
+	margin: auto;
 	width: 60%;
 	text-align: center;
-	min-height: 450px;
-	div.logo{
+	min-height: 350px;
+	/* div.logo{
 		h3:first-child { 
 			margin-top: 15%;
 		}	
@@ -148,12 +160,14 @@ main.login-main {
 		background-color: #111;
 		float: left;
 		vertical-align: middle;
-	}
+	} */
 	.reptile-form {
-		background-color: #222;
-		margin-left:auto;
+		@include stainedglass;
+		// background-color: #222;
+		margin:auto;
 		padding: 25px;
 		width: 33%;
+		margin-top: 10%;
 		label {
 			margin: 0 auto;
 			float: none;
@@ -246,6 +260,7 @@ div.friends {
 		margin: 0;
 		font-size: 1.5em;
 		border: 1px solid #555;
+		font-weight: 500;
 		width: 33%;
 		color: white;
 		text-align: right;

@@ -44,9 +44,15 @@ header {
     header span.font-awesome i {
       padding: 0 3px; }
 
+html {
+  height: 100%; }
+
 body {
-  background: url("/app/images/bg01.jpg");
-  background-size: cover; }
+  background: -webkit-radial-gradient(circle, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url("/app/images/bg04.jpg");
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url("/app/images/bg04.jpg");
+  background-size: 100% 100%;
+  background-size: cover;
+  background-repeat: no-repeat; }
   body nav {
     border-radius: 5px;
     margin: 8px auto;
@@ -55,7 +61,8 @@ body {
     margin: 10px auto;
     width: 60%;
     position: relative;
-    display: block; }
+    display: block;
+    font-weight: 500; }
     body nav > a {
       padding: 3px 10px;
       font-size: 1.5em;
@@ -97,36 +104,38 @@ footer {
     color: #FFF; }
 
 main.login-main {
-  border-radius: 5px;
-  margin: 8px auto;
-  background-color: rgba(5, 5, 5, 0.9);
-  position: relative;
-  margin: 0 auto;
+  margin: auto;
   width: 60%;
   text-align: center;
-  min-height: 450px; }
-  main.login-main > a {
-    padding: 3px 10px;
-    font-size: 1.5em;
-    background-color: #000;
-    color: white;
-    border-radius: 5px;
-    border: 1px solid #333; }
-    main.login-main > a:hover {
-      background-color: #C66320; }
-  main.login-main div.logo {
-    min-width: 150px;
-    min-height: 150px;
-    background-color: #111;
-    float: left;
-    vertical-align: middle; }
-    main.login-main div.logo h3:first-child {
-      margin-top: 15%; }
+  min-height: 350px;
+  /* div.logo{
+		h3:first-child { 
+			margin-top: 15%;
+		}	
+		min-width: 150px;
+		min-height: 150px;
+		background-color: #111;
+		float: left;
+		vertical-align: middle;
+	} */ }
   main.login-main .reptile-form {
-    background-color: #222;
-    margin-left: auto;
+    border-radius: 5px;
+    margin: 8px auto;
+    background-color: rgba(5, 5, 5, 0.9);
+    position: relative;
+    margin: auto;
     padding: 25px;
-    width: 33%; }
+    width: 33%;
+    margin-top: 10%; }
+    main.login-main .reptile-form > a {
+      padding: 3px 10px;
+      font-size: 1.5em;
+      background-color: #000;
+      color: white;
+      border-radius: 5px;
+      border: 1px solid #333; }
+      main.login-main .reptile-form > a:hover {
+        background-color: #C66320; }
     main.login-main .reptile-form label {
       margin: 0 auto;
       float: none; }
@@ -187,7 +196,7 @@ div.toppings {
   div.toppings h3 {
     padding-left: 5px; }
   div.toppings .topping {
-    padding: 5px 15px;
+    padding: 3px 15px;
     width: 32%;
     height: 35px;
     display: inline-block; }
@@ -257,6 +266,7 @@ div.friends {
     margin: 0;
     font-size: 1.5em;
     border: 1px solid #555;
+    font-weight: 500;
     width: 33%;
     color: white;
     text-align: right; }
@@ -278,7 +288,7 @@ div.friends {
     margin: 10px;
     float: left; }
   div.friends .friend {
-    padding: 5px 15px;
+    padding: 3px 15px;
     width: 32%;
     display: inline-block; }
     div.friends .friend a {
