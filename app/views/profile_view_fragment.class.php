@@ -7,7 +7,7 @@ class ProfileViewFragment extends ViewFragment {
   private $template =<<<html
   	<div class="this-user">
   		<div class="profile-info" data-user_id ="{{user_id}}">
-  			<div class="image"><img src="/app/images/nathan.jpg"></div>
+  			<div class="image"><img src="/app/images/users/{{user_id}}.jpg"></div>
   			<h3>{{user_name}}</h3>
   		</div>
 	</div>
