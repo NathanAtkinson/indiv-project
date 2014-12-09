@@ -5,8 +5,8 @@ class ToppingViewFragment extends ViewFragment {
 
 
   private $template =<<<html
-  <div class="topping" data-topping-id="{{topping_id}}">
-      <a href="#"></i> {{name}}</a>
+  <div class="topping" >
+      <a href="#" data-topping-id="{{topping_id}}"></i> {{name}}</a>
   </div>
 html;
 
