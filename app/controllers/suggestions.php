@@ -12,13 +12,37 @@ class Controller extends AppController {
 
 		//Builds string for mySQL here.  
 		//If no extra users were selected, then just uses current user_id
-		if (isset($_POST['user-ids']) == 1) {
+		if ($_POST['user-ids'] != "") {
 			$users = $_POST['user-ids'];
 			$users .= "," . $user_id;
 		} else {
 			$users = $user_id;
 		}
+
 	
+		$results = Recommend::getDislikes($users);
+		$disliked_toppings = "";
+		while ($row = $results->fetch_assoc()) {
+			$disliked_toppings .= $row['topping_id'];
+			$disliked_toppings .= ",";
+		}
+		
+		
+		
+
+		if ($_POST['topping-ids'] != "") {
+			$toppings = $_POST['topping-ids'];
+			$disliked_toppings .= $toppings;
+		} else {
+			// removes extra ,
+			$disliked_toppings = substr($disliked_toppings, 0, -1);
+		}
+
+	/*	echo "disliked_toppings";
+		print_r($disliked_toppings);*/
+		
+
+
 		// $users .= 5;
 
 		//builds a string of the users so that query can work
@@ -28,12 +52,36 @@ class Controller extends AppController {
 		// }
 		//removes the extra "," that's not needed in the string
 		// $sqlArray = substr($sqlArray, 0, -1);
+
+		$badRecipes = Recommend::getBadRecipes($disliked_toppings);
+
+		$badRecipesList = "";
+		while ($row = $badRecipes->fetch_assoc()) {
+			$badRecipesList .= $row['pizza_recipe_id'];
+			$badRecipesList .= ",";
+		}
+
+
+		$badRecipesList = substr($badRecipesList, 0, -1);
+
+		/*echo "badRecipesList";
+		print_r($badRecipesList);*/
+
+		$goodRecipesfromDB = Recommend::getGoodRecipes($badRecipesList);
+
+		// $goodRecipesList = "";
+		// while ($row = $goodRecipes->fetch_assoc()) {
+		// 	$goodRecipesList .= $row['pizza_recipe_id'];
+		// 	$goodRecipesList .= ",";
+		// }
+
+		// $goodRecipesList = substr($goodRecipesList, 0, -1);
+
+
 		$suggestion_populator = new SuggestionViewFragment();
 
-		$suggestions_from_DB = Recommend::getRecs($users);
-
-		while($suggestion = $suggestions_from_DB->fetch_assoc()) {
-			$suggestion_populator->topping_id = xss::protection($suggestion['topping_id']);
+		while($suggestion = $goodRecipesfromDB->fetch_assoc()) {
+			$suggestion_populator->pizza_recipe_id = xss::protection($suggestion['pizza_recipe_id']);
 			$suggestion_populator->name = xss::protection($suggestion['name']);
 			$this->view->suggestions .= $suggestion_populator->render();
 		}

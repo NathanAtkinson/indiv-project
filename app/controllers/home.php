@@ -15,9 +15,9 @@ extract($controller->view->vars);
 <div class="login-content">
     <main class="login-main">
         <div>
-            <div class="logo">
+            <!-- <div class="logo">
                 <img src="/app/images/pizza-icon.png" alt="">
-            </div>
+            </div> -->
             <!-- <h3>LOGIN</h3> -->
             <form action="/login" method="POST" class="login-form reptile-form">
                 <input class="user_name" type="text" name="user_name" title="Username">

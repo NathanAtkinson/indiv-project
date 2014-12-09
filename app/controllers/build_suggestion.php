@@ -64,7 +64,7 @@ extract($controller->view->vars);
 		<h3>Other Users:</h3>
 		<form action="/suggestions" method="POST">
 			<input type="hidden" name="user-ids" id="user-ids">
-			<input type="hidden" name="toppings" id="toppings">
+			<input type="hidden" name="topping-ids" id="topping-ids">
 			<button id="suggestions">Get suggestions</button>
 		</form>
 		<?php echo $friends ?>
