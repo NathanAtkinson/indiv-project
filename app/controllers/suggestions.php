@@ -10,10 +10,15 @@ class Controller extends AppController {
 
 
 
-		//TODO need to build array here.  
-		// $users = [1,7,8];
-		$users = $_POST['user-ids'];
-		$users .= "," . $user_id;
+		//Builds string for mySQL here.  
+		//If no extra users were selected, then just uses current user_id
+		if (isset($_POST['user-ids']) == 1) {
+			$users = $_POST['user-ids'];
+			$users .= "," . $user_id;
+		} else {
+			$users = $user_id;
+		}
+	
 		// $users .= 5;
 
 		//builds a string of the users so that query can work

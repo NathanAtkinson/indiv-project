@@ -65,7 +65,7 @@ extract($controller->view->vars);
 	</div> -->
 
 
-<div class="toppings">
+<div class="user toppings">
 	<h3>My Dislikes:</h3>
 	<?php echo $toppings ?>
 	
