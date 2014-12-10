@@ -198,6 +198,35 @@
       	.addClass('selected');
   	}
 
+  	$('.suggestion').on('click', 'a', function() {
+  		var pizza_recipe_id = $(this).attr('data-pizza-recipe-id');
+  		console.log(pizza_recipe_id);
+  		var user_ids = $(this).parents('.suggestions').attr('data-user-ids');
+  		console.log(user_ids);
+  		// var array_user_ids = user_ids.split(",");
+  		// console.log(array_user_ids);
+			
+		$.ajax({
+			url: '/orders/add',
+			type: 'POST',
+			dataType: 'json',
+			cache: false,
+			data: {user_ids: user_ids, pizza_recipe_id: pizza_recipe_id},
+			success: function(data){
+				// var topping_id = data.topping_id;
+				// console.log(data);
+				var pizza_recipe_id = data.pizza_recipe_id;
+				// console.log("recipeid" + pizza_recipe_id);
+				// console.log('this:' + $(this));
+				// console.log($('a[data-pizza-recipe-id="' + pizza_recipe_id + '"]'));
+				($('a[data-pizza-recipe-id="' + pizza_recipe_id + '"]')).remove();
+			},
+			error: function(){
+				console.log('error');
+				console.log('data: ' + data);
+			}
+	  	});
+	});
   	
 
 
