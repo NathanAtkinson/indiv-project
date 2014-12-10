@@ -6,7 +6,7 @@ class FriendViewFragment extends ViewFragment {
 
       // <img src="/app/images/jon.jpg" alt="">
   private $template =<<<html
-  <div class="friend">
+  <div class="friend" {{hidden}}>
       <a href="#" data-user-id="{{user_id}}"></i> {{user_name}}</a>
     </div>
 html;
