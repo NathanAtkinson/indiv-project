@@ -10,7 +10,7 @@ class SuggestionViewFragment extends ViewFragment {
     <div>
       <h3>{{name}}</h3>
     </div>
-    <a href="/selected">Was this a good suggestion?</a>
+    <a href="#" data-pizza-recipe-id="{{pizza_recipe_id}}">This was a good suggestion</a>
   </div>
 html;
 
