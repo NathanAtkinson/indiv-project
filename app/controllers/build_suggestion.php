@@ -8,6 +8,10 @@ class Controller extends AppController {
 		$user_id = UserLogin::getUserID();
 		$user = new User($user_id);
 
+		if (!UserLogin::isLogged()){
+            header('Location: /');
+            exit();
+        }
 
 		//gets votes that user has made in the past
 		$user_dislikes = $user->getPreferences();
@@ -24,8 +28,12 @@ class Controller extends AppController {
 		$friends_from_DB = User::getAll();
 
 		while($friend = $friends_from_DB->fetch_assoc()) {
+			if ($user_id === $friend['user_id']) {
+				continue;
+			};
 			$friend_populator->user_id = xss::protection($friend['user_id']);
 			$friend_populator->user_name = xss::protection($friend['user_name']);
+			$friend_populator->hidden = $isSameUser ? '' : 'hidden';
 			$this->view->friends .= $friend_populator->render();
 		}
 
