@@ -22,5 +22,8 @@ Router::add('/toppings/remove', '/app/controllers/toppings/remove.php');
 Router::add('/build', '/app/controllers/build_suggestion.php');
 Router::add('/suggestions', '/app/controllers/suggestions.php');
 
+//Order History
+Router::add('/orders/add', '/app/controllers/orders/add.php');
+
 // Issue Route
 Router::route();
