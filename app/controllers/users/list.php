@@ -4,6 +4,13 @@
 class Controller extends AppController {
 	protected function init() {
 
+
+		if (!UserLogin::isLogged()){
+            header('Location: /profile');
+            exit();
+        }
+
+        
 		// SQL
 		$sql = "
 			SELECT *

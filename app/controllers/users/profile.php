@@ -7,9 +7,14 @@ class Controller extends AppController {
 		$user_id = UserLogin::getUserID();
 		$user = new User($user_id);
 
+		if (!UserLogin::isLogged()){
+            header('Location: /');
+            exit();
+        }
+
 		// $this->view->user_name = 'Username here';
 		$user_name = $user->getUserName();
-
+		$this->view->user_name = $user_name;
 
 
 		//gets votes that user has made in the past
@@ -66,7 +71,7 @@ extract($controller->view->vars);
 
 
 <div class="user toppings">
-	<h3>My Dislikes:</h3>
+	<h3><?php echo $user_name ?>'s Dislikes:</h3>
 	<?php echo $toppings ?>
 	
 </div>

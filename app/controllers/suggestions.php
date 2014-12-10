@@ -8,7 +8,10 @@ class Controller extends AppController {
 		$user_id = UserLogin::getUserID();
 		$user = new User($user_id);
 
-
+		if (!UserLogin::isLogged()){
+            header('Location: /');
+            exit();
+        }
 
 		//Builds string for mySQL here.  
 		//If no extra users were selected, then just uses current user_id
@@ -18,6 +21,8 @@ class Controller extends AppController {
 		} else {
 			$users = $user_id;
 		}
+
+		$this->view->users = $users;
 
 	
 		$results = Recommend::getDislikes($users);
@@ -99,6 +104,6 @@ extract($controller->view->vars);
 	<a href="/build">BACK</a>
 	<a id="sign-out" href="/">SIGN OUT</a>
 </nav>
-<div class="suggestions">
+<div class="suggestions" data-user-ids="<?php echo $users ?>">
 	<?php echo $suggestions ?>
 </div>
