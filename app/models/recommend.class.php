@@ -35,7 +35,7 @@ sql;
         WHERE pizza_recipe_id NOT IN ({$recipe_ids})
         GROUP BY pizza_recipe_id
         ORDER BY total DESC
-        LIMIT 5
+        LIMIT 7
 sql;
 
 		return db::execute($getGoodRecipes);
@@ -72,6 +72,22 @@ sql;
 		// AND pizza_recipe_id NOT IN ({$badRecipes})
 
 		return db::execute($getPastOrders);
+	}
+
+
+
+	// add to DB good recommendations
+	public static function addOrder($user_id, $pizza_recipe_id) {
+
+		$addOrders =<<<sql
+		INSERT INTO 
+		past_order
+		(`user_id`, `pizza_recipe_id`, `timestamp`) 
+		VALUES ('{$user_id}', '{$pizza_recipe_id}', CURRENT_TIMESTAMP);
+sql;
+		// AND pizza_recipe_id NOT IN ({$badRecipes})
+
+		db::execute($addOrders);
 	}
 
 
