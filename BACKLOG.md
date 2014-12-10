@@ -6,7 +6,7 @@
 # Design
  - Optimize CSS
  - [x] Find better background
- 	-  [x] fuzzy background?
+ 	-  [x] fuzzy background? NO
  - [x]  Footer
  -  [x] Users are displayed differently than ingredients
 
