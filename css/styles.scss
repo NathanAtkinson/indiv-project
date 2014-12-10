@@ -1,6 +1,6 @@
 // Formats options (users and toppings) throughout the app
 @mixin option {
-	padding: 3px 15px;
+	padding: 2px 15px;
 	width: 32%;
 	a {
 	display: block;
@@ -31,18 +31,22 @@
 	}
 }
 
+.hidden {
+	display:none;
+}
+
 //gives same look to sections that want a dark stained glass
 //also formats the links contained by them consistently
 @mixin stainedglass {
 	border-radius: 5px;
-	margin: 8px auto;
+	margin: 10px auto;
 	background-color: rgba(5, 5, 5, .9);
 	position: relative;
 	& > a {
 		padding: 3px 10px;
 		font-size: 1.5em;
 		background-color: #000;
-		color: white;
+		// color: white;
 		border-radius: 5px;
 		border: 1px solid #333;
 		&:hover {
@@ -51,7 +55,7 @@
 	}
 }
 
-// Reset for the document, in addition to normalize
+// Reset for the document, in addition to normalize.css
 * {
 	box-sizing: border-box;
 	font-family: 'PT sans', 'Arial', sans-serif;
@@ -61,7 +65,7 @@
 		color: white;
 	}
 	h3 {
-		font-size: 1.25em;
+		// font-size: 1.25em;
 		padding: 5px;
 		margin: 5px;
 	}
@@ -73,14 +77,14 @@ header {
 	position: relative;
 	h1 {
 		// padding: 5px;
-		margin-left: 10px;
+		margin: 10px;
 		display: inline-block;
 		width: 25%;
 	}
 	h3 {
 		display: inline-block;
 		width: 50%;
-		margin: 10px;
+		// margin: 5px;
 	}
 	> div {
 		@include stainedglass;
@@ -108,7 +112,6 @@ body {
 	      rgba(0, 0, 0, .5) 
 	    ), url("/app/images/bg04.jpg");
    		background-size: 100% 100%;
-		
 		background-size: cover;
 		background-repeat: no-repeat;
 	nav {
@@ -116,12 +119,12 @@ body {
 		margin: 10px auto;
 		width: 60%;
 		position: relative;
-		display: block;
+		// display: block;
 		font-weight: 500;
 		a {
 			width: 33%;
 			display: inline-block;
-			margin: 0px auto;
+			// margin: 0px auto;
 		}
 		#build-suggestion {
 			width: 35%
@@ -140,30 +143,19 @@ footer {
 	margin: 0 auto;
 	width: 60%;
 	text-align: center;
-	div {
+	/* div {
 		color: #FFF;
-	}
+	} */
 }
 
 main.login-main {
-	// @include stainedglass;
 	margin: auto;
 	width: 60%;
 	text-align: center;
 	min-height: 350px;
-	/* div.logo{
-		h3:first-child { 
-			margin-top: 15%;
-		}	
-		min-width: 150px;
-		min-height: 150px;
-		background-color: #111;
-		float: left;
-		vertical-align: middle;
-	} */
+
 	.reptile-form {
 		@include stainedglass;
-		// background-color: #222;
 		margin:auto;
 		padding: 25px;
 		width: 33%;
@@ -192,13 +184,14 @@ div.this-user {
 		}
 	}
 	h3 {
-		padding: 10px;
-		margin-left: 300px;
-		background-color: #333;
-		text-align: center;
-		margin: 15px;
+		// padding: 10px;
+		// margin-left: 300px;
+		// background-color: #333;
+		// text-align: center;
+		margin: 10px;
 		display: inline-block;
 		width: 200px;
+		font-size: 1.5em;
 	}
 	// a {
 	// 	position: absolute;
@@ -215,7 +208,7 @@ div.toppings {
 	overflow: hidden;
 	// padding-bottom: 10px;
 	* + * {
-		margin-bottom: 10px;
+		margin-bottom: 7px;
 	}
 	h3 {
 		padding-left: 5px;
@@ -240,7 +233,7 @@ div.friends {
 	overflow: hidden;
 	display: relative;
 	* + * {
-		margin-bottom: 10px;
+		margin-bottom: 8px;
 	}
 	h3 {
 		margin-left: 5px;
@@ -318,10 +311,11 @@ div.suggestions {
 	
 	.suggestion {
 		width: 80%;
-		min-height: 65px;
+		min-height: 55px;
 		background-color: #383224;
-		margin: 20px auto;
+		margin: 14px auto;
 		border-radius: 5px;
+		position: relative;
 		div {
 			// min-height: 45px;
 			h3 {
@@ -334,9 +328,11 @@ div.suggestions {
 		}
 		a {
 			background-color: #000;
-			padding: 3px 5px;
+			padding: 2px 5px;
 			border-radius: 5px;
-			float: right;
+			position: absolute;
+			bottom: 0;
+			right: 0;
 			&:hover {
 				background-color: #C66320;
 			}
