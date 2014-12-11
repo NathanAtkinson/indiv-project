@@ -13,7 +13,9 @@
 
 	// Do something when errors are detected.
 	form.on('validationError', function(e, err) {
-		$('body').append('<p>Errors: ' + JSON.stringify(err) + '</p>');
+		response = JSON.stringify(err);
+		response = JSON.parse(response);
+		alert(response[0].msg);
 	});
 
 	// Do something after validation is successful, but before the form submits.
@@ -28,13 +30,13 @@
 			location.href=data.redirect;
 		} else if (data.errormsg) {
 			var message = data.errormsg;
-			$("form.login-form").append('<br><BR>' + message);
+			alert(message);
 		}
 	});
 
 	// Do something when the AJAX request has returned with an error
 	form.on('xhrError', function(e, xhr, settings, thrownError) {
-		$('body').append('<p>Submittion Error: ' + thrownError + '</p>');
+		alert('<p>Submission Error: ' + thrownError + '</p>');
 	});
 
 
@@ -211,14 +213,14 @@
   	}
 
   	$('.suggestion').on('click', 'a', function() {
-  		var pizza_recipe_id = $(this).attr('data-pizza-recipe-id');
+  		var pizza_recipe_id = $(this).parents('.feedback').attr('data-pizza-recipe-id');
   		console.log(pizza_recipe_id);
   		var user_ids = $(this).parents('.suggestions').attr('data-user-ids');
   		console.log(user_ids);
   		// var array_user_ids = user_ids.split(",");
   		// console.log(array_user_ids);
-			
-		$.ajax({
+		if($(this).attr('data-vote') == "yes"){
+			$.ajax({
 			url: '/orders/add',
 			type: 'POST',
 			dataType: 'json',
@@ -231,13 +233,43 @@
 				// console.log("recipeid" + pizza_recipe_id);
 				// console.log('this:' + $(this));
 				// console.log($('a[data-pizza-recipe-id="' + pizza_recipe_id + '"]'));
-				($('a[data-pizza-recipe-id="' + pizza_recipe_id + '"]')).remove();
+				($('div[data-pizza-recipe-id="' + pizza_recipe_id + '"]')).remove();
 			},
 			error: function(){
 				console.log('error');
 				console.log('data: ' + data);
 			}
-	  	});
+	  		});
+		} else {
+			console.log('no');
+			$.ajax({
+			url: '/orders/down',
+			type: 'POST',
+			dataType: 'json',
+			cache: false,
+			data: {user_ids: user_ids, pizza_recipe_id: pizza_recipe_id},
+
+			//on success, remove suggestion from the page
+			success: function(data){
+				// var topping_id = data.topping_id;
+				// console.log(data);
+				var pizza_recipe_id = data.pizza_recipe_id;
+				// console.log("recipeid" + pizza_recipe_id);
+				// console.log('this:' + $(this));
+				// console.log($('a[data-pizza-recipe-id="' + pizza_recipe_id + '"]'));
+				($('div[data-pizza-recipe-id="' + pizza_recipe_id + '"]')).parents('div.suggestion').remove();
+				var sugg = $('div.suggestions').find('div.other-option').first().attr('data-pizza-recipe-id');
+				$('div.suggestions').find('div.other-option').first().toggleClass('other-option');
+				/*.find('div.feedback').attr('data-pizza-recipe-id')*/
+				console.log(sugg);
+			},
+			error: function(){
+				console.log('error');
+				console.log('data: ' + data);
+			}
+	  		});
+		}
+		
 	});
   	
 

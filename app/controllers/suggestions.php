@@ -24,9 +24,10 @@ class Controller extends AppController {
 
 		$this->view->users = $users;
 
+		$recommend = new Recommend();
 	
 		//gets dislikes based on the user id's and compiles a string
-		$results = Recommend::getDislikes($users);
+		$results = $recommend->getDislikes($users);
 		$disliked_toppings = "";
 		while ($row = $results->fetch_assoc()) {
 			$disliked_toppings .= $row['topping_id'];
@@ -53,11 +54,11 @@ class Controller extends AppController {
 		// checks if there are dislikes, if not, user is indifferent and runs query reflecting that
 		if(empty($disliked_toppings)) {
 			//get all recipes ranked based on no dislikes
-			// $goodRecipesfromDB = Recommend::globalSuggestions($users);
-			$goodRecipesfromDB = Recommend::indifferentSuggestion($users);
+			// $goodRecipesfromDB = $recommend->globalSuggestions($users);
+			$goodRecipesfromDB = $recommend->indifferentSuggestion($users);
 		} else {
 			//get list of recipes exempted by topping dislikes
-			$exemptRecipes = Recommend::getExemptRecipes($disliked_toppings);
+			$exemptRecipes = $recommend->getExemptRecipes($disliked_toppings);
 
 
 			$exemptRecipesList = "";
@@ -73,29 +74,42 @@ class Controller extends AppController {
 			// echo ('badrecipelist:');
 			// print_r($exemptRecipesList);
 
-			// $goodRecipesfromDB = Recommend::globalSuggestions($exemptRecipesList);
-			$goodRecipesfromDB = Recommend::userSuggestions($users, $exemptRecipesList);
+			// $goodRecipesfromDB = $recommend->globalSuggestions($exemptRecipesList);
+			$userSuggestions = $recommend->userSuggestions($users, $exemptRecipesList);
 			/*echo ('goodRecipes from DB:');
-			print_r($goodRecipesfromDB);*/
+			print_r($userSuggestions);*/
 		}
 
 		$suggestion_populator = new SuggestionViewFragment();
 		
-		$max_suggestions = 7;
+		$maxSuggestions = 7;
 		$suggestion_count = 0;
 
+		// Will be used to store bad recommendations, still show them, but last
+		$deferredSuggestions = [];
 		//had to put () around suggestoin/fetch assoc
-		while(($suggestion = $goodRecipesfromDB->fetch_assoc()) && $suggestion_count < $max_suggestions) {
+		while(($suggestion = $userSuggestions->fetch_assoc())) {
+			if($suggestion['total'] < 1){
+				$pizza_recipe_id = xss::protection($suggestion['pizza_recipe_id']);
+				$deferredSuggestions[$pizza_recipe_id] = xss::protection($suggestion['name']);
+			} else {
+				$suggestion_populator->pizza_recipe_id = xss::protection($suggestion['pizza_recipe_id']);
+				$suggestion_populator->name = xss::protection($suggestion['name']);
+				if($suggestion_count >= $maxSuggestions) {
+					$suggestion_populator->hidden = "hidden";
+				} else {
+						$suggestion_populator->hidden = "";
+				}
+				$this->view->suggestions .= $suggestion_populator->render();
+				$suggestion_count++;
+			}
 			/*echo('inside while');
 			echo("pizzaId:" . $suggestion['pizza_recipe_id']);*/
-			$suggestion_populator->pizza_recipe_id = xss::protection($suggestion['pizza_recipe_id']);
-			$suggestion_populator->name = xss::protection($suggestion['name']);
-			$this->view->suggestions .= $suggestion_populator->render();
-			$suggestion_count++;
+			
 
 			//made mistake by adding , after recipe id added...  led to combining
 			//of id's ex: 22,36 was 2236.  Which then didn't exempt it, leading to 
-			//duplication of recommendations
+			//duplication of Suggestions
 			$exemptRecipesList .= ",";
 			$exemptRecipesList .= $suggestion['pizza_recipe_id'];
 			/*echo('exempt recipes');
@@ -109,19 +123,36 @@ class Controller extends AppController {
 		 	$exemptRecipesList = substr($exemptRecipesList, 0, -1);
 		}
 
-		if($suggestion_count < $max_suggestions) {
-			$globalRecipesfromDB = Recommend::globalSuggestions($exemptRecipesList);
-			// echo ('globalRecipes from DB:');
-			// print_r($globalRecipesfromDB);
-			while(($suggestion = $globalRecipesfromDB->fetch_assoc()) && $suggestion_count < $max_suggestions) {
-				
-				$suggestion_populator->pizza_recipe_id = xss::protection($suggestion['pizza_recipe_id']);
-				$suggestion_populator->name = xss::protection($suggestion['name']);
-				$this->view->suggestions .= $suggestion_populator->render();
-				$suggestion_count++;
-				$chosen_recipes[] = $suggestion['pizza_recipe_id'];
+		// if($suggestion_count < $maxSuggestions) {
+		$globalRecipesfromDB = $recommend->globalSuggestions($exemptRecipesList);
+		// echo ('globalRecipes from DB:');
+		// print_r($globalRecipesfromDB);
+		while(($suggestion = $globalRecipesfromDB->fetch_assoc()) /*&& $suggestion_count < $maxSuggestions*/) {
+			if($suggestion_count >= $maxSuggestions) {
+				$suggestion_populator->hidden = "other-option";
+			} else {
+				$suggestion_populator->hidden = "";
 			}
+			$suggestion_populator->pizza_recipe_id = xss::protection($suggestion['pizza_recipe_id']);
+			$suggestion_populator->name = xss::protection($suggestion['name']);
+			$this->view->suggestions .= $suggestion_populator->render();
+			$suggestion_count++;
+			// $chosen_recipes[] = $suggestion['pizza_recipe_id'];
 		}
+
+		foreach($deferredSuggestions as $pizza_recipe_id => $name) {
+			if($suggestion_count >= $maxSuggestions) {
+				$suggestion_populator->hidden = "other-option";
+			} else {
+				$suggestion_populator->hidden = "";
+			}
+			$suggestion_populator->pizza_recipe_id = $pizza_recipe_id;
+			$suggestion_populator->name = $name;
+			$this->view->suggestions .= $suggestion_populator->render();
+			$suggestion_count++;
+			// $chosen_recipes[] = $suggestion['pizza_recipe_id'];
+		}
+		// }
 	}
 
 }

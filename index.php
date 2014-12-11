@@ -24,6 +24,7 @@ Router::add('/suggestions', '/app/controllers/suggestions.php');
 
 //Order History
 Router::add('/orders/add', '/app/controllers/orders/add.php');
+Router::add('/orders/down', '/app/controllers/orders/down.php');
 
 // Issue Route
 Router::route();

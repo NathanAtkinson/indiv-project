@@ -10,6 +10,7 @@ class Topping extends CustomModel {
 	 */
 	public function insert($input) {
 
+		//TODO
 		// Prepare SQL Values
         // $cleanedInput = $this->cleanInput(
         //     ['user_id', 'topping_id'],
@@ -28,9 +29,10 @@ class Topping extends CustomModel {
 	*/
 	public function remove($input) {
 
+
 		$user_id = $input['user_id'];
 		$topping_id = $input['topping_id'];
-		/*
+		/* TODO
 		$cleanedInput = $this->cleanInput(
             ['user_id', 'topping_id'],
             $input
@@ -57,7 +59,16 @@ sql;
 
 		// Note that Server Side validation is not being done here
 		// and should be implemented by you
+		//TODO
+	/*$cleanedInput = $this->cleanInput(
+            ['user_name', 'email', 'password'],
+            $input,
+        );
 
+        if (is_string($cleanedInput)) {
+            return null;
+        }*/
+        
 		// Prepare SQL Values
 		$sql_values = [
 		

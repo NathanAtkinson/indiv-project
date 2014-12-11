@@ -6,10 +6,23 @@
  */
 class Recommend extends CustomModel {
 
+	protected function insert(){
+
+	}
+
 	//gets dislikes from a string of users
-	public static function getDislikes($users) {
-		// gets topping dislikes
+	public function getDislikes($users) {
+
 		//TODO
+		/*$cleanedInput = $this->cleanInput(
+            ['users'],
+            $input
+        );
+
+        if (is_string($cleanedInput)) {
+            return null;
+        }*/
+
 		$getDislikes =<<<sql
         SELECT *
         FROM topping
@@ -24,8 +37,19 @@ sql;
 		
 	}
 
-	public static function getExemptRecipes($toppings) {
+	public  function getExemptRecipes($toppings) {
 		// gets topping dislikes
+
+		//TODO
+		/*$cleanedInput = $this->cleanInput(
+            ['user_name', 'email', 'password'],
+            $input,
+        );
+
+        if (is_string($cleanedInput)) {
+            return null;
+        }*/
+
 		$getExemptRecipes =<<<sql
         SELECT * 
         FROM pizza_recipe_topping 
@@ -42,30 +66,49 @@ sql;
 
 
 
-	public static function globalSuggestions($recipe_ids) {
+	public  function globalSuggestions($recipe_ids) {
 
 		//TODO how should I extract or build the array of users for below query?
+		//TODO
+	/*$cleanedInput = $this->cleanInput(
+            ['user_name', 'email', 'password'],
+            $input,
+        );
 
+        if (is_string($cleanedInput)) {
+            return null;
+        }*/
 
 		$globalSuggestions =<<<sql
-		SELECT user_id, pizza_recipe_id, name, count(pizza_recipe_id) as total
+		SELECT user_id, pizza_recipe_id, name, sum(vote_total) as total
         FROM pizza_recipe
-        LEFT JOIN past_order USING (pizza_recipe_id)
+        LEFT JOIN user_pizza_vote USING (pizza_recipe_id)
         LEFT JOIN `user` USING (user_id)
         WHERE pizza_recipe_id NOT IN ({$recipe_ids})
         GROUP BY pizza_recipe_id
         ORDER BY total DESC
 sql;
 
+
 		return db::execute($globalSuggestions);
 	}
 
-	public static function userSuggestions($user_ids, $recipe_ids) {
+	public  function userSuggestions($user_ids, $recipe_ids) {
+
+		//TODO
+	/*$cleanedInput = $this->cleanInput(
+            ['user_name', 'email', 'password'],
+            $input,
+        );
+
+        if (is_string($cleanedInput)) {
+            return null;
+        }*/
 
 		$userSuggestions =<<<sql
-		SELECT user_id, pizza_recipe_id, name, count(pizza_recipe_id) as total
+		SELECT user_id, pizza_recipe_id, name, sum(vote_total) as total
         FROM pizza_recipe
-        LEFT JOIN past_order USING (pizza_recipe_id)
+        LEFT JOIN user_pizza_vote USING (pizza_recipe_id)
         LEFT JOIN `user` USING (user_id)
 		where user_id IN ({$user_ids})
 		and pizza_recipe_id NOT IN ({$recipe_ids})
@@ -78,30 +121,37 @@ sql;
 	
 		
 
-	public static function indifferentSuggestion() {
+	public  function indifferentSuggestion() {
 
-		//TODO how should I extract or build the array of users for below query?
-
-
-		$getGoodRecipes =<<<sql
-		SELECT user_id, pizza_recipe_id, name, count(pizza_recipe_id) as total
+		$indifferentSuggestions =<<<sql
+		SELECT user_id, pizza_recipe_id, name, sum(vote_total) as total
         FROM pizza_recipe
-        LEFT JOIN past_order USING (pizza_recipe_id)
+        LEFT JOIN user_pizza_vote USING (pizza_recipe_id)
         LEFT JOIN `user` USING (user_id)
         GROUP BY pizza_recipe_id
         ORDER BY total DESC
 sql;
 
-		return db::execute($getGoodRecipes);
+		return db::execute($indifferentSuggestions);
 	}
 
 
 
 
-	public static function getPastOrders($user_ids, $exemptRecipes) {
+	public  function getPastOrders($user_ids, $exemptRecipes) {
+
+		//TODO
+	/*$cleanedInput = $this->cleanInput(
+            ['user_name', 'email', 'password'],
+            $input,
+        );
+
+        if (is_string($cleanedInput)) {
+            return null;
+        }*/
 
 		$getPastOrders =<<<sql
-		SELECT pizza_recipe_id, count(pizza_recipe_id) as total
+		SELECT pizza_recipe_id, sum(pizza_recipe_id) as total
 		FROM past_order
 		JOIN user USING (user_id)
 		JOIN pizza_recipe USING (pizza_recipe_id)
@@ -115,7 +165,16 @@ sql;
 
 
 	// add to DB good recommendations
-	public static function addOrder($user_id, $pizza_recipe_id) {
+	public function addOrder($user_id, $pizza_recipe_id) {
+
+		// $cleanedInput = $this->cleanInput(
+  //           ['user_id', 'pizza_recipe_id'],
+  //           $input
+  //       );
+
+  //       if (is_string($cleanedInput)) {
+  //           return null;
+  //       }
 
 		$addOrders =<<<sql
 		INSERT INTO 
@@ -127,6 +186,56 @@ sql;
 
 		db::execute($addOrders);
 	}
+
+
+	//when user selects "good" suggestion, upvotes to keep track
+	public static function upVote($user_id, $pizza_recipe_id) {
+
+		// $cleanedInput = $this->cleanInput(
+  //           ['user_id', 'pizza_recipe_id'],
+  //           $input
+  //       );
+
+  //       if (is_string($cleanedInput)) {
+  //           return null;
+  //       }
+
+		$upVote =<<<sql
+		INSERT INTO user_pizza_vote
+		(`user_id`, `pizza_recipe_id`, `vote_total`) 
+		VALUES ('{$user_id}', '{$pizza_recipe_id}', 1)
+		ON DUPLICATE KEY UPDATE
+		vote_total=vote_total + 1
+sql;
+
+		db::execute($upVote);
+	}
+
+
+
+
+	public static function downVote($user_id, $pizza_recipe_id) {
+
+		// $cleanedInput = $this->cleanInput(
+  //           ['user_id', 'pizza_recipe_id'],
+  //           $input
+  //       );
+
+  //       if (is_string($cleanedInput)) {
+  //           return null;
+  //       }
+
+		$downVote =<<<sql
+		INSERT INTO user_pizza_vote
+		(`user_id`, `pizza_recipe_id`, `vote_total`) 
+		VALUES ('{$user_id}', '{$pizza_recipe_id}', -1)
+		ON DUPLICATE KEY UPDATE
+		vote_total=vote_total -1
+sql;
+
+		db::execute($downVote);
+	}
+	
 
 
 
