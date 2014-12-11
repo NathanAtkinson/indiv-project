@@ -38,6 +38,18 @@
 	});
 
 
+	//on landing at the home page, hides the e-mail field
+	$('.login-form .email').attr('hidden', '');
+
+	//adds e-mail field for signup when signup is pressed on home page.
+	$('.login-form').on('click', 'button.sign-up', function(e) {
+		e.preventDefault();
+		console.log('Sign-up pressed');
+		$(this).hide();
+        $('.login-form .email').toggle(); 
+	});
+
+
 	$('div.toppings.user').on('click', 'a', function() {
 		$(this).toggleClass('selected');
 		
