@@ -5,22 +5,32 @@
  */
 class Topping extends CustomModel {
 
+	/*
+	* Validation
+	*/
+	protected function validators() {
+        return [
+            'user_id' => [FILTER_VALIDATE_INT, ['min_range' => 0]],
+            'topping_id' => [FILTER_VALIDATE_INT, ['min_range' => 0]]
+        ];
+    }
+
+
 	/**
 	 * Insert Topping Dislike
 	 */
 	public function insert($input) {
 
-		//TODO
 		// Prepare SQL Values
-        // $cleanedInput = $this->cleanInput(
-        //     ['user_id', 'topping_id'],
-        //     $input
-        // );
+        $cleanedInput = $this->cleanInput(
+            ['user_id', 'topping_id'],
+            $input
+        );
 
-        // if (is_string($cleanedInput)) return null;
+        if (is_string($cleanedInput)) return null;
 
-		// db::insert('user_topping_dislike', $cleanedInput);
-		db::insert('user_topping_dislike', $input);
+		db::insert('user_topping_dislike', $cleanedInput);
+		// db::insert('user_topping_dislike', $input);
 	}
 
 
@@ -30,21 +40,18 @@ class Topping extends CustomModel {
 	public function remove($input) {
 
 
-		$user_id = $input['user_id'];
-		$topping_id = $input['topping_id'];
-		/* TODO
 		$cleanedInput = $this->cleanInput(
             ['user_id', 'topping_id'],
             $input
         );
 
-        if (is_string($cleanedInput)) return null;*/
+        if (is_string($cleanedInput)) return null;
 
 		$removeDislike =<<<sql
         DELETE
         FROM user_topping_dislike
-        WHERE user_id = {$user_id}
-        AND topping_id = {$topping_id}
+        WHERE user_id = {$cleanedInput['user_id']}
+        AND topping_id = {$cleanedInput['topping_id']}
 		LIMIT 1;
 sql;
 
@@ -52,40 +59,6 @@ sql;
 	}
 
 
-	/**
-	 * Update Topping - won't be done by user...  TODO  probably remove
-	 */
-	public function update($input) {
-
-		// Note that Server Side validation is not being done here
-		// and should be implemented by you
-		//TODO
-	/*$cleanedInput = $this->cleanInput(
-            ['user_name', 'email', 'password'],
-            $input,
-        );
-
-        if (is_string($cleanedInput)) {
-            return null;
-        }*/
-        
-		// Prepare SQL Values
-		$sql_values = [
-		
-		];
-
-		// Ensure values are encompassed with quote marks
-		$sql_values = db::auto_quote($sql_values);
-
-		// Update
-		db::update('topping', $sql_values, "WHERE topping_id = {$this->topping_id}");
-		
-		// Return a new instance of this Topping as an object
-		return new Topping($this->Topping_id);
-
-	}
-
-	
 	/*
     * return list of all toppings  (name and id)
     */ 
