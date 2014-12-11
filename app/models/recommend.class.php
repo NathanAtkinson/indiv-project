@@ -9,6 +9,7 @@ class Recommend extends CustomModel {
 	//gets dislikes from a string of users
 	public static function getDislikes($users) {
 		// gets topping dislikes
+		//TODO
 		$getDislikes =<<<sql
         SELECT *
         FROM topping
@@ -23,30 +24,9 @@ sql;
 		
 	}
 
-	public static function getGoodRecipes($recipe_ids) {
-
-		//TODO how should I extract or build the array of users for below query?
-
-		$getGoodRecipes =<<<sql
-		SELECT user_id, pizza_recipe_id, name, count(pizza_recipe_id) as total
-        FROM pizza_recipe
-        LEFT JOIN past_order USING (pizza_recipe_id)
-        LEFT JOIN `user` USING (user_id)
-        WHERE pizza_recipe_id NOT IN ({$recipe_ids})
-        GROUP BY pizza_recipe_id
-        ORDER BY total DESC
-        LIMIT 7
-sql;
-
-		return db::execute($getGoodRecipes);
-	}
-		
-
-
-
-	public static function getBadRecipes($toppings) {
+	public static function getExemptRecipes($toppings) {
 		// gets topping dislikes
-		$getBadRecipes =<<<sql
+		$getExemptRecipes =<<<sql
         SELECT * 
         FROM pizza_recipe_topping 
         JOIN pizza_recipe USING (pizza_recipe_id) 
@@ -54,13 +34,71 @@ sql;
         WHERE topping_id IN ({$toppings})
         GROUP BY pizza_recipe_id
 sql;
-		return db::execute($getBadRecipes);
+		return db::execute($getExemptRecipes);
 		
 	}
 
 
 
-	public static function getPastOrders($user_ids, $badRecipes) {
+
+
+	public static function globalSuggestions($recipe_ids) {
+
+		//TODO how should I extract or build the array of users for below query?
+
+
+		$globalSuggestions =<<<sql
+		SELECT user_id, pizza_recipe_id, name, count(pizza_recipe_id) as total
+        FROM pizza_recipe
+        LEFT JOIN past_order USING (pizza_recipe_id)
+        LEFT JOIN `user` USING (user_id)
+        WHERE pizza_recipe_id NOT IN ({$recipe_ids})
+        GROUP BY pizza_recipe_id
+        ORDER BY total DESC
+sql;
+
+		return db::execute($globalSuggestions);
+	}
+
+	public static function userSuggestions($user_ids, $recipe_ids) {
+
+		$userSuggestions =<<<sql
+		SELECT user_id, pizza_recipe_id, name, count(pizza_recipe_id) as total
+        FROM pizza_recipe
+        LEFT JOIN past_order USING (pizza_recipe_id)
+        LEFT JOIN `user` USING (user_id)
+		where user_id IN ({$user_ids})
+		and pizza_recipe_id NOT IN ({$recipe_ids})
+        GROUP BY pizza_recipe_id
+        ORDER BY total DESC
+sql;
+		return db::execute($userSuggestions);
+	}
+
+	
+		
+
+	public static function indifferentSuggestion() {
+
+		//TODO how should I extract or build the array of users for below query?
+
+
+		$getGoodRecipes =<<<sql
+		SELECT user_id, pizza_recipe_id, name, count(pizza_recipe_id) as total
+        FROM pizza_recipe
+        LEFT JOIN past_order USING (pizza_recipe_id)
+        LEFT JOIN `user` USING (user_id)
+        GROUP BY pizza_recipe_id
+        ORDER BY total DESC
+sql;
+
+		return db::execute($getGoodRecipes);
+	}
+
+
+
+
+	public static function getPastOrders($user_ids, $exemptRecipes) {
 
 		$getPastOrders =<<<sql
 		SELECT pizza_recipe_id, count(pizza_recipe_id) as total
@@ -69,7 +107,7 @@ sql;
 		JOIN pizza_recipe USING (pizza_recipe_id)
 		WHERE user_id IN ({$user_ids})
 sql;
-		// AND pizza_recipe_id NOT IN ({$badRecipes})
+		// AND pizza_recipe_id NOT IN ({$exemptRecipes})
 
 		return db::execute($getPastOrders);
 	}
@@ -85,7 +123,7 @@ sql;
 		(`user_id`, `pizza_recipe_id`, `timestamp`) 
 		VALUES ('{$user_id}', '{$pizza_recipe_id}', CURRENT_TIMESTAMP);
 sql;
-		// AND pizza_recipe_id NOT IN ({$badRecipes})
+		// AND pizza_recipe_id NOT IN ({$exemptRecipes})
 
 		db::execute($addOrders);
 	}
