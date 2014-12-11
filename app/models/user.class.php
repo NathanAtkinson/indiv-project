@@ -13,7 +13,7 @@ class User extends CustomModel {
         return [
             'user_name' => [FILTER_CALLBACK,
                 ['options' => function ($value) {
-                    return (strlen($value) > 3) ? $value : false;
+                    return (strlen($value) > 1) ? $value : false;
             }]],
             'user_id' => [FILTER_VALIDATE_INT],
             'password' => [FILTER_CALLBACK,
@@ -27,18 +27,40 @@ class User extends CustomModel {
     }
 
 	/**
-	 * Insert User
+	 * Insert/Create new User
 	 */
 	protected function insert($input) {
 
 		// Note that Server Side validation is not being done here
 		// and should be implemented by you
+        $cleanedInput = $this->cleanInput(
+            ['user_name', 'email', 'password'],
+            $input/*, ['password']*/
+        );
 
+        /*if (is_string($cleanedInput)) {
+            return null;
+        }*/
+        if (is_string($cleanedInput)) return null;
+        
+
+        $passwordInsert =<<<sql
+        INSERT INTO 
+        user (user_name, email, `password`)
+        VALUES ({$cleanedInput['user_name']}, {$cleanedInput['email']},
+        PASSWORD(CONCAT({$cleanedInput['user_name']}, {$cleanedInput['password']})));
+sql;
+
+        // Insert
+        $results = db::execute($passwordInsert);
+
+        // Return the Insert ID
+        return $results->insert_id;
+        
 		// Prepare SQL Values
-		$sql_values = [
+/*		$sql_values = [
 			'user_id' => $input['user_id'],
-			'first_name' => $input['first_name'],
-			'last_name' => $input['last_name'],
+			'user_name' => $input['user_name'],
 			'email' => $input['email'],
 			'password' => $input['password'],
 			'datetime_added' => 'NOW()'
@@ -52,7 +74,7 @@ class User extends CustomModel {
 		
 		// Return the Insert ID
 		return $results->insert_id;
-
+*/
 	}
 
 	/**
@@ -63,10 +85,19 @@ class User extends CustomModel {
 		// Note that Server Side validation is not being done here
 		// and should be implemented by you
 
+        //TODO
+    /*$cleanedInput = $this->cleanInput(
+            ['user_name', 'email', 'password'],
+            $input,
+        );
+
+        if (is_string($cleanedInput)) {
+            return null;
+        }*/
+
 		// Prepare SQL Values
 		$sql_values = [
-			'first_name' => $input['first_name'],
-			'last_name' => $input['last_name'],
+			'user_name' => $input['user_name'],
 			'email' => $input['email'],
 			'password' => $input['password']
 		];
@@ -101,8 +132,12 @@ sql;
     */
     public function isValid($input) {
 
-        // validate user name
-        $cleanedInput = $this->cleanInput(['user_name', 'password'], $input);
+        // validate user name, password
+        $cleanedInput = $this->cleanInput(
+            ['user_name', 'password'], 
+            $input)
+        ;
+
         if (is_string($cleanedInput)) return null;
 
         $sqlPasswordValidation =<<<sql
@@ -126,6 +161,8 @@ sql;
     //gets the user_name by using the user_id
     public function getUserName() {
 
+        //TODO need to validate?  Getting user ID from object, not input
+
         $getUserName =<<<sql
         SELECT user_name
         FROM user
@@ -143,6 +180,7 @@ sql;
 
 //TODO need to finish this up to pull topping prefs for user
     public function getPreferences(){
+
         $getPreferences =<<<sql
         SELECT * 
         FROM user 
@@ -152,12 +190,5 @@ sql;
 
         return db::execute($getPreferences);
 
-       /* $user_name = null;
-        if ($result = $results->fetch_assoc()) {
-            $user_name = $result['user_name'];
-        }
-        return $user_name;*/
     }
-
-
 }
