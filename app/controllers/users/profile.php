@@ -56,7 +56,7 @@ extract($controller->view->vars);
 ?>
 	<nav>
 		<a id="build-suggestion" href="/build">Build Suggestion</a>
-		<a id="sign-out" href="/">SIGN OUT</a>
+		<a id="sign-out" href="/logout">SIGN OUT</a>
 	</nav>
 
 	<?php echo $profile ?>

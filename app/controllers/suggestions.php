@@ -165,7 +165,7 @@ extract($controller->view->vars);
 
 <nav>
 	<a href="/build">BACK</a>
-	<a id="sign-out" href="/">SIGN OUT</a>
+	<a id="sign-out" href="/logout">SIGN OUT</a>
 </nav>
 <div class="suggestions" data-user-ids="<?php echo $users ?>">
 	<?php echo $suggestions ?>
