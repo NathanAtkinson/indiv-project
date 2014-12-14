@@ -39,8 +39,6 @@ class Recommend extends CustomModel {
             				return false;
             			}
             		}
-                    echo ('in validation');
-                    print_r($value);
                     
             		return $value;
             }]]
@@ -61,8 +59,6 @@ class Recommend extends CustomModel {
             ['user_ids'],
             $input
         );
-        echo "get dislikes";
-        print_r($cleanedInput);
         $cleanedInput = str_replace("'", "", $cleanedInput);
         if (is_string($cleanedInput)) return null;
 
@@ -81,18 +77,12 @@ sql;
 
 	//finds recipes that use disliked toppings using topping ids
 	public  function getExemptRecipes($input) {
-        echo 'input in method getexemptrecipes';
-        print_r($input);
 		$cleanedInput = $this->cleanInput(
             ['topping_ids'],
             $input
         );
-        echo 'after cleaning';
-        print_r($cleanedInput);
         // there are single quotes after cleaning input...causing string of numbers to not work
         $cleanedInput = str_replace("'", "", $cleanedInput);
-        echo 'after str replace';
-        print_r($cleanedInput);
         if (is_string($cleanedInput)) return null;
 
 		$getExemptRecipes =<<<sql
