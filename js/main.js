@@ -8,7 +8,7 @@
 
 	// Do something before validation starts
 	form.on('beforeValidation', function() {
-		$('body').append('<p>Before Validation</p>');
+		// $('body').append('<p>Before Validation</p>');
 	});
 
 	// Do something when errors are detected.
@@ -20,7 +20,7 @@
 
 	// Do something after validation is successful, but before the form submits.
 	form.on('beforeSubmit', function() {
-		$('body').append('<p>Sending Values: ' + JSON.stringify(this.getValues()) + '</p>');
+		// $('body').append('<p>Sending Values: ' + JSON.stringify(this.getValues()) + '</p>');
 
 	});
 
