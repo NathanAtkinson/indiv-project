@@ -12,9 +12,12 @@
       $pizza_recipe_id = $_POST['pizza_recipe_id'];
       $array_user_ids = explode(",", $user_ids);
 
+      $recommend = new Recommend();
       //TODO after downVote method is built and table created to track.
       foreach ($array_user_ids as $index => $user_id) {
-            Recommend::downVote($user_id, $pizza_recipe_id);
+            $input['user_id'] = $user_id;
+            $input['recipe_id'] = $pizza_recipe_id;
+            $recommend->downVote($input);
       }
       
       $this->view['pizza_recipe_id'] = $pizza_recipe_id;

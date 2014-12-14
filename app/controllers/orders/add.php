@@ -13,12 +13,17 @@
       $pizza_recipe_id = $_POST['pizza_recipe_id'];
       $array_user_ids = explode(",", $user_ids);
 
+      $recommend = new Recommend();
       foreach ($array_user_ids as $index => $user_id) {
-            Recommend::addOrder($user_id, $pizza_recipe_id);
+            $input['user_id'] = $user_id;
+            $input['recipe_id'] = $pizza_recipe_id;
+            $recommend->addOrder($input);
       }
 
       foreach ($array_user_ids as $index => $user_id) {
-            Recommend::upVote($user_id, $pizza_recipe_id);
+            $input['user_id'] = $user_id;
+            $input['recipe_id'] = $pizza_recipe_id;
+            $recommend->upVote($input);
       }
       
       $this->view['pizza_recipe_id'] = $pizza_recipe_id;
