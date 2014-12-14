@@ -54,6 +54,9 @@ $controller = new Controller();
 extract($controller->view->vars);
 
 ?>
+
+
+<div class="primary-content">
 	<nav>
 		<a id="build-suggestion" href="/build">Build Suggestion</a>
 		<a id="sign-out" href="/logout">SIGN OUT</a>
@@ -74,4 +77,5 @@ extract($controller->view->vars);
 	<h3><?php echo $user_name ?>'s Dislikes:</h3>
 	<?php echo $toppings ?>
 	
+</div>
 </div>

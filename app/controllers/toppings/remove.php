@@ -19,7 +19,7 @@
       $topping = new Topping($topping_id);
 
 
-      // $input = [$user_id, $topping_id];
+      $input = [$user_id, $topping_id];
       // print_r($_POST);
       $topping->remove($_POST);
       // $this->view['message'] = 'success';
