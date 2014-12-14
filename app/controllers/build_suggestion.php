@@ -70,12 +70,12 @@ extract($controller->view->vars);
 	</nav>
 	<div class="friends">
 		<h3>Other Users:</h3>
+		<?php echo $friends ?>
 		<form action="/suggestions" method="POST">
 			<input type="hidden" name="user-ids" id="user-ids">
 			<input type="hidden" name="topping-ids" id="topping-ids">
 			<button id="suggestions">Get suggestions</button>
 		</form>
-		<?php echo $friends ?>
 	</div>
 
 	<div class="build toppings">
