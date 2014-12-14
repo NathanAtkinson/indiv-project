@@ -6,8 +6,7 @@
 	display: block;
 	padding: 1px 10px;
 	border-radius: 5px;
-	background-color: green;
-	color: white;
+	background-color: rgba(7, 73, 0, 0.85);
 	margin-left: 15px;
 	&::before {
 		display: inline-block;
@@ -16,19 +15,20 @@
 		text-rendering: auto;
 		-webkit-font-smoothing: antialiased;
 		content: "\f164";
-		color: rgba(255, 255, 255, 0.5);
+		// color: rgba(7, 73, 0, 0.85);
 		text-decoration: none;
 	}
  	&.selected {
-		background-color: red;
+		background-color: rgba(73, 7, 0, 0.85);
 		&::before {
 		content: "\f165";
 		}
 	}
 		i.fa {
-		color: rgba(255, 255, 255, 0.5);
+		color: rgba(73, 7, 0, 0.85);
 		}
 	}
+
 }
 
 .hidden {
@@ -38,19 +38,18 @@
 //gives same look to sections that want a dark stained glass
 //also formats the links contained by them consistently
 @mixin stainedglass {
-	border-radius: 5px;
-	margin: 10px auto;
-	background-color: rgba(5, 5, 5, .9);
+	// border-radius: 5px;
+	margin: 0 auto;
+	background-color: rgba(60, 60, 60, .34);
 	position: relative;
 	& > a {
 		padding: 3px 10px;
 		font-size: 1.5em;
 		background-color: #000;
-		// color: white;
 		border-radius: 5px;
 		border: 1px solid #333;
 		&:hover {
-			background-color: #C66320;
+			background-color: #777;
 		}
 	}
 }
@@ -59,10 +58,9 @@
 * {
 	box-sizing: border-box;
 	font-family: 'PT sans', 'Arial', sans-serif;
-	color: #C66320;
+	color: #ddd;
 	a {
 		text-decoration: none;
-		color: white;
 	}
 	h3 {
 		// font-size: 1.25em;
@@ -73,13 +71,13 @@
 
 
 header {
-	margin-bottom:10px;
+	// margin-bottom:10px;
 	position: relative;
 	h1 {
 		// padding: 5px;
 		margin: 10px;
 		display: inline-block;
-		width: 25%;
+		width: 30%;
 	}
 	h3 {
 		display: inline-block;
@@ -88,7 +86,9 @@ header {
 	}
 	> div {
 		@include stainedglass;
+		background-color: rgba(0, 0, 0, .5);
 		margin: 0 auto;
+		padding: 10px;
 		width: 60%;
 		position: relative;
 	}
@@ -108,16 +108,19 @@ body {
 	background: 
 		radial-gradient(
 			circle, 
-	      rgba(0, 0, 0, .4),
-	      rgba(0, 0, 0, .5) 
-	    ), url("/app/images/bg04.jpg");
+	      rgba(0, 0, 0, .1),
+	      rgba(0, 0, 0, .3) 
+	    ), url("/app/images/bg06.jpg");
    		background-size: 100% 100%;
 		background-size: cover;
 		background-repeat: no-repeat;
+
 	nav {
 		@include stainedglass;
-		margin: 10px auto;
-		width: 60%;
+		background-color: rgba(16, 16, 16, 1);
+		margin: 0 auto;
+		// width: 60%;
+		padding: 10px 0;
 		position: relative;
 		// display: block;
 		font-weight: 500;
@@ -138,11 +141,24 @@ body {
 
 }
 
+.primary-content {
+	@include stainedglass;
+	min-height: 300px;
+	width: 60%;
+	margin: 0 auto;
+
+}
+
 footer {
 	@include stainedglass;
-	margin: 0 auto;
+	background-color: rgba (0, 0, 0, .5);
+	margin: 0;
 	width: 60%;
 	text-align: center;
+	position:fixed;
+	bottom: 0;
+	left: 20%;
+	// font-weight: 500;
 	/* div {
 		color: #FFF;
 	} */
@@ -152,7 +168,7 @@ main.login-main {
 	margin: auto;
 	width: 60%;
 	text-align: center;
-	min-height: 350px;
+	height: 350px;
 
 	.reptile-form {
 		@include stainedglass;
@@ -166,14 +182,21 @@ main.login-main {
 		}
 		div.field-input {
 			margin: 0 auto;
+			color: #222;
+		}
+		button {
+			display: inline-block;
+			margin: 10px;
+			color: #222;
+			border-radius: 3px;
 		}
 	}
 }
 
 div.this-user {
-	@include stainedglass;
-	margin: 10px auto;
-	width: 60%;
+	// @include stainedglass;
+	margin: 0 auto;
+	// width: 60%;
 	overflow: hidden;
 	div.image {
 		float: left;
@@ -202,8 +225,8 @@ div.this-user {
 
 
 div.toppings {
-	@include stainedglass;
-	width: 60%;
+	// @include stainedglass;
+	// width: 60%;
 	min-height: 150px;
 	overflow: hidden;
 	// padding-bottom: 10px;
@@ -222,13 +245,14 @@ div.toppings {
 		position: absolute;
 		right: 0;
 		top: 0;
+		border-radius: 5px;
 	}
 	
 }
 
 div.friends {
-	@include stainedglass;
-	width: 60%;
+	// @include stainedglass;
+	// width: 60%;
 	min-height: 150px;
 	overflow: hidden;
 	display: relative;
@@ -249,16 +273,18 @@ div.friends {
 		@include stainedglass;
 		position: absolute;
 		right: 0;
-		top: 0;
+		top: 58px;
 		margin: 0;
 		font-size: 1.5em;
-		border: 1px solid #555;
+		border: 1px solid #333;
 		font-weight: 500;
 		width: 33%;
-		color: white;
 		text-align: right;
+		border-radius: 5px;
+		background-color: #000;
 		&:hover {
-			background-color: #C66320;
+			background-color: #888;
+			// color: #ddd;
 		}
 	}
 	img {
@@ -301,8 +327,8 @@ div.friends {
 
 
 div.suggestions {
-	@include stainedglass;
-	width: 60%;
+	// @include stainedglass;
+	// width: 60%;
 	min-height: 150px;
 	overflow: hidden;
 	> * + * {
@@ -310,32 +336,40 @@ div.suggestions {
 	}
 	
 	.suggestion {
-		width: 80%;
+		&.other-option{
+			display: none;
+		}
+		// width: 80%;
 		min-height: 55px;
-		background-color: #383224;
-		margin: 14px auto;
+		background-color: rgba(7, 73, 0, .85);
+		margin: 14px;
 		border-radius: 5px;
 		position: relative;
 		div {
 			// min-height: 45px;
 			h3 {
 				margin-left: 5px;
+				font-weight: 500;
 			}
 			p {
 				margin-left: 135px;
 				background-color:green;
 			}
 		}
-		a {
-			background-color: #000;
+		.feedback {
+			> a {
+				padding: 0 3px;
+				&:hover {
+				background-color: #888;
+				}
+			}
+			background-color: rgba(0, 0, 0, .30);
 			padding: 2px 5px;
 			border-radius: 5px;
 			position: absolute;
 			bottom: 0;
 			right: 0;
-			&:hover {
-				background-color: #C66320;
-			}
+			
 		}
 	}
 }

@@ -4,30 +4,29 @@
 * {
   box-sizing: border-box;
   font-family: 'PT sans', 'Arial', sans-serif;
-  color: #C66320; }
+  color: #ddd; }
   * a {
-    text-decoration: none;
-    color: white; }
+    text-decoration: none; }
   * h3 {
     padding: 5px;
     margin: 5px; }
 
 header {
-  margin-bottom: 10px;
   position: relative; }
   header h1 {
     margin: 10px;
     display: inline-block;
-    width: 25%; }
+    width: 30%; }
   header h3 {
     display: inline-block;
     width: 50%; }
   header > div {
-    border-radius: 5px;
-    margin: 10px auto;
-    background-color: rgba(5, 5, 5, 0.9);
-    position: relative;
     margin: 0 auto;
+    background-color: rgba(60, 60, 60, 0.34);
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.5);
+    margin: 0 auto;
+    padding: 10px;
     width: 60%;
     position: relative; }
     header > div > a {
@@ -37,7 +36,7 @@ header {
       border-radius: 5px;
       border: 1px solid #333; }
       header > div > a:hover {
-        background-color: #C66320; }
+        background-color: #777; }
   header span.font-awesome {
     float: right;
     margin: 10px; }
@@ -48,18 +47,18 @@ html {
   height: 100%; }
 
 body {
-  background: -webkit-radial-gradient(circle, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url("/app/images/bg04.jpg");
-  background: radial-gradient(circle, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url("/app/images/bg04.jpg");
+  background: -webkit-radial-gradient(circle, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3)), url("/app/images/bg06.jpg");
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3)), url("/app/images/bg06.jpg");
   background-size: 100% 100%;
   background-size: cover;
   background-repeat: no-repeat; }
   body nav {
-    border-radius: 5px;
-    margin: 10px auto;
-    background-color: rgba(5, 5, 5, 0.9);
+    margin: 0 auto;
+    background-color: rgba(60, 60, 60, 0.34);
     position: relative;
-    margin: 10px auto;
-    width: 60%;
+    background-color: #101010;
+    margin: 0 auto;
+    padding: 10px 0;
     position: relative;
     font-weight: 500; }
     body nav > a {
@@ -69,7 +68,7 @@ body {
       border-radius: 5px;
       border: 1px solid #333; }
       body nav > a:hover {
-        background-color: #C66320; }
+        background-color: #777; }
     body nav a {
       width: 33%;
       display: inline-block; }
@@ -80,14 +79,33 @@ body {
       right: 0;
       text-align: right; }
 
-footer {
-  border-radius: 5px;
-  margin: 10px auto;
-  background-color: rgba(5, 5, 5, 0.9);
-  position: relative;
+.primary-content {
   margin: 0 auto;
+  background-color: rgba(60, 60, 60, 0.34);
+  position: relative;
+  min-height: 300px;
+  width: 60%;
+  margin: 0 auto; }
+  .primary-content > a {
+    padding: 3px 10px;
+    font-size: 1.5em;
+    background-color: #000;
+    border-radius: 5px;
+    border: 1px solid #333; }
+    .primary-content > a:hover {
+      background-color: #777; }
+
+footer {
+  margin: 0 auto;
+  background-color: rgba(60, 60, 60, 0.34);
+  position: relative;
+  background-color: rgba 0, 0, 0, 0.5;
+  margin: 0;
   width: 60%;
   text-align: center;
+  position: fixed;
+  bottom: 0;
+  left: 20%;
   /* div {
 		color: #FFF;
 	} */ }
@@ -98,17 +116,16 @@ footer {
     border-radius: 5px;
     border: 1px solid #333; }
     footer > a:hover {
-      background-color: #C66320; }
+      background-color: #777; }
 
 main.login-main {
   margin: auto;
   width: 60%;
   text-align: center;
-  min-height: 350px; }
+  height: 350px; }
   main.login-main .reptile-form {
-    border-radius: 5px;
-    margin: 10px auto;
-    background-color: rgba(5, 5, 5, 0.9);
+    margin: 0 auto;
+    background-color: rgba(60, 60, 60, 0.34);
     position: relative;
     margin: auto;
     padding: 25px;
@@ -121,29 +138,22 @@ main.login-main {
       border-radius: 5px;
       border: 1px solid #333; }
       main.login-main .reptile-form > a:hover {
-        background-color: #C66320; }
+        background-color: #777; }
     main.login-main .reptile-form label {
       margin: 0 auto;
       float: none; }
     main.login-main .reptile-form div.field-input {
-      margin: 0 auto; }
+      margin: 0 auto;
+      color: #222; }
+    main.login-main .reptile-form button {
+      display: inline-block;
+      margin: 10px;
+      color: #222;
+      border-radius: 3px; }
 
 div.this-user {
-  border-radius: 5px;
-  margin: 10px auto;
-  background-color: rgba(5, 5, 5, 0.9);
-  position: relative;
-  margin: 10px auto;
-  width: 60%;
+  margin: 0 auto;
   overflow: hidden; }
-  div.this-user > a {
-    padding: 3px 10px;
-    font-size: 1.5em;
-    background-color: #000;
-    border-radius: 5px;
-    border: 1px solid #333; }
-    div.this-user > a:hover {
-      background-color: #C66320; }
   div.this-user div.image {
     float: left;
     margin: 15px; }
@@ -157,21 +167,8 @@ div.this-user {
     font-size: 1.5em; }
 
 div.toppings {
-  border-radius: 5px;
-  margin: 10px auto;
-  background-color: rgba(5, 5, 5, 0.9);
-  position: relative;
-  width: 60%;
   min-height: 150px;
   overflow: hidden; }
-  div.toppings > a {
-    padding: 3px 10px;
-    font-size: 1.5em;
-    background-color: #000;
-    border-radius: 5px;
-    border: 1px solid #333; }
-    div.toppings > a:hover {
-      background-color: #C66320; }
   div.toppings * + * {
     margin-bottom: 7px; }
   div.toppings h3 {
@@ -185,8 +182,7 @@ div.toppings {
       display: block;
       padding: 1px 10px;
       border-radius: 5px;
-      background-color: green;
-      color: white;
+      background-color: rgba(7, 73, 0, 0.85);
       margin-left: 15px; }
       div.toppings .topping a::before {
         display: inline-block;
@@ -195,36 +191,23 @@ div.toppings {
         text-rendering: auto;
         -webkit-font-smoothing: antialiased;
         content: "\f164";
-        color: rgba(255, 255, 255, 0.5);
         text-decoration: none; }
       div.toppings .topping a.selected {
-        background-color: red; }
+        background-color: rgba(73, 7, 0, 0.85); }
         div.toppings .topping a.selected::before {
           content: "\f165"; }
       div.toppings .topping a i.fa {
-        color: rgba(255, 255, 255, 0.5); }
+        color: rgba(73, 7, 0, 0.85); }
   div.toppings a#suggestions {
     position: absolute;
     right: 0;
-    top: 0; }
+    top: 0;
+    border-radius: 5px; }
 
 div.friends {
-  border-radius: 5px;
-  margin: 10px auto;
-  background-color: rgba(5, 5, 5, 0.9);
-  position: relative;
-  width: 60%;
   min-height: 150px;
   overflow: hidden;
   display: relative; }
-  div.friends > a {
-    padding: 3px 10px;
-    font-size: 1.5em;
-    background-color: #000;
-    border-radius: 5px;
-    border: 1px solid #333; }
-    div.friends > a:hover {
-      background-color: #C66320; }
   div.friends * + * {
     margin-bottom: 8px; }
   div.friends h3 {
@@ -236,20 +219,20 @@ div.friends {
       display: inline-block;
       min-width: 200px; }
   div.friends button {
-    border-radius: 5px;
-    margin: 10px auto;
-    background-color: rgba(5, 5, 5, 0.9);
+    margin: 0 auto;
+    background-color: rgba(60, 60, 60, 0.34);
     position: relative;
     position: absolute;
     right: 0;
-    top: 0;
+    top: 58px;
     margin: 0;
     font-size: 1.5em;
-    border: 1px solid #555;
+    border: 1px solid #333;
     font-weight: 500;
     width: 33%;
-    color: white;
-    text-align: right; }
+    text-align: right;
+    border-radius: 5px;
+    background-color: #000; }
     div.friends button > a {
       padding: 3px 10px;
       font-size: 1.5em;
@@ -257,9 +240,9 @@ div.friends {
       border-radius: 5px;
       border: 1px solid #333; }
       div.friends button > a:hover {
-        background-color: #C66320; }
+        background-color: #777; }
     div.friends button:hover {
-      background-color: #C66320; }
+      background-color: #888; }
   div.friends img {
     height: 50px;
     width: 50px;
@@ -274,8 +257,7 @@ div.friends {
       display: block;
       padding: 1px 10px;
       border-radius: 5px;
-      background-color: green;
-      color: white;
+      background-color: rgba(7, 73, 0, 0.85);
       margin-left: 15px; }
       div.friends .friend a::before {
         display: inline-block;
@@ -284,14 +266,13 @@ div.friends {
         text-rendering: auto;
         -webkit-font-smoothing: antialiased;
         content: "\f164";
-        color: rgba(255, 255, 255, 0.5);
         text-decoration: none; }
       div.friends .friend a.selected {
-        background-color: red; }
+        background-color: rgba(73, 7, 0, 0.85); }
         div.friends .friend a.selected::before {
           content: "\f165"; }
       div.friends .friend a i.fa {
-        color: rgba(255, 255, 255, 0.5); }
+        color: rgba(73, 7, 0, 0.85); }
     div.friends .friend img {
       height: 25px;
       width: 25px; }
@@ -308,41 +289,32 @@ div.friends {
         color: rgba(255, 255, 255, 0.5); }
 
 div.suggestions {
-  border-radius: 5px;
-  margin: 10px auto;
-  background-color: rgba(5, 5, 5, 0.9);
-  position: relative;
-  width: 60%;
   min-height: 150px;
   overflow: hidden; }
-  div.suggestions > a {
-    padding: 3px 10px;
-    font-size: 1.5em;
-    background-color: #000;
-    border-radius: 5px;
-    border: 1px solid #333; }
-    div.suggestions > a:hover {
-      background-color: #C66320; }
   div.suggestions > * + * {
     margin-bottom: 15px; }
   div.suggestions .suggestion {
-    width: 80%;
     min-height: 55px;
-    background-color: #383224;
-    margin: 14px auto;
+    background-color: rgba(7, 73, 0, 0.85);
+    margin: 14px;
     border-radius: 5px;
     position: relative; }
+    div.suggestions .suggestion.other-option {
+      display: none; }
     div.suggestions .suggestion div h3 {
-      margin-left: 5px; }
+      margin-left: 5px;
+      font-weight: 500; }
     div.suggestions .suggestion div p {
       margin-left: 135px;
       background-color: green; }
-    div.suggestions .suggestion a {
-      background-color: #000;
+    div.suggestions .suggestion .feedback {
+      background-color: rgba(0, 0, 0, 0.3);
       padding: 2px 5px;
       border-radius: 5px;
       position: absolute;
       bottom: 0;
       right: 0; }
-      div.suggestions .suggestion a:hover {
-        background-color: #C66320; }
+      div.suggestions .suggestion .feedback > a {
+        padding: 0 3px; }
+        div.suggestions .suggestion .feedback > a:hover {
+          background-color: #888; }
