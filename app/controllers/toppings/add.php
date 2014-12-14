@@ -17,7 +17,8 @@
       $topping = new Topping($topping_id);
 
 
-      $input = [$this->user_id, $topping_id];
+      $input['user_id'] = $user->user_id;
+      $input['topping_id'] = $topping_id;
       $topping->insert($input);
       
       $this->view['topping_id'] = $topping_id;

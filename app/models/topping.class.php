@@ -26,7 +26,7 @@ class Topping extends CustomModel {
             ['user_id', 'topping_id'],
             $input
         );
-
+        
         if (is_string($cleanedInput)) return null;
 
 		db::insert('user_topping_dislike', $cleanedInput);
