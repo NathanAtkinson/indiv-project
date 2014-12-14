@@ -2,116 +2,152 @@
 
 /**
  * User
- * TODO change from past project to incorporate needed functionality
  */
 class Recommend extends CustomModel {
 
-	protected function insert(){
+	//TODO implement validation using same structure as other validators
+	protected function validators() {
+        return [
+        	'user_id' => [FILTER_VALIDATE_INT],
+        	'recipe_id' => [FILTER_VALIDATE_INT],
+            'user_ids' => [FILTER_CALLBACK,
+            	['options' => function ($value) {
+            		$valueArray = array_map('intval', explode(',', $value));
+            		foreach ($valueArray as $check) {
+            			if (!is_int($check)){
+            				return false;
+            			}
+            		}
 
-	}
+            		return $value;
+            }]],
+            'recipe_ids' => [FILTER_CALLBACK,
+            	['options' => function ($value) {
+                    $valueArray = array_map('intval', explode(',', $value));
+                    foreach ($valueArray as $check) {
+            			if (!is_int($check)){
+            				return false;
+            			}
+            		}
+            		return $value;
+            }]],
+            'topping_ids' => [FILTER_CALLBACK,
+            	['options' => function ($value) {
+            		$valueArray = array_map('intval', explode(',', $value));
+            		foreach ($valueArray as $key => $check) {
+            			if (!is_int($check)){
+            				return false;
+            			}
+            		}
+                    echo ('in validation');
+                    print_r($value);
+                    
+            		return $value;
+            }]]
+        ];
+    }
+
+	/*protected function insert(){
+
+	}*/
 
 	//gets dislikes from a string of users
-	public function getDislikes($users) {
+	public function getDislikes($input) {
 
-		//TODO
-		/*$cleanedInput = $this->cleanInput(
-            ['users'],
+
+        //input has to be an array...  with the key needed..otherwise "not all keys assigned"
+        //error will be thrown.
+		$cleanedInput = $this->cleanInput(
+            ['user_ids'],
             $input
         );
-
-        if (is_string($cleanedInput)) {
-            return null;
-        }*/
+        echo "get dislikes";
+        print_r($cleanedInput);
+        $cleanedInput = str_replace("'", "", $cleanedInput);
+        if (is_string($cleanedInput)) return null;
 
 		$getDislikes =<<<sql
         SELECT *
         FROM topping
         WHERE topping_id IN 
-        (SELECT 
-        	topping_id
+        (SELECT topping_id
 		FROM user
 		JOIN user_topping_dislike USING (user_id)
-		WHERE user_id IN ({$users}));
+		WHERE user_id IN ({$cleanedInput['user_ids']}));
 sql;
 		return db::execute($getDislikes);
-		
 	}
 
-	public  function getExemptRecipes($toppings) {
-		// gets topping dislikes
 
-		//TODO
-		/*$cleanedInput = $this->cleanInput(
-            ['user_name', 'email', 'password'],
-            $input,
+	//finds recipes that use disliked toppings using topping ids
+	public  function getExemptRecipes($input) {
+        echo 'input in method getexemptrecipes';
+        print_r($input);
+		$cleanedInput = $this->cleanInput(
+            ['topping_ids'],
+            $input
         );
-
-        if (is_string($cleanedInput)) {
-            return null;
-        }*/
+        echo 'after cleaning';
+        print_r($cleanedInput);
+        // there are single quotes after cleaning input...causing string of numbers to not work
+        $cleanedInput = str_replace("'", "", $cleanedInput);
+        echo 'after str replace';
+        print_r($cleanedInput);
+        if (is_string($cleanedInput)) return null;
 
 		$getExemptRecipes =<<<sql
         SELECT * 
         FROM pizza_recipe_topping 
         JOIN pizza_recipe USING (pizza_recipe_id) 
         JOIN topping USING (topping_id) 
-        WHERE topping_id IN ({$toppings})
+        WHERE topping_id IN ({$cleanedInput['topping_ids']})
         GROUP BY pizza_recipe_id
 sql;
 		return db::execute($getExemptRecipes);
-		
 	}
 
 
+	//gets suggestions ranked globally by all users, exempting recipes passed
+	public function globalSuggestions($input) {
 
-
-
-	public  function globalSuggestions($recipe_ids) {
-
-		//TODO how should I extract or build the array of users for below query?
-		//TODO
-	/*$cleanedInput = $this->cleanInput(
-            ['user_name', 'email', 'password'],
-            $input,
+		$cleanedInput = $this->cleanInput(
+            ['recipe_ids'],
+            $input
         );
-
-        if (is_string($cleanedInput)) {
-            return null;
-        }*/
+        $cleanedInput = str_replace("'", "", $cleanedInput);
+        if (is_string($cleanedInput)) return null;
 
 		$globalSuggestions =<<<sql
 		SELECT user_id, pizza_recipe_id, name, sum(vote_total) as total
         FROM pizza_recipe
         LEFT JOIN user_pizza_vote USING (pizza_recipe_id)
         LEFT JOIN `user` USING (user_id)
-        WHERE pizza_recipe_id NOT IN ({$recipe_ids})
+        WHERE pizza_recipe_id NOT IN ({$cleanedInput['recipe_ids']})
         GROUP BY pizza_recipe_id
         ORDER BY total DESC
 sql;
 
-
 		return db::execute($globalSuggestions);
 	}
 
-	public  function userSuggestions($user_ids, $recipe_ids) {
 
-		//TODO
-	/*$cleanedInput = $this->cleanInput(
-            ['user_name', 'email', 'password'],
-            $input,
+	//gets suggestions for user based on the users involved and exempting recipe's
+	public function userSuggestions($input) {
+
+		$cleanedInput = $this->cleanInput(
+            ['recipe_ids', 'user_ids'],
+            $input
         );
-
-        if (is_string($cleanedInput)) {
-            return null;
-        }*/
+        $cleanedInput = str_replace("'", "", $cleanedInput);
+        if (is_string($cleanedInput)) return null;
 
 		$userSuggestions =<<<sql
 		SELECT user_id, pizza_recipe_id, name, sum(vote_total) as total
         FROM pizza_recipe
         LEFT JOIN user_pizza_vote USING (pizza_recipe_id)
         LEFT JOIN `user` USING (user_id)
-		where user_id IN ({$user_ids})
-		and pizza_recipe_id NOT IN ({$recipe_ids})
+		where user_id IN ({$cleanedInput['user_ids']})
+		and pizza_recipe_id NOT IN ({$cleanedInput['recipe_ids']})
         GROUP BY pizza_recipe_id
         ORDER BY total DESC
 sql;
@@ -120,8 +156,8 @@ sql;
 
 	
 		
-
-	public  function indifferentSuggestion() {
+	//gets highest ranked suggestions (global) without exempting any recipes
+	public function indifferentSuggestion() {
 
 		$indifferentSuggestions =<<<sql
 		SELECT user_id, pizza_recipe_id, name, sum(vote_total) as total
@@ -137,73 +173,67 @@ sql;
 
 
 
+	//gets past orders for a user based on user-ids
+	public function getPastOrders($input) {
 
-	public  function getPastOrders($user_ids, $exemptRecipes) {
-
-		//TODO
-	/*$cleanedInput = $this->cleanInput(
-            ['user_name', 'email', 'password'],
-            $input,
+		$cleanedInput = $this->cleanInput(
+            ['user_ids'],
+            $input
         );
 
-        if (is_string($cleanedInput)) {
-            return null;
-        }*/
+        $cleanedInput = str_replace("'", "", $cleanedInput);
+        if (is_string($cleanedInput)) return null;
 
 		$getPastOrders =<<<sql
 		SELECT pizza_recipe_id, sum(pizza_recipe_id) as total
 		FROM past_order
 		JOIN user USING (user_id)
 		JOIN pizza_recipe USING (pizza_recipe_id)
-		WHERE user_id IN ({$user_ids})
+		WHERE user_id IN ({$cleanedInput['user_ids']})
 sql;
-		// AND pizza_recipe_id NOT IN ({$exemptRecipes})
 
 		return db::execute($getPastOrders);
 	}
 
 
 
-	// add to DB good recommendations
-	public function addOrder($user_id, $pizza_recipe_id) {
+	// add to DB an order
+	public function addOrder($input) {
 
-		// $cleanedInput = $this->cleanInput(
-  //           ['user_id', 'pizza_recipe_id'],
-  //           $input
-  //       );
+		$cleanedInput = $this->cleanInput(
+            ['recipe_id', 'user_id'],
+            $input
+        );
 
-  //       if (is_string($cleanedInput)) {
-  //           return null;
-  //       }
+        $cleanedInput = str_replace("'", "", $cleanedInput);
+        if (is_string($cleanedInput)) return null;
 
 		$addOrders =<<<sql
 		INSERT INTO 
 		past_order
 		(`user_id`, `pizza_recipe_id`, `timestamp`) 
-		VALUES ('{$user_id}', '{$pizza_recipe_id}', CURRENT_TIMESTAMP);
+		VALUES ({$cleanedInput['user_id']}, {$cleanedInput['recipe_id']}, CURRENT_TIMESTAMP);
 sql;
-		// AND pizza_recipe_id NOT IN ({$exemptRecipes})
 
 		db::execute($addOrders);
 	}
 
 
 	//when user selects "good" suggestion, upvotes to keep track
-	public static function upVote($user_id, $pizza_recipe_id) {
+	public function upVote($input) {
 
-		// $cleanedInput = $this->cleanInput(
-  //           ['user_id', 'pizza_recipe_id'],
-  //           $input
-  //       );
+		$cleanedInput = $this->cleanInput(
+            ['recipe_id', 'user_id'],
+            $input
+        );
 
-  //       if (is_string($cleanedInput)) {
-  //           return null;
-  //       }
+        $cleanedInput = str_replace("'", "", $cleanedInput);
+        if (is_string($cleanedInput)) return null;
 
 		$upVote =<<<sql
 		INSERT INTO user_pizza_vote
 		(`user_id`, `pizza_recipe_id`, `vote_total`) 
-		VALUES ('{$user_id}', '{$pizza_recipe_id}', 1)
+		VALUES ({$cleanedInput['user_id']}, {$cleanedInput['recipe_id']}, 1)
 		ON DUPLICATE KEY UPDATE
 		vote_total=vote_total + 1
 sql;
@@ -213,22 +243,21 @@ sql;
 
 
 
+	//if not a good suggestion, down votes for user
+	public function downVote($input) {
 
-	public static function downVote($user_id, $pizza_recipe_id) {
+		$cleanedInput = $this->cleanInput(
+            ['recipe_id', 'user_id'],
+            $input
+        );
 
-		// $cleanedInput = $this->cleanInput(
-  //           ['user_id', 'pizza_recipe_id'],
-  //           $input
-  //       );
-
-  //       if (is_string($cleanedInput)) {
-  //           return null;
-  //       }
+        $cleanedInput = str_replace("'", "", $cleanedInput);
+        if (is_string($cleanedInput)) return null;
 
 		$downVote =<<<sql
 		INSERT INTO user_pizza_vote
 		(`user_id`, `pizza_recipe_id`, `vote_total`) 
-		VALUES ('{$user_id}', '{$pizza_recipe_id}', -1)
+		VALUES ({$cleanedInput['user_id']}, {$cleanedInput['recipe_id']}, -1)
 		ON DUPLICATE KEY UPDATE
 		vote_total=vote_total -1
 sql;
