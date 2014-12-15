@@ -170,10 +170,20 @@ div.this-user {
       height: 100px;
       width: 100px; }
   div.this-user h3 {
-    margin: 10px;
+    margin: 15px;
     display: inline-block;
-    width: 200px;
+    min-width: 200px;
     font-size: 1.5em; }
+  div.this-user a {
+    float: left;
+    margin-top: 15px;
+    padding: 3px 10px;
+    font-size: 1.5em;
+    background-color: #000;
+    border-radius: 5px;
+    border: 1px solid #333; }
+    div.this-user a:hover {
+      background-color: #777; }
 
 div.toppings {
   min-height: 150px;

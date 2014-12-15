@@ -229,16 +229,23 @@ div.this-user {
 		// margin-left: 300px;
 		// background-color: #333;
 		// text-align: center;
-		margin: 10px;
+		margin: 15px;
 		display: inline-block;
-		width: 200px;
+		min-width: 200px;
 		font-size: 1.5em;
 	}
-	// a {
-	// 	position: absolute;
-	// 	right: 0;
-	// 	bottom: 0;
-	// }
+	a {
+		float: left;
+		margin-top: 15px;
+		padding: 3px 10px;
+		font-size: 1.5em;
+		background-color: #000;
+		border-radius: 5px;
+		border: 1px solid #333;
+		&:hover {
+			background-color: #777;
+		}
+	}
 }
 
 
