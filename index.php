@@ -26,5 +26,9 @@ Router::add('/suggestions', '/app/controllers/suggestions.php');
 Router::add('/orders/add', '/app/controllers/orders/add.php');
 Router::add('/orders/down', '/app/controllers/orders/down.php');
 
+//Locations
+Router::add('/nearby', '/app/controllers/location/nearby.php');
+
+
 // Issue Route
 Router::route();
