@@ -12,7 +12,8 @@
 	<link rel="stylesheet" href="/css/styles.css">
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 	
-	
+	<!-- Bring in map API from google -->
+	<script src="https://maps.googleapis.com/maps/api/js?libraries=geometry,places"> </script>
 
 	<!-- Modernizr -->
 	<script src="/bower_components/modernizr/modernizr.js"></script>
@@ -38,6 +39,7 @@
 	
 	<!-- Main JS -->
 	<script src="/js/main.js"></script>
+	<script src="/js/map.js"></script>
 
 
 </body>
