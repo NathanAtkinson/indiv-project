@@ -171,7 +171,6 @@ body {
 }
 
 footer {
-	// @include stainedglass;
 	background-color: rgba (0, 0, 0, .5);
 	margin: 0;
 	width: 60%;
@@ -179,10 +178,9 @@ footer {
 	position:fixed;
 	bottom: 0;
 	left: 20%;
-	// font-weight: 500;
-	/* div {
-		color: #FFF;
-	} */
+	div {
+		color: #fff;
+	}
 }
 
 main.login-main {
@@ -215,6 +213,12 @@ main.login-main {
 }
 
 div.this-user {
+	background: rgba (0, 0, 0, .9);
+		/* radial-gradient(
+			linear, 
+	      rgba(0, 0, 0, .9),
+	      rgba(0, 0, 0, .9) 
+	    ) */;
 	// @include stainedglass;
 	margin: 0 auto;
 	// width: 60%;
@@ -232,9 +236,9 @@ div.this-user {
 		// margin-left: 300px;
 		// background-color: #333;
 		// text-align: center;
-		margin: 15px;
+		margin-top: 10px;
 		display: inline-block;
-		min-width: 200px;
+		min-width: 300px;
 		font-size: 1.5em;
 	}
 	a {
@@ -301,12 +305,13 @@ div.friends {
 		@include stainedglass;
 		position: absolute;
 		right: 0;
-		top: 63px;
+		top: 58px;
 		margin: 0;
 		font-size: 1.5em;
 		border: 1px solid #333;
 		font-weight: 500;
 		width: 33%;
+		height: 39px;
 		text-align: right;
 		border-radius: 5px;
 		background-color: #000;

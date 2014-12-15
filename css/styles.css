@@ -152,8 +152,21 @@ main.login-main {
       border-radius: 3px; }
 
 div.this-user {
+  background: -webkit-radial-gradient(linear, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
+  background: radial-gradient(linear, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
+  margin: 0 auto;
+  background-color: rgba(60, 60, 60, 0.34);
+  position: relative;
   margin: 0 auto;
   overflow: hidden; }
+  div.this-user > a {
+    padding: 3px 10px;
+    font-size: 1.5em;
+    background-color: #000;
+    border-radius: 5px;
+    border: 1px solid #333; }
+    div.this-user > a:hover {
+      background-color: #777; }
   div.this-user div.image {
     float: left;
     margin: 15px; }
@@ -161,9 +174,9 @@ div.this-user {
       height: 100px;
       width: 100px; }
   div.this-user h3 {
-    margin: 15px;
+    margin-top: 10px;
     display: inline-block;
-    min-width: 200px;
+    min-width: 300px;
     font-size: 1.5em; }
   div.this-user a {
     float: left;
@@ -234,12 +247,13 @@ div.friends {
     position: relative;
     position: absolute;
     right: 0;
-    top: 63px;
+    top: 58px;
     margin: 0;
     font-size: 1.5em;
     border: 1px solid #333;
     font-weight: 500;
     width: 33%;
+    height: 39px;
     text-align: right;
     border-radius: 5px;
     background-color: #000; }
