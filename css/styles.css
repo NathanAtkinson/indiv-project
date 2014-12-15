@@ -1,11 +1,13 @@
 #map-canvas {
-  width: 500px;
+  width: 600px;
   height: 400px;
   margin: 20px auto; }
   #map-canvas div {
     color: black; }
   #map-canvas div > div {
-    width: 100px; }
+    width: 225px; }
+  #map-canvas a {
+    color: blue; }
 
 .hidden {
   display: none; }

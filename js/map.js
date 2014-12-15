@@ -31,10 +31,12 @@ function initialize() {
 
 function performSearch() {
   var request = {
-    bounds: map.getBounds(),
-    keyword: 'pizza'
+  	location: new google.maps.LatLng(33.403480, -111.964403),
+    // bounds: map.getBounds(),
+    radius: '6000',
+    query: 'pizza'
   };
-  service.radarSearch(request, callback);
+  service.textSearch(request, callback);
 }
 
 function callback(results, status) {
@@ -60,10 +62,14 @@ function createMarker(place) {
         alert(status);
         return;
       }
-      infoWindow.setContent(result.name);
+      infoWindow.setContent(result.name + "&nbsp " + result.rating 
+      	+ "/5 stars<br> <a href='" + result.website + "'>" + result.website 
+      	+ "</a><br>" + result.formatted_address 
+      	+ "<br> Phone: " + result.formatted_phone_number);
       infoWindow.open(map, marker);
     });
   });
+
 }
 
 
