@@ -5,7 +5,6 @@
  */
 class Recommend extends CustomModel {
 
-	//TODO implement validation using same structure as other validators
 	protected function validators() {
         return [
         	'user_id' => [FILTER_VALIDATE_INT],
@@ -20,7 +19,7 @@ class Recommend extends CustomModel {
             		}
 
             		return $value;
-            }]],
+            }]]/*,
             'recipe_ids' => [FILTER_CALLBACK,
             	['options' => function ($value) {
                     $valueArray = array_map('intval', explode(',', $value));
@@ -30,7 +29,7 @@ class Recommend extends CustomModel {
             			}
             		}
             		return $value;
-            }]],
+            }]]*/,
             'topping_ids' => [FILTER_CALLBACK,
             	['options' => function ($value) {
             		$valueArray = array_map('intval', explode(',', $value));
@@ -98,17 +97,9 @@ sql;
 	}
 
 
-	//gets suggestions ranked globally by all users, exempting recipes passed
+	//gets suggestions ranked globally by all users
 	public function globalSuggestions() {
 
-		/*$cleanedInput = $this->cleanInput(
-            ['recipe_ids'],
-            $input, ['recipe_ids']
-        );*/
-        // $cleanedInput = str_replace("'", "", $cleanedInput);
-        // if (is_string($cleanedInput)) return null;
-
-        // WHERE pizza_recipe_id NOT IN ({$cleanedInput['recipe_ids']})
         $globalSuggestions =<<<sql
         SELECT user_id, pizza_recipe_id, name, sum(vote_total) as total
         FROM pizza_recipe
@@ -122,17 +113,16 @@ sql;
 	}
 
 
-	//gets suggestions for user based on the users involved and exempting recipe's
+	//gets suggestions for user based on the users involved
 	public function userSuggestions($input) {
 
 		$cleanedInput = $this->cleanInput(
-            [/*'recipe_ids',*/ 'user_ids'],
-            $input, [/*'recipe_ids',*/ 'user_ids']
+            ['user_ids'],
+            $input, ['user_ids']
         );
-        // $cleanedInput = str_replace("'", "", $cleanedInput);
+
         if (is_string($cleanedInput)) return null;
 
-		// AND pizza_recipe_id NOT IN ({$cleanedInput['recipe_ids']})
         $userSuggestions =<<<sql
         SELECT user_id, pizza_recipe_id, name, sum(vote_total) as total
         FROM pizza_recipe
@@ -148,7 +138,7 @@ sql;
 	
 		
 	//gets highest ranked suggestions (global) without exempting any recipes
-	public function noExemptedRecipes($input) {
+	/*public function noExemptedRecipes($input) {
 
         $cleanedInput = $this->cleanInput(
                     ['user_ids'],
@@ -175,7 +165,7 @@ sql;
 sql;
 
 		return db::execute($noExemptedRecipess);
-	}
+	}*/
 
 
 
@@ -187,7 +177,6 @@ sql;
             $input, ['user_ids']
         );
 
-        // $cleanedInput = str_replace("'", "", $cleanedInput);
         if (is_string($cleanedInput)) return null;
 
 		$getPastOrders =<<<sql
@@ -211,7 +200,6 @@ sql;
             $input
         );
 
-        // $cleanedInput = str_replace("'", "", $cleanedInput);
         if (is_string($cleanedInput)) return null;
 
 		$addOrders =<<<sql
@@ -233,7 +221,6 @@ sql;
             $input
         );
 
-        // $cleanedInput = str_replace("'", "", $cleanedInput);
         if (is_string($cleanedInput)) return null;
 
 		$upVote =<<<sql
@@ -257,7 +244,6 @@ sql;
             $input
         );
 
-        // $cleanedInput = str_replace("'", "", $cleanedInput);
         if (is_string($cleanedInput)) return null;
 
 		$downVote =<<<sql
@@ -270,26 +256,4 @@ sql;
 
 		db::execute($downVote);
 	}
-	
-
-
-
-
-	//past query, to save for now
-	/*$getRecs =<<<sql
-        SELECT
-            *
-        FROM topping
-        WHERE topping_id NOT IN 
-        (SELECT 
-        	topping_id
-		FROM user
-		JOIN user_topping_dislike USING (user_id)
-		WHERE user_id IN ({$users}))
-		LIMIT 5;
-sql;
-
-        return db::execute($getRecs);
-	}*/
-
 }

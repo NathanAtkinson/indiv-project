@@ -52,38 +52,40 @@ class Controller extends AppController {
 			$disliked_toppings = substr($disliked_toppings, 0, -1);
 		}
 
-
-
-
-			
-		//if the list is empty, doesn't fetch exempted recipes
+		//if the dislikes list is empty, doesn't fetch exempted recipes
 		if(!empty($disliked_toppings)) {
 			$input['topping_ids'] = $disliked_toppings;
 			$exemptRecipes = $recommend->getExemptRecipes($input);
 
-			//builds array of exempt recipes
+			//otherwisebuilds array of exempt recipes
 			while ($row = $exemptRecipes->fetch_assoc()) {
 				$exemptRecipesList[] = $row['pizza_recipe_id'];
 			}
 		}
 
 
+		//prepares input with user_id/user_ids (set above)
 		$input['user_ids'] = $users;
 		$userSuggestions = $recommend->userSuggestions($input);
 
+		//builds suggestions based on users votes
 		while($suggestion = $userSuggestions->fetch_assoc()) {
+			//if exempted, skip the recipe
 			if(in_array($suggestion['pizza_recipe_id'], $exemptRecipesList)){
 				continue;
 			}
 
-			//if cumulative votes are less than 1, then will recommend later by putting into array
+			//if cumulative votes are less than 1, then will recommend later by putting 
+			//into array for later retrieval
 			if($suggestion['total'] < 1){
 				$pizza_recipe_id = xss::protection($suggestion['pizza_recipe_id']);
 				$deferredSuggestions[$pizza_recipe_id] = xss::protection($suggestion['name']);
+			
 			//if positive vote, creates fragment.
 			} else {
 				$suggestion_populator->pizza_recipe_id = xss::protection($suggestion['pizza_recipe_id']);
 				$suggestion_populator->name = xss::protection($suggestion['name']);
+				
 				//currently only show maxSuggestions.  If already that many, hide suggestion
 				if($suggestion_count >= $maxSuggestions) {
 					$suggestion_populator->hidden = "other-option";
@@ -91,22 +93,25 @@ class Controller extends AppController {
 					$suggestion_populator->hidden = "";
 				}
 				
-				//builds the fragment and adds it to view for later
+				//builds the fragment and adds it to view for later rendering
 				$this->view->suggestions .= $suggestion_populator->render();
 				$suggestion_count++;
 				$exemptRecipesList[] = $suggestion['pizza_recipe_id'];
-			// print_r($exemptRecipesList);
 			}
 		}
 
+
+		//runs query to get vote totals globally
 		$globalRecipesfromDB = $recommend->globalSuggestions();
 
+		//while there are results, loop through them.
 		while($suggestion = $globalRecipesfromDB->fetch_assoc()) {
 
-			// print_r($suggestion['pizza_recipe_id']);
+			//doesn't create fragment for exempted recipe or one already created in user suggestion
 			if(in_array($suggestion['pizza_recipe_id'], $exemptRecipesList)){
 				continue;
 			}
+
 			//makes sure only show max suggestions, otherwise hide for later (if needed)
 			if($suggestion_count >= $maxSuggestions) {
 				$suggestion_populator->hidden = "other-option";
@@ -119,10 +124,17 @@ class Controller extends AppController {
 			$suggestion_populator->name = xss::protection($suggestion['name']);
 			$this->view->suggestions .= $suggestion_populator->render();
 			$suggestion_count++;
+
+			//ensures doesn't create fragment for that recipe again
 			$exemptRecipesList[] = $suggestion['pizza_recipe_id'];
 		}
 
+
+		//anything that was deferred is now created here.  This allows for presenting negative
+		//voted recipes that don't have exempted ingredients
 		foreach($deferredSuggestions as $pizza_recipe_id => $name) {
+
+			//recipe may have been created in global recs, don't wnat to present again.
 			if(in_array($deferredSuggestions[$pizza_recipe_id], $exemptRecipesList)){
 				continue;
 			}
@@ -135,16 +147,13 @@ class Controller extends AppController {
 			$suggestion_populator->name = $name;
 			$this->view->suggestions .= $suggestion_populator->render();
 			$suggestion_count++;
-			// $chosen_recipes[] = $suggestion['pizza_recipe_id'];
 		}
 	}
 }
 
 $controller = new Controller();
 
-// Extract Main Controler Vars
 extract($controller->view->vars);
-
 ?>
 
 
