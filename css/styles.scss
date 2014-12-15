@@ -31,6 +31,24 @@
 
 }
 
+#map-canvas {
+        width: 500px;
+        height: 400px;
+        // background-color: #ccc;
+        margin: 20px auto;
+        div {
+        	color: black;
+        }
+        div > div {
+        	width: 100px;
+        }
+}
+
+nav {
+	// width: 60%;
+	// margin: 0 auto;
+}
+
 .hidden {
 	display:none;
 }
