@@ -23,14 +23,8 @@ function initialize() {
     ]*/
   });
 
-
-  var request = {
-  placeId: 'ChIJN1t_tDeuEmsRUsoyG83frY4'
-	};
-
   infoWindow = new google.maps.InfoWindow();
   service = new google.maps.places.PlacesService(map);
-  service.getDetails(request, callback);
 
   google.maps.event.addListenerOnce(map, 'bounds_changed', performSearch);
 }
@@ -75,10 +69,5 @@ function createMarker(place) {
 
 
 google.maps.event.addDomListener(window, 'load', initialize);
-
-
-
-
-
 
 
