@@ -57,9 +57,10 @@ class Recommend extends CustomModel {
         //error will be thrown.
 		$cleanedInput = $this->cleanInput(
             ['user_ids'],
-            $input
+            $input, ['user_ids'] //option to not autoquote user_ids
         );
-        $cleanedInput = str_replace("'", "", $cleanedInput);
+
+        // $cleanedInput = str_replace("'", "", $cleanedInput);
         if (is_string($cleanedInput)) return null;
 
 		$getDislikes =<<<sql
@@ -79,10 +80,10 @@ sql;
 	public  function getExemptRecipes($input) {
 		$cleanedInput = $this->cleanInput(
             ['topping_ids'],
-            $input
+            $input, ['topping_ids']
         );
         // there are single quotes after cleaning input...causing string of numbers to not work
-        $cleanedInput = str_replace("'", "", $cleanedInput);
+        // $cleanedInput = str_replace("'", "", $cleanedInput);
         if (is_string($cleanedInput)) return null;
 
 		$getExemptRecipes =<<<sql
@@ -102,9 +103,9 @@ sql;
 
 		$cleanedInput = $this->cleanInput(
             ['recipe_ids'],
-            $input
+            $input, ['recipe_ids']
         );
-        $cleanedInput = str_replace("'", "", $cleanedInput);
+        // $cleanedInput = str_replace("'", "", $cleanedInput);
         if (is_string($cleanedInput)) return null;
 
 		$globalSuggestions =<<<sql
@@ -126,9 +127,9 @@ sql;
 
 		$cleanedInput = $this->cleanInput(
             ['recipe_ids', 'user_ids'],
-            $input
+            $input, ['recipe_ids', 'user_ids']
         );
-        $cleanedInput = str_replace("'", "", $cleanedInput);
+        // $cleanedInput = str_replace("'", "", $cleanedInput);
         if (is_string($cleanedInput)) return null;
 
 		$userSuggestions =<<<sql
@@ -168,10 +169,10 @@ sql;
 
 		$cleanedInput = $this->cleanInput(
             ['user_ids'],
-            $input
+            $input, ['user_ids']
         );
 
-        $cleanedInput = str_replace("'", "", $cleanedInput);
+        // $cleanedInput = str_replace("'", "", $cleanedInput);
         if (is_string($cleanedInput)) return null;
 
 		$getPastOrders =<<<sql
@@ -195,7 +196,7 @@ sql;
             $input
         );
 
-        $cleanedInput = str_replace("'", "", $cleanedInput);
+        // $cleanedInput = str_replace("'", "", $cleanedInput);
         if (is_string($cleanedInput)) return null;
 
 		$addOrders =<<<sql
@@ -217,7 +218,7 @@ sql;
             $input
         );
 
-        $cleanedInput = str_replace("'", "", $cleanedInput);
+        // $cleanedInput = str_replace("'", "", $cleanedInput);
         if (is_string($cleanedInput)) return null;
 
 		$upVote =<<<sql
@@ -241,7 +242,7 @@ sql;
             $input
         );
 
-        $cleanedInput = str_replace("'", "", $cleanedInput);
+        // $cleanedInput = str_replace("'", "", $cleanedInput);
         if (is_string($cleanedInput)) return null;
 
 		$downVote =<<<sql
