@@ -164,14 +164,14 @@ body {
 
 .primary-content {
 	@include stainedglass;
-	min-height: 300px;
+	height: 87.5vh;
 	width: 60%;
 	margin: 0 auto;
 
 }
 
 footer {
-	@include stainedglass;
+	// @include stainedglass;
 	background-color: rgba (0, 0, 0, .5);
 	margin: 0;
 	width: 60%;
@@ -301,7 +301,7 @@ div.friends {
 		@include stainedglass;
 		position: absolute;
 		right: 0;
-		top: 58px;
+		top: 63px;
 		margin: 0;
 		font-size: 1.5em;
 		border: 1px solid #333;

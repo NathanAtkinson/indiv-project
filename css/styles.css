@@ -94,7 +94,7 @@ body {
   margin: 0 auto;
   background-color: rgba(60, 60, 60, 0.34);
   position: relative;
-  min-height: 300px;
+  height: 87.5vh;
   width: 60%;
   margin: 0 auto; }
   .primary-content > a {
@@ -107,9 +107,6 @@ body {
       background-color: #777; }
 
 footer {
-  margin: 0 auto;
-  background-color: rgba(60, 60, 60, 0.34);
-  position: relative;
   background-color: rgba 0, 0, 0, 0.5;
   margin: 0;
   width: 60%;
@@ -120,14 +117,6 @@ footer {
   /* div {
 		color: #FFF;
 	} */ }
-  footer > a {
-    padding: 3px 10px;
-    font-size: 1.5em;
-    background-color: #000;
-    border-radius: 5px;
-    border: 1px solid #333; }
-    footer > a:hover {
-      background-color: #777; }
 
 main.login-main {
   margin: auto;
@@ -245,7 +234,7 @@ div.friends {
     position: relative;
     position: absolute;
     right: 0;
-    top: 58px;
+    top: 63px;
     margin: 0;
     font-size: 1.5em;
     border: 1px solid #333;

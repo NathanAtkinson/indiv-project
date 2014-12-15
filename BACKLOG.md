@@ -22,6 +22,7 @@ clean up comments out of code
  	- [ ] ability to scroll through friends
  	- [ ] ability to search friends
  - [ ] Favorite ingredients indicated...  actual profile info: location, fav topping, misc
+ - [ ] Consider ability to order 1/2 pizzas
 
 
 
@@ -31,16 +32,12 @@ clean up comments out of code
  -  [x] get list of recipes from remaining ingredients.
  	-  [x] remove any recipes with dislikes
  -  [x] keep track of number of dislikes to improve recs for current user(s)
- - [ ] keep track up up/down votes for recs.  Downvoted will be removed from page, show next rec.
+ - [x] keep track up up/down votes for recs.  Downvoted will be removed from page, show next rec.
  - [ ] add events table...  track location, users, pizzas, time ordered, etc. Also allows to plan in advance (increases recruitment/acct making).
  - [ ] Rating for toppings.  Give rec based on topping "totals" based on users present ratings.
- - [ ] Only exempt ingredients based on Build page.
+ - [ ] Only exempt ingredients based on Build page. (thumbs down on profile = -5 for topping?)
 
 
 
 # DRY
  - [ ] View fragments inherit common methods from parent instead
-
-
-# Check on:
- - [ ] NO. Split build rec into two pages?  Users, then other ingredients to avoid?
