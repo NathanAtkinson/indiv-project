@@ -104,13 +104,13 @@
 	$('div.toppings.build').on('click', 'a', function() {
 		$(this).toggleClass('selected');
 		
-		if ($(this).hasClass('selected')) {
+		/*if ($(this).hasClass('selected')) {
 			var topping_id = $(this).attr('data-topping-id');
 			console.log("topping_id: " + topping_id);
 		} else {
 			var topping_id = $(this).attr('data-topping-id');
 			console.log("topping_id: " + topping_id);
-		}
+		}*/
 	});
 
 	// when users are added to/from recommendation this is reflected on the current page.

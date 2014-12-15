@@ -99,21 +99,21 @@ sql;
 
 
 	//gets suggestions ranked globally by all users, exempting recipes passed
-	public function globalSuggestions($input) {
+	public function globalSuggestions() {
 
-		$cleanedInput = $this->cleanInput(
+		/*$cleanedInput = $this->cleanInput(
             ['recipe_ids'],
             $input, ['recipe_ids']
-        );
+        );*/
         // $cleanedInput = str_replace("'", "", $cleanedInput);
-        if (is_string($cleanedInput)) return null;
+        // if (is_string($cleanedInput)) return null;
 
-		$globalSuggestions =<<<sql
-		SELECT user_id, pizza_recipe_id, name, sum(vote_total) as total
+        // WHERE pizza_recipe_id NOT IN ({$cleanedInput['recipe_ids']})
+        $globalSuggestions =<<<sql
+        SELECT user_id, pizza_recipe_id, name, sum(vote_total) as total
         FROM pizza_recipe
         LEFT JOIN user_pizza_vote USING (pizza_recipe_id)
         LEFT JOIN `user` USING (user_id)
-        WHERE pizza_recipe_id NOT IN ({$cleanedInput['recipe_ids']})
         GROUP BY pizza_recipe_id
         ORDER BY total DESC
 sql;
@@ -126,19 +126,19 @@ sql;
 	public function userSuggestions($input) {
 
 		$cleanedInput = $this->cleanInput(
-            ['recipe_ids', 'user_ids'],
-            $input, ['recipe_ids', 'user_ids']
+            [/*'recipe_ids',*/ 'user_ids'],
+            $input, [/*'recipe_ids',*/ 'user_ids']
         );
         // $cleanedInput = str_replace("'", "", $cleanedInput);
         if (is_string($cleanedInput)) return null;
 
-		$userSuggestions =<<<sql
-		SELECT user_id, pizza_recipe_id, name, sum(vote_total) as total
+		// AND pizza_recipe_id NOT IN ({$cleanedInput['recipe_ids']})
+        $userSuggestions =<<<sql
+        SELECT user_id, pizza_recipe_id, name, sum(vote_total) as total
         FROM pizza_recipe
         LEFT JOIN user_pizza_vote USING (pizza_recipe_id)
         LEFT JOIN `user` USING (user_id)
-		where user_id IN ({$cleanedInput['user_ids']})
-		and pizza_recipe_id NOT IN ({$cleanedInput['recipe_ids']})
+        WHERE user_id IN ({$cleanedInput['user_ids']})
         GROUP BY pizza_recipe_id
         ORDER BY total DESC
 sql;
@@ -148,18 +148,33 @@ sql;
 	
 		
 	//gets highest ranked suggestions (global) without exempting any recipes
-	public function indifferentSuggestion() {
+	public function noExemptedRecipes($input) {
 
-		$indifferentSuggestions =<<<sql
-		SELECT user_id, pizza_recipe_id, name, sum(vote_total) as total
+        $cleanedInput = $this->cleanInput(
+                    ['user_ids'],
+                    $input, ['user_ids']
+        );
+
+        if (is_string($cleanedInput)) return null;
+
+        // SELECT user_id, pizza_recipe_id, name, sum(vote_total) as total
+        // FROM pizza_recipe
+        // LEFT JOIN user_pizza_vote USING (pizza_recipe_id)
+        // LEFT JOIN `user` USING (user_id)
+        // WHERE user_id IN ({$cleanedInput['user_ids']})
+        // GROUP BY pizza_recipe_id
+        // ORDER BY total DESC
+        $noExemptedRecipess =<<<sql
+
+        SELECT user_id, name, pizza_recipe_id, SUM(vote_total) as total
         FROM pizza_recipe
         LEFT JOIN user_pizza_vote USING (pizza_recipe_id)
         LEFT JOIN `user` USING (user_id)
         GROUP BY pizza_recipe_id
-        ORDER BY total DESC
+        ORDER BY `total` DESC
 sql;
 
-		return db::execute($indifferentSuggestions);
+		return db::execute($noExemptedRecipess);
 	}
 
 

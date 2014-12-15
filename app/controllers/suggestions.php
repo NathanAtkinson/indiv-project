@@ -4,14 +4,18 @@
 class Controller extends AppController {
 	protected function init() {
 
-
-		$user_id = UserLogin::getUserID();
-		$user = new User($user_id);
-
 		if (!UserLogin::isLogged()){
             header('Location: /');
             exit();
         }
+
+		$maxSuggestions = 7;
+		$suggestion_count = 0;
+		$deferredSuggestions = [];
+		$exemptRecipesList = array(0);
+		$user_id = UserLogin::getUserID();
+		// $user = new User($user_id);
+
 
 		//Builds string for mySQL here.  
 		//If no extra users were selected, then just uses current user_id
@@ -22,22 +26,25 @@ class Controller extends AppController {
 			$users = $user_id;
 		}
 
+		//used for data-user-ids in page
 		$this->view->users = $users;
 
 		$recommend = new Recommend();
-	
-		//gets dislikes based on the user id's and compiles a string
+		$suggestion_populator = new SuggestionViewFragment();
+
+		//gets dislikes based on the user id('s)
 		$input['user_ids'] = $users;
 		$results = $recommend->getDislikes($input);
 		$disliked_toppings = "";
-		while ($row = $results->fetch_assoc()) {
-			$disliked_toppings .= $row['topping_id'];
+
+		//compiles a string of disliked toppings
+		while ($dislike = $results->fetch_assoc()) {
+			$disliked_toppings .= $dislike['topping_id'];
 			$disliked_toppings .= ",";
 		}
-		
-		
-		//if 1x dislikes included, appends to string of the list.  Otherwise, removes
-		//extra "," from the string
+				
+		//If no dislikes sent from prior page, appends to string of the list.  
+		//Otherwise, removes extra "," from the string
 		if ($_POST['topping-ids'] != "") {
 			$toppings = $_POST['topping-ids'];
 			$disliked_toppings .= $toppings;
@@ -45,95 +52,80 @@ class Controller extends AppController {
 			$disliked_toppings = substr($disliked_toppings, 0, -1);
 		}
 
-		// checks if there are dislikes, if not, user is indifferent and runs query reflecting that
-		if(empty($disliked_toppings)) {
-			//get all recipes ranked based on no dislikes
-			$input['user_ids'] = $users;
-			$goodRecipesfromDB = $recommend->indifferentSuggestion($input);
-		} else {
-			//get list of recipes exempted by topping dislikes
+
+
+
+			
+		//if the list is empty, doesn't fetch exempted recipes
+		if(!empty($disliked_toppings)) {
 			$input['topping_ids'] = $disliked_toppings;
 			$exemptRecipes = $recommend->getExemptRecipes($input);
 
-
-			$exemptRecipesList = "";
+			//builds array of exempt recipes
 			while ($row = $exemptRecipes->fetch_assoc()) {
-				$exemptRecipesList .= $row['pizza_recipe_id'];
-				$exemptRecipesList .= ",";
+				$exemptRecipesList[] = $row['pizza_recipe_id'];
 			}
-
-			//removes the extra "," that's not needed in the string
-			while(substr($exemptRecipesList, -1) == ","){
-		 		$exemptRecipesList = substr($exemptRecipesList, 0, -1);
-			}
-
-			$input['user_ids'] = $users;
-			$input['recipe_ids'] = $exemptRecipesList;
-			$userSuggestions = $recommend->userSuggestions($input);
 		}
 
-		$suggestion_populator = new SuggestionViewFragment();
-		
-		$maxSuggestions = 7;
-		$suggestion_count = 0;
 
-		// Will be used to store bad recommendations, still show them, but last
-		$deferredSuggestions = [];
-		//had to put () around suggestoin/fetch assoc
-		while(($suggestion = $userSuggestions->fetch_assoc())) {
+		$input['user_ids'] = $users;
+		$userSuggestions = $recommend->userSuggestions($input);
+
+		while($suggestion = $userSuggestions->fetch_assoc()) {
+			if(in_array($suggestion['pizza_recipe_id'], $exemptRecipesList)){
+				continue;
+			}
+
+			//if cumulative votes are less than 1, then will recommend later by putting into array
 			if($suggestion['total'] < 1){
 				$pizza_recipe_id = xss::protection($suggestion['pizza_recipe_id']);
 				$deferredSuggestions[$pizza_recipe_id] = xss::protection($suggestion['name']);
+			//if positive vote, creates fragment.
 			} else {
 				$suggestion_populator->pizza_recipe_id = xss::protection($suggestion['pizza_recipe_id']);
 				$suggestion_populator->name = xss::protection($suggestion['name']);
+				//currently only show maxSuggestions.  If already that many, hide suggestion
 				if($suggestion_count >= $maxSuggestions) {
-					$suggestion_populator->hidden = "hidden";
+					$suggestion_populator->hidden = "other-option";
 				} else {
 					$suggestion_populator->hidden = "";
 				}
 				
+				//builds the fragment and adds it to view for later
 				$this->view->suggestions .= $suggestion_populator->render();
 				$suggestion_count++;
+				$exemptRecipesList[] = $suggestion['pizza_recipe_id'];
+			// print_r($exemptRecipesList);
 			}
-			
-			$exemptRecipesList .= ",";
-			$exemptRecipesList .= $suggestion['pizza_recipe_id'];
-			//made mistake by adding , after recipe id added...  led to combining
-			//of id's ex: 22,36 was 2236.  Which then didn't exempt it, leading to 
-			//duplication of Suggestions
-			
 		}
 
+		$globalRecipesfromDB = $recommend->globalSuggestions();
 
-		//removes the extra "," that's not needed in the string
-		while(substr($exemptRecipesList, -1) == ","){
-		 	$exemptRecipesList = substr($exemptRecipesList, 0, -1);
-		}
-
-		// if($suggestion_count < $maxSuggestions) {
-		$input['recipe_ids'] = $exemptRecipesList;
-		$globalRecipesfromDB = $recommend->globalSuggestions($input);
-		$exemptArray = explode(",", $exemptRecipesList);
 		while($suggestion = $globalRecipesfromDB->fetch_assoc()) {
 
-			//was adding pizza 2x, even though query was run to exempt it.
-			if(in_array($suggestion['pizza_recipe_id'], $exemptArray)){
+			// print_r($suggestion['pizza_recipe_id']);
+			if(in_array($suggestion['pizza_recipe_id'], $exemptRecipesList)){
 				continue;
 			}
+			//makes sure only show max suggestions, otherwise hide for later (if needed)
 			if($suggestion_count >= $maxSuggestions) {
 				$suggestion_populator->hidden = "other-option";
 			} else {
 				$suggestion_populator->hidden = "";
 			}
+
+			//build suggestion fragments
 			$suggestion_populator->pizza_recipe_id = xss::protection($suggestion['pizza_recipe_id']);
 			$suggestion_populator->name = xss::protection($suggestion['name']);
 			$this->view->suggestions .= $suggestion_populator->render();
 			$suggestion_count++;
-			// $chosen_recipes[] = $suggestion['pizza_recipe_id'];
+			$exemptRecipesList[] = $suggestion['pizza_recipe_id'];
 		}
 
 		foreach($deferredSuggestions as $pizza_recipe_id => $name) {
+			if(in_array($deferredSuggestions[$pizza_recipe_id], $exemptRecipesList)){
+				continue;
+			}
 			if($suggestion_count >= $maxSuggestions) {
 				$suggestion_populator->hidden = "other-option";
 			} else {
@@ -159,6 +151,7 @@ extract($controller->view->vars);
 <div class="primary-content">
 	<nav>
 		<a href="/build">BACK</a>
+		<a href="/nearby">Nearby Pizza Places</a>
 		<a id="sign-out" href="/logout">SIGN OUT</a>
 	</nav>
 	<div class="suggestions" data-user-ids="<?php echo $users ?>">
