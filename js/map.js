@@ -25,7 +25,7 @@ function performSearch() {
     var request = {
     	location: new google.maps.LatLng(33.403480, -111.964403),
     // bounds: map.getBounds(),
-    radius: '6000',
+    radius: '9000',
     query: 'pizza'
     };
 

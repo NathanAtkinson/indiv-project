@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Ajax Controller
+ * Downvote recipe
  */
  class Controller extends AjaxController {
 
@@ -13,7 +13,7 @@
       $array_user_ids = explode(",", $user_ids);
 
       $recommend = new Recommend();
-      //TODO after downVote method is built and table created to track.
+      //downVote the recipe_id for each user in suggestion
       foreach ($array_user_ids as $index => $user_id) {
             $input['user_id'] = $user_id;
             $input['recipe_id'] = $pizza_recipe_id;
