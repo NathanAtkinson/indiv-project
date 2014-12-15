@@ -24,5 +24,4 @@ abstract class AppController extends BaseController {
 		// Render View
 		parent::render();
 	}
-
 }

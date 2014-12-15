@@ -30,7 +30,5 @@ abstract class AjaxController extends AppController {
 
 		// Prepare and Return Response
 		echo json_encode($this->view);
-
 	}
-
 }

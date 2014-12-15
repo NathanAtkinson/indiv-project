@@ -1,8 +1,8 @@
 <?php
 
+//Home page: Create account or log in
 class Controller extends AppController {
 	protected function init() {
-		
 	}
 }
 
@@ -15,7 +15,6 @@ extract($controller->view->vars);
 <div class="login-content">
     <main class="login-main">
         <div>
-            
             <form action="/login" method="POST" class="login-form reptile-form">
                 <input class="user_name" type="text" name="user_name" title="Username">
                 <input class="password" type="password" name="password" data-exp-name="password" title="Password">
@@ -23,7 +22,7 @@ extract($controller->view->vars);
                 <button class="submit">submit</button>
                 <button class="sign-up">sign up</button>
             </form>
-            <div class="errormsg"></div>
+            <!-- <div class="errormsg"></div> -->
         </div>
     </main>
 </div>

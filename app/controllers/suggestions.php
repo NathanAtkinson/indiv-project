@@ -1,6 +1,6 @@
 <?php
 
-// Profile Page Controller
+// Suggestions Page Controller
 class Controller extends AppController {
 	protected function init() {
 
@@ -9,19 +9,20 @@ class Controller extends AppController {
             exit();
         }
 
+        //sets variables
 		$maxSuggestions = 7;
 		$suggestion_count = 0;
 		$deferredSuggestions = [];
 		$exemptRecipesList = array(0);
+
 		$user_id = UserLogin::getUserID();
 		// $user = new User($user_id);
 
-
-		//Builds string for mySQL here.  
-		//If no extra users were selected, then just uses current user_id
+		//Builds string of users for mySQL here
 		if ($_POST['user-ids'] != "") {
 			$users = $_POST['user-ids'];
 			$users .= "," . $user_id;
+		//If no extra users were selected, then just uses current user_id
 		} else {
 			$users = $user_id;
 		}
@@ -29,6 +30,7 @@ class Controller extends AppController {
 		//used for data-user-ids in page
 		$this->view->users = $users;
 
+		//Builds objects for use later
 		$recommend = new Recommend();
 		$suggestion_populator = new SuggestionViewFragment();
 
@@ -52,17 +54,16 @@ class Controller extends AppController {
 			$disliked_toppings = substr($disliked_toppings, 0, -1);
 		}
 
-		//if the dislikes list is empty, doesn't fetch exempted recipes
+		//if the dislikes list is empty, doesn't fetch recipes to add to exempt list
 		if(!empty($disliked_toppings)) {
 			$input['topping_ids'] = $disliked_toppings;
 			$exemptRecipes = $recommend->getExemptRecipes($input);
 
-			//otherwisebuilds array of exempt recipes
+			//otherwise builds array of exempt recipes
 			while ($row = $exemptRecipes->fetch_assoc()) {
 				$exemptRecipesList[] = $row['pizza_recipe_id'];
 			}
 		}
-
 
 		//prepares input with user_id/user_ids (set above)
 		$input['user_ids'] = $users;
@@ -100,7 +101,6 @@ class Controller extends AppController {
 			}
 		}
 
-
 		//runs query to get vote totals globally
 		$globalRecipesfromDB = $recommend->globalSuggestions();
 
@@ -129,7 +129,6 @@ class Controller extends AppController {
 			$exemptRecipesList[] = $suggestion['pizza_recipe_id'];
 		}
 
-
 		//anything that was deferred is now created here.  This allows for presenting negative
 		//voted recipes that don't have exempted ingredients
 		foreach($deferredSuggestions as $pizza_recipe_id => $name) {
@@ -138,6 +137,8 @@ class Controller extends AppController {
 			if(in_array($deferredSuggestions[$pizza_recipe_id], $exemptRecipesList)){
 				continue;
 			}
+
+			//if suggestions equal to max, then hide for later retrieval
 			if($suggestion_count >= $maxSuggestions) {
 				$suggestion_populator->hidden = "other-option";
 			} else {
@@ -155,7 +156,6 @@ $controller = new Controller();
 
 extract($controller->view->vars);
 ?>
-
 
 <div class="primary-content">
 	<nav>
