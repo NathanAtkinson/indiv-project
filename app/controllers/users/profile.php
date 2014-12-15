@@ -29,6 +29,7 @@ class Controller extends AppController {
 
 		$profile_creator = new ProfileViewFragment();
 		$profile_creator->user_name = xss::protection($user_name);
+		$profile_creator->picture_id = xss::protection($user_id);
 		$profile_creator->user_id = xss::protection($user_id);
 		$this->view->profile = $profile_creator->render();
 
