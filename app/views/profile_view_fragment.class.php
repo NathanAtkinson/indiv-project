@@ -4,11 +4,13 @@
 class ProfileViewFragment extends ViewFragment {
 
 
+  			// <h3>{{user_name}}</h3>
   private $template =<<<html
   	<div class="this-user">
   		<div class="profile-info" data-user_id ="{{user_id}}">
-  			<div class="image"><img src="/app/images/users/{{user_id}}.jpg"></div>
-  			<h3>{{user_name}}</h3>
+  			<div class="image"><img src="/app/images/users/{{picture_id}}.jpg"></div>
+			<a href="/nearby">Nearby Pizza Places</a>
+  			<h3>1601 W Fountainhead Parkway</h3>
   		</div>
 	</div>
 html;
