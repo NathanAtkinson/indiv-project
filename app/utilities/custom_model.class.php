@@ -8,7 +8,7 @@ abstract class CustomModel extends Model {
 
 	public function __construct($id = null) {
 
-        //when value given work on customer otherwise do nothing
+        //when value given work on user otherwise do nothing
         if ($id)  {
             if (is_array($id)) {
 

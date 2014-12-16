@@ -2,7 +2,6 @@
 
 trait Validation {
 
-    // make function `filter_var` return 
     // null instead of false on fail
     private function addNullFlag($validator) {
         if (@$validator[1]) {
@@ -44,5 +43,4 @@ trait Validation {
         }
         return $validated;
     }
-
 }
