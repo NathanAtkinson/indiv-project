@@ -16,7 +16,7 @@ extract($controller->view->vars);
 
 <div class="primary-content">
     <nav>
-        <a href="/profile">BACK</a>
+        <a href="/suggestions">BACK</a>
         <a id="sign-out" href="/logout">SIGN OUT</a>
     </nav>
 

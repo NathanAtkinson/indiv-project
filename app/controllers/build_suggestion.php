@@ -54,16 +54,17 @@ extract($controller->view->vars);
 <div class="primary-content">
 	<nav>
 		<a href="/profile">BACK</a>
-		<a id="sign-out" href="/logout">SIGN OUT</a>
-	</nav>
-	<div class="friends">
-		<h3>Other Users:</h3>
-		<?php echo $friends ?>
 		<form action="/suggestions" method="POST">
 			<input type="hidden" name="user-ids" id="user-ids">
 			<input type="hidden" name="topping-ids" id="topping-ids">
 			<button id="suggestions">Get suggestions</button>
 		</form>
+		<a id="sign-out" href="/logout">SIGN OUT</a>
+	</nav>
+	<div class="friends">
+		<h3>Other Users:</h3>
+		<?php echo $friends ?>
+		
 	</div>
 	<div class="build toppings">
 		<h3>Other toppings you don't want this time:</h3>
