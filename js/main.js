@@ -1,19 +1,25 @@
-/**
- * Application JS
- */
+
 (function() {
 
-	//changed to .reptile-form selector instead of <form>
+	//settings for ajax calls
+	$.ajaxSetup({
+		type: 'POST',
+		dataType: 'json',
+		cache: false
+	});
+
+
+	//changed to .reptile-form selector instead of form
 	var form = new ReptileForm('.reptile-form');
 
 	// Do something before validation starts
-	form.on('beforeValidation', function() {
+	/*form.on('beforeValidation', function() {
 		// $('body').append('<p>Before Validation</p>');
-	});
+	});*/
 
 	// When there's an error, presents to user as an alert with just the message
 	form.on('validationError', function(e, err) {
-		response = JSON.stringify(err);
+		var response = JSON.stringify(err);
 		response = JSON.parse(response);
 		alert(response[0].msg);
 	});
@@ -36,11 +42,10 @@
 		}
 	});
 
-	// If there's a thrown error, present to user the message.
+	// If there's a thrown error, present to user the message via alert.
 	form.on('xhrError', function(e, xhr, settings, thrownError) {
 		alert('<p>Submission Error: ' + thrownError + '</p>');
 	});
-
 
 	//on landing at the home page, hides the e-mail field
 	$('.login-form .email').attr('hidden', '');
@@ -48,11 +53,9 @@
 	//adds e-mail field for signup when signup is pressed on home page and hides sign-up button
 	$('.login-form').on('click', 'button.sign-up', function(e) {
 		e.preventDefault();
-		console.log('Sign-up pressed');
 		$(this).hide();
         $('.login-form .email').toggle(); 
 	});
-
 
 	//on the profile page, if an ingredient is clicked, add/removes the dislike
 	//This hits the DB and also changes the look on the page
@@ -65,9 +68,6 @@
 			
 			$array = $.ajax({
 				url: '/toppings/add',
-				type: 'POST',
-				dataType: 'json',
-				cache: false,
 				data: {user_id: user_id, topping_id: topping_id},
 				success: function(data){
 					var topping_id = data.topping_id;
@@ -83,9 +83,6 @@
 
 			$array = $.ajax({
 				url: '/toppings/remove',
-				type: 'POST',
-				dataType: 'json',
-				cache: false,
 				data: {user_id: user_id, topping_id: topping_id},
 				success: function(data){
 					var topping_id = data.topping_id;
@@ -103,14 +100,6 @@
 	//this does not hit the DB and is only used on the suggestions page
 	$('div.toppings.build').on('click', 'a', function() {
 		$(this).toggleClass('selected');
-		
-		/*if ($(this).hasClass('selected')) {
-			var topping_id = $(this).attr('data-topping-id');
-			console.log("topping_id: " + topping_id);
-		} else {
-			var topping_id = $(this).attr('data-topping-id');
-			console.log("topping_id: " + topping_id);
-		}*/
 	});
 
 	// when users are added to/from recommendation this is reflected on the current page.
@@ -119,10 +108,8 @@
 		$(this).toggleClass('selected');
 		if ($(this).hasClass('selected')) {
 			var user_id = $(this).attr('data-user-id');
-			console.log("user_id: " + user_id);
 		} else {
 			var user_id = $(this).attr('data-user-id');
-			console.log("user_id: " + user_id);
 		}
 	});
 
@@ -158,8 +145,7 @@
 	var dislikes = app.settings.dislikes;
 	for (var dislike in dislikes){
 		var topping_id = dislikes[dislike].topping_id;
-		$("a[data-topping-id='" + topping_id + "']")
-      	.addClass('selected');
+		$("a[data-topping-id='" + topping_id + "']").addClass('selected');
   	}
 
   	//when the a.suggestion is clicked, gets users involved and the id of the recipe_id
@@ -170,52 +156,41 @@
   		//if it's an upvote, then adds to DB and remove yes/no from page (prevents double clicking)
 		if($(this).attr('data-vote') == "yes"){
 			$.ajax({
-			url: '/orders/add',
-			type: 'POST',
-			dataType: 'json',
-			cache: false,
-			data: {user_ids: user_ids, pizza_recipe_id: pizza_recipe_id},
+				url: '/orders/add',
+				data: {user_ids: user_ids, pizza_recipe_id: pizza_recipe_id},
 
-			//on success, hide this div from page so can't vote again.  Also add selected class
-			//to parent so can fetch this later.
-			success: function(data){
-				var pizza_recipe_id = data.pizza_recipe_id;
-				$('div[data-pizza-recipe-id="' + pizza_recipe_id + '"]').parents('div.suggestion').toggleClass('selected');
-
-				$('div[data-pizza-recipe-id="' + pizza_recipe_id + '"]').hide();
-
-			},
-			error: function(){
-				console.log('error');
-				console.log('data: ' + data);
-			}
+				//on success, hide this div from page so can't vote again.  Also add selected class
+				//to parent so can fetch this later.
+				success: function(data){
+					var pizza_recipe_id = data.pizza_recipe_id;
+					$('div[data-pizza-recipe-id="' + pizza_recipe_id + '"]').parents('div.suggestion').toggleClass('selected');
+					$('div[data-pizza-recipe-id="' + pizza_recipe_id + '"]').hide();
+				},
+				error: function(){
+					console.log('error');
+					console.log('data: ' + data);
+				}
 	  		});
 	  	//if it's a downvote, then adds to DB and removes option from page
 		} else {
 			console.log('no');
 			$.ajax({
-			url: '/orders/down',
-			type: 'POST',
-			dataType: 'json',
-			cache: false,
-			data: {user_ids: user_ids, pizza_recipe_id: pizza_recipe_id},
+				url: '/orders/down',
+				data: {user_ids: user_ids, pizza_recipe_id: pizza_recipe_id},
 
-			//on success, remove suggestion from the page
-			success: function(data){
-				var pizza_recipe_id = data.pizza_recipe_id;
-				($('div[data-pizza-recipe-id="' + pizza_recipe_id + '"]')).parents('div.suggestion').remove();
-				var sugg = $('div.suggestions').find('div.other-option').first().attr('data-pizza-recipe-id');
-				$('div.suggestions').find('div.other-option').first().toggleClass('other-option');
-				// console.log(sugg);
-			},
-			error: function(){
-				console.log('error');
-				console.log('data: ' + data);
-			}
+				//on success, remove suggestion from the page
+				success: function(data){
+					var pizza_recipe_id = data.pizza_recipe_id;
+					$('div[data-pizza-recipe-id="' + pizza_recipe_id + '"]').parents('div.suggestion').remove();
+					$('div.suggestions').find('div.other-option').first().toggleClass('other-option');
+				},
+				error: function(){
+					console.log('error');
+					console.log('data: ' + data);
+				}
 	  		});
 		}
 	});
-
 
 	//When the nearby link is clicked, grabs names of selected recipes
 	//sets them to hidden input so they can be passed to the next page
@@ -223,9 +198,7 @@
 		var pizza_recipe_names = [];
 		//in div.friends, gets each friend selected and adds to array
 		$('div.suggestions').find('div.suggestion.selected').find('h3').each(function () {
-
 			pizza_recipe_names.push($(this).html());
-			// console.log(friends);
 		});
 		// make the array a string that's passed
 		var pizza_names = pizza_recipe_names.join(';');
