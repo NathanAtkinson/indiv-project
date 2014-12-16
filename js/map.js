@@ -20,6 +20,16 @@ function initialize() {
 }
 
 
+//gets users current location and centers the map on them.
+//TODO implement searching on location
+/*if (navigator.geolocation) {
+     navigator.geolocation.getCurrentPosition(function (position) {
+         initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+         map.setCenter(initialLocation);
+     });
+ }*/
+
+
 //searches based on location, a radius, and the query of pizza
 function performSearch() {
     var request = {

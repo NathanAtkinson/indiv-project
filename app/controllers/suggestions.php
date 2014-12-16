@@ -161,8 +161,8 @@ extract($controller->view->vars);
 	<nav>
 		<a href="/build">BACK</a>
 		<form action="/nearby" method="POST">
-			<input type="hidden" name="pizza-recipe-ids" id="pizza-recipe-ids">
-			<button id="suggestions">Nearby Pizza Places</button>
+			<input type="hidden" name="pizza-recipe-names" id="pizza-recipe-names">
+			<button id="nearby">Nearby Pizza Places</button>
 		</form>
 		<a id="sign-out" href="/logout">SIGN OUT</a>
 	</nav>

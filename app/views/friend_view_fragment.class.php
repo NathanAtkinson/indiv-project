@@ -1,6 +1,8 @@
 <?php 
 
-
+/*
+* Creates fragment for friends on build suggestion page
+*/
 class FriendViewFragment extends ViewFragment {
 
 
@@ -12,7 +14,7 @@ class FriendViewFragment extends ViewFragment {
 html;
 
 	//from the controller, put in values into this array by key/value pairs
-	//be sure to use the same names used in the template above						
+	//using the same names used in the template above						
 	private $values = [];
 
 

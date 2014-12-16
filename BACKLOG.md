@@ -23,6 +23,7 @@ clean up comments out of code
  	- [ ] ability to search friends
  - [ ] Favorite ingredients indicated...  actual profile info: location, fav topping, misc
  - [ ] Consider ability to order 1/2 pizzas
+ - [ ] Users on creation- check for already existing username and prohibit duplicate usernames
 
 
 

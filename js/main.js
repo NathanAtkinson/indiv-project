@@ -215,4 +215,21 @@
 	  		});
 		}
 	});
+
+
+	//When the nearby link is clicked, grabs names of selected recipes
+	//sets them to hidden input so they can be passed to the next page
+	$('body').on('click', '#nearby', function() {
+		var pizza_recipe_names = [];
+		//in div.friends, gets each friend selected and adds to array
+		$('div.suggestions').find('div.suggestion.selected').find('h3').each(function () {
+
+			pizza_recipe_names.push($(this).html());
+			// console.log(friends);
+		});
+		// make the array a string that's passed
+		var pizza_names = pizza_recipe_names.join(';');
+		//set a hidden value field in form with a value of the string'
+		$('#pizza-recipe-names').val(pizza_names);
+	});
 })();

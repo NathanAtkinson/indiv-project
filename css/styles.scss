@@ -32,10 +32,9 @@
 }
 
 #map-canvas {
-        width: 600px;
-        height: 400px;
-        // background-color: #ccc;
-        margin: 20px auto;
+        width: 500px;
+        height: 375px;
+        margin: 5px auto;
         div {
         	color: black;
         }
@@ -47,6 +46,21 @@
         }
 }
 
+div.selected-suggestions {
+	min-height: 75px;
+	margin: 5px;
+
+	> div {
+		border: 1px solid #555;
+		background-color: #000;
+		display: inline-block;
+		margin: 3px;
+		border-radius: 5px;
+		padding: 1px 5px;
+		font-size: .9em;
+	}
+}
+
 .hidden {
 	display:none;
 }
@@ -56,7 +70,7 @@
 @mixin stainedglass {
 	// border-radius: 5px;
 	margin: 0 auto;
-	background-color: rgba(60, 60, 60, .34);
+	background-color: rgba(100, 100, 100, .30);
 	position: relative;
 	& > a {
 		padding: 3px 10px;
@@ -79,7 +93,6 @@
 		text-decoration: none;
 	}
 	h3 {
-		// font-size: 1.25em;
 		padding: 5px;
 		margin: 5px;
 	}
@@ -105,7 +118,7 @@ header {
 		background-color: rgba(0, 0, 0, .5);
 		margin: 0 auto;
 		padding: 10px;
-		width: 60%;
+		width: 65%;
 		position: relative;
 	}
 	span.font-awesome {
@@ -139,8 +152,9 @@ body {
 		position: relative;
 		font-weight: 500;
 		a {
-			width: 33%;
+			width: 31%;
 			display: inline-block;
+			margin-left: 8px;
 		}
 		#sign-out {
 			position: absolute;
@@ -151,16 +165,16 @@ body {
 			top: -34px;
 		}
 		form {
-			width: 33%;
+			width: 31%;
 			display: inline-block;
-			margin: 0;
+			// margin-left: 4px;
 		}
 		a:nth-child(2){
 			text-align: center;
 		}
 		button {
 		@include stainedglass;
-		margin: 0;
+		margin-left: 8px;
 		font-size: 1.5em;
 		border: 1px solid #333;
 		font-weight: 500;
@@ -174,15 +188,14 @@ body {
 		}
 	}
 	}
-
 }
 
 .primary-content {
 	@include stainedglass;
 	height: 87.5vh;
-	width: 60%;
+	width: 65%;
 	margin: 0 auto;
-
+	display: relative;
 }
 
 footer {
@@ -247,10 +260,6 @@ div.this-user {
 		}
 	}
 	h3 {
-		// padding: 10px;
-		// margin-left: 300px;
-		// background-color: #333;
-		// text-align: center;
 		margin-top: 10px;
 		display: inline-block;
 		min-width: 300px;

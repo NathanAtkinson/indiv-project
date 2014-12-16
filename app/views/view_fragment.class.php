@@ -1,5 +1,8 @@
 <?php 
 
+/*
+* Base class for view fragments
+*/
 class ViewFragment {
 	
 	// Fill Template
@@ -14,5 +17,4 @@ class ViewFragment {
 	private static function fixKeys(&$search) {
 		$search = '{{' . $search . '}}';
 	}
-
 }
