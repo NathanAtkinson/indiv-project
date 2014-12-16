@@ -176,10 +176,14 @@
 			cache: false,
 			data: {user_ids: user_ids, pizza_recipe_id: pizza_recipe_id},
 
-			//on success, remove this div from page so can't vote again
+			//on success, hide this div from page so can't vote again.  Also add selected class
+			//to parent so can fetch this later.
 			success: function(data){
 				var pizza_recipe_id = data.pizza_recipe_id;
-				($('div[data-pizza-recipe-id="' + pizza_recipe_id + '"]')).remove();
+				$('div[data-pizza-recipe-id="' + pizza_recipe_id + '"]').parents('div.suggestion').toggleClass('selected');
+
+				$('div[data-pizza-recipe-id="' + pizza_recipe_id + '"]').hide();
+
 			},
 			error: function(){
 				console.log('error');
@@ -202,7 +206,7 @@
 				($('div[data-pizza-recipe-id="' + pizza_recipe_id + '"]')).parents('div.suggestion').remove();
 				var sugg = $('div.suggestions').find('div.other-option').first().attr('data-pizza-recipe-id');
 				$('div.suggestions').find('div.other-option').first().toggleClass('other-option');
-				console.log(sugg);
+				// console.log(sugg);
 			},
 			error: function(){
 				console.log('error');
