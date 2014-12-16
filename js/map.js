@@ -44,6 +44,7 @@ function performSearch() {
 }
 
 
+//If not results generated or there's another issue, alert user to the problem. Otherwise create markers
 function callback(results, status) {
     if (status != google.maps.places.PlacesServiceStatus.OK) {
     alert(status);
@@ -63,12 +64,15 @@ function createMarker(place) {
     icon: '/app/images/pizzaria.png'
     });
 
+    //when a marker is click, get the details
     google.maps.event.addListener(marker, 'click', function() {
     service.getDetails(place, function(result, status) {
       if (status != google.maps.places.PlacesServiceStatus.OK) {
         alert(status);
         return;
       }
+
+      //when a marker is clicked, this is the info shown.
       infoWindow.setContent(result.name + "&nbsp " + result.rating 
       	+ "/5 stars<br> <a href='" + result.website + "'>" + result.website 
       	+ "</a><br>" + result.formatted_address 
