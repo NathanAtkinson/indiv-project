@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Topping
+ * Topping Class - Adds/Removes dislikes, retrieves same info
  */
 class Topping extends CustomModel {
 
@@ -16,12 +16,9 @@ class Topping extends CustomModel {
     }
 
 
-	/**
-	 * Insert Topping Dislike
-	 */
+	//Insert Topping Dislike
 	public function insert($input) {
 
-		// Prepare SQL Values
         $cleanedInput = $this->cleanInput(
             ['user_id', 'topping_id'],
             $input
@@ -30,15 +27,11 @@ class Topping extends CustomModel {
         if (is_string($cleanedInput)) return null;
 
 		db::insert('user_topping_dislike', $cleanedInput);
-		// db::insert('user_topping_dislike', $input);
 	}
 
 
-	/*
-	* Removes a topping dislike
-	*/
+	//Removes a topping dislike
 	public function remove($input) {
-
 
 		$cleanedInput = $this->cleanInput(
             ['user_id', 'topping_id'],
@@ -59,10 +52,9 @@ sql;
 	}
 
 
-	/*
-    * return list of all toppings  (name and id)
-    */ 
+	//return list of all toppings  (name and id)
     public static function getAll() {
+
         $gettoppings =<<<sql
         SELECT
             *
@@ -71,5 +63,4 @@ sql;
 
         return db::execute($gettoppings);
     }
-
 }

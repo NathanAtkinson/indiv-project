@@ -39,8 +39,6 @@
 	
 	<!-- Main JS -->
 	<script src="/js/main.js"></script>
-	<script src="/js/map.js"></script>
-
 
 </body>
 </html>

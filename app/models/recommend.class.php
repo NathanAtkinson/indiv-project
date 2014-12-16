@@ -1,11 +1,12 @@
 <?php
 
 /**
- * User
+ * Recommendations
  */
 class Recommend extends CustomModel {
 
 	protected function validators() {
+
         return [
         	'user_id' => [FILTER_VALIDATE_INT],
         	'recipe_id' => [FILTER_VALIDATE_INT],
@@ -44,13 +45,8 @@ class Recommend extends CustomModel {
         ];
     }
 
-	/*protected function insert(){
-
-	}*/
-
 	//gets dislikes from a string of users
 	public function getDislikes($input) {
-
 
         //input has to be an array...  with the key needed..otherwise "not all keys assigned"
         //error will be thrown.
@@ -59,7 +55,6 @@ class Recommend extends CustomModel {
             $input, ['user_ids'] //option to not autoquote user_ids
         );
 
-        // $cleanedInput = str_replace("'", "", $cleanedInput);
         if (is_string($cleanedInput)) return null;
 
 		$getDislikes =<<<sql
@@ -77,12 +72,12 @@ sql;
 
 	//finds recipes that use disliked toppings using topping ids
 	public  function getExemptRecipes($input) {
+
 		$cleanedInput = $this->cleanInput(
             ['topping_ids'],
             $input, ['topping_ids']
         );
-        // there are single quotes after cleaning input...causing string of numbers to not work
-        // $cleanedInput = str_replace("'", "", $cleanedInput);
+
         if (is_string($cleanedInput)) return null;
 
 		$getExemptRecipes =<<<sql
@@ -189,7 +184,6 @@ sql;
 
 		return db::execute($getPastOrders);
 	}
-
 
 
 	// add to DB an order

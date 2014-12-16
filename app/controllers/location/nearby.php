@@ -24,4 +24,5 @@ extract($controller->view->vars);
 
 </div>
 
-    
+<!-- includes script needed for map -->
+<script src="/js/map.js"></script>

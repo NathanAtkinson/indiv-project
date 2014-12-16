@@ -1,5 +1,9 @@
 <?php
 
+/*
+* Utilized w/ validation...only uses items needed
+*/
+
 trait ModelUtils {
 
     use Validation;
