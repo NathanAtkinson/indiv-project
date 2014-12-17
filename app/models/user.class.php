@@ -31,7 +31,7 @@ class User extends CustomModel {
 	protected function insert($input) {
 
         $cleanedInput = $this->cleanInput(
-            ['user_name', 'email', 'password'],
+            ['user_name', 'email', 'password', 'location'],
             $input/*, ['password']*/
         );
 
@@ -39,8 +39,8 @@ class User extends CustomModel {
 
         $passwordInsert =<<<sql
         INSERT INTO 
-        user (user_name, email, `password`)
-        VALUES ({$cleanedInput['user_name']}, {$cleanedInput['email']},
+        user (user_name, email, location, `password`)
+        VALUES ({$cleanedInput['user_name']}, {$cleanedInput['email']}, {$cleanedInput['location']},
         PASSWORD(CONCAT({$cleanedInput['user_name']}, {$cleanedInput['password']})));
 sql;
 

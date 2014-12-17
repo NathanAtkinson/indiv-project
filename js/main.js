@@ -49,12 +49,16 @@
 
 	//on landing at the home page, hides the e-mail field
 	$('.login-form .email').attr('hidden', '');
+	$('.login-form .location').attr('hidden', '');
+
 
 	//adds e-mail field for signup when signup is pressed on home page and hides sign-up button
 	$('.login-form').on('click', 'button.sign-up', function(e) {
 		e.preventDefault();
 		$(this).hide();
         $('.login-form .email').toggle(); 
+        $('.login-form .location').toggle(); 
+
 	});
 
 	//on the profile page, if an ingredient is clicked, add/removes the dislike

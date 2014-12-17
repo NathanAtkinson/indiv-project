@@ -92,7 +92,7 @@ footer {
   margin: 0 auto;
   background-color: rgba(100, 100, 100, 0.3);
   position: relative;
-  min-height: 300px;
+  min-height: 500px;
   width: 65%;
   margin: 0 auto;
   display: relative; }
@@ -144,8 +144,7 @@ main.login-main {
 div.this-user {
   background: rgba 0, 0, 0, 0.9;
   margin: 0 auto;
-  overflow: hidden;
-  min-height: 214px; }
+  overflow: hidden; }
   div.this-user div.image {
     float: left;
     margin: 15px; }
@@ -168,9 +167,9 @@ div.toppings {
   div.toppings .topping {
     padding: 2px 15px;
     width: 32%;
-    height: 35px;
-    display: inline-block;
-    vertical-align: top; }
+    vertical-align: top;
+    min-height: 35px;
+    display: inline-block; }
     div.toppings .topping a {
       display: block;
       padding: 1px 10px;
@@ -224,6 +223,7 @@ div.friends {
   div.friends .friend {
     padding: 2px 15px;
     width: 32%;
+    vertical-align: top;
     display: inline-block; }
     div.friends .friend a {
       display: block;

@@ -33,11 +33,11 @@ class Controller extends AppController {
 		$profile_creator->user_name = xss::protection($user_name);
 		$profile_creator->picture_id = xss::protection($user_id);
 		$profile_creator->user_id = xss::protection($user_id);
-		if(empty($location)){
+		/*if(empty($location)){
 			$profile_creator->location = "Please enter your location in <a href='/settings'>account settings</a>";
-		} else {
+		} else {*/
 			$profile_creator->location = xss::protection($location);
-		}
+		// }
 		$this->view->profile = $profile_creator->render();
 
 		//gets list of toppings from DB
@@ -61,7 +61,7 @@ extract($controller->view->vars);
 <div class="primary-content">
 	<nav>
 		<a id="build-suggestion" href="/build">Build Suggestion</a>
-		<a id="settings" href="/settings">Account Settings</a>
+		<!-- <a id="settings" href="/settings">Account Settings</a> -->
 		<a id="sign-out" href="/logout">SIGN OUT</a>
 	</nav>
 

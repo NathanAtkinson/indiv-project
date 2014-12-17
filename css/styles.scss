@@ -25,29 +25,30 @@ html {
 @mixin option {
 	padding: 2px 15px;
 	width: 32%;
+	vertical-align: top;
 	a {
-	display: block;
-	padding: 1px 10px;
-	border-radius: $rounded-corners;
-	background-color: rgba(7, 73, 0, 0.85);
-	margin-left: 10px;
-	&::before {
-		display: inline-block;
-		font: normal normal normal 14px/1 FontAwesome;
-		font-size: inherit;
-		text-rendering: auto;
-		-webkit-font-smoothing: antialiased;
-		content: "\f164";
-		text-decoration: none;
-	}
- 	&.selected {
-		background-color: rgba(73, 7, 0, 0.85);
+		display: block;
+		padding: 1px 10px;
+		border-radius: $rounded-corners;
+		background-color: rgba(7, 73, 0, 0.85);
+		margin-left: 10px;
 		&::before {
-		content: "\f165";
+			display: inline-block;
+			font: normal normal normal 14px/1 FontAwesome;
+			font-size: inherit;
+			text-rendering: auto;
+			-webkit-font-smoothing: antialiased;
+			content: "\f164";
+			text-decoration: none;
 		}
-	}
-		i.fa {
-		color: rgba(73, 7, 0, 0.85);
+	 	&.selected {
+			background-color: rgba(73, 7, 0, 0.85);
+			&::before {
+			content: "\f165";
+			}
+		}
+			i.fa {
+			color: rgba(73, 7, 0, 0.85);
 		}
 	}
 }
@@ -142,6 +143,7 @@ header {
 	}
 }
 
+//contains header and primary content
 div.page {
 	min-height: 650px;
 }
@@ -162,7 +164,7 @@ footer {
 //primary content on each page except home
 .primary-content {
 	@include stainedglass;
-	min-height: 300px;
+	min-height: 500px;
 	width: $middle-width;
 	margin: 0 auto;
 	display: relative;
@@ -208,7 +210,7 @@ div.this-user {
 	background: rgba (0, 0, 0, .9);
 	margin: 0 auto;
 	overflow: hidden;
-	min-height: 214px;
+	// min-height: 214px;
 	div.image {
 		float: left;
 		margin: 15px;
@@ -238,9 +240,9 @@ div.toppings {
 	}
 	.topping {
 		@include option;
-		height:  35px;
+		min-height:  35px;
 		display: inline-block;
-		vertical-align: top;
+		// vertical-align: top;
 		&:last-child {
 			margin-bottom: 10px;
 		}
