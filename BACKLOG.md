@@ -39,6 +39,5 @@ clean up comments out of code
  - [ ] Only exempt ingredients based on Build page. (thumbs down on profile = -5 for topping?)
 
 
-
-# DRY
- - [ ] View fragments inherit common methods from parent instead
+# Other
+- [ ] Abstract more

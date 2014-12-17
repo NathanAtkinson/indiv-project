@@ -19,8 +19,12 @@ class Controller extends AjaxController {
 		//sends update info to method
 		$results = $user->update($input);
 
-	    //redirect
-		$this->view['redirect'] = '/profile';
+
+		if($user){
+			// $this->view['redirect'] = '/profile';
+		} else {
+            $this->view['errormsg'] = 'Please enter a valid User Name and Password.';
+        }
 		exit();
 	}
 }

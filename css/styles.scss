@@ -244,6 +244,7 @@ div.this-user {
 	background: rgba (0, 0, 0, .9);
 	margin: 0 auto;
 	overflow: hidden;
+	min-height: 214px;
 	div.image {
 		float: left;
 		margin: 15px;
@@ -285,7 +286,7 @@ div.toppings {
 
 
 div.friends {
-	min-height: 150px;
+	min-height: 214px;
 	overflow: hidden;
 	display: relative;
 	* + * {

@@ -169,7 +169,8 @@ div#map-canvas {
 div.this-user {
   background: rgba 0, 0, 0, 0.9;
   margin: 0 auto;
-  overflow: hidden; }
+  overflow: hidden;
+  min-height: 214px; }
   div.this-user div.image {
     float: left;
     margin: 15px; }
@@ -222,7 +223,7 @@ div.toppings {
         color: rgba(73, 7, 0, 0.85); }
 
 div.friends {
-  min-height: 150px;
+  min-height: 214px;
   overflow: hidden;
   display: relative;
   /* img {
