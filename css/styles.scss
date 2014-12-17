@@ -162,6 +162,8 @@ footer {
 	}
 }
 
+
+//form for updating account info
 .update-form {
 	input {
 		color: #333;
@@ -182,6 +184,7 @@ footer {
 }
 
 
+//primary content on each page except home
 .primary-content {
 	@include stainedglass;
 	height: 87.5vh;
@@ -191,6 +194,7 @@ footer {
 }
 
 
+//login/home page
 main.login-main {
 	margin: auto;
 	width: $middle-width;
@@ -223,23 +227,7 @@ main.login-main {
 }
 
 
-//google maps canvas
-div#map-canvas {
-        width: 500px;
-        height: 375px;
-        margin: 5px auto;
-        div {
-        	color: black;
-        }
-        div > div {
-        	width: 225px;
-        }
-        a {
-        	color: blue;
-        }
-}
-
-
+//for profile page.  Div for the user logged in
 div.this-user {
 	background: rgba (0, 0, 0, .9);
 	margin: 0 auto;
@@ -262,6 +250,7 @@ div.this-user {
 }
 
 
+//presents toppings on both profile page and build rec page
 div.toppings {
 	min-height: 150px;
 	overflow: hidden;
@@ -276,15 +265,10 @@ div.toppings {
 		height:  35px;
 		display: inline-block;
 	}
-	/* a#suggestions {
-		position: absolute;
-		right: 0;
-		top: 0;
-		border-radius: $rounded-corners;
-	} */
 }
 
 
+//shows friends on build rec page
 div.friends {
 	min-height: 214px;
 	overflow: hidden;
@@ -297,27 +281,11 @@ div.friends {
 		padding: 5px;
 		display: inline-block;
 		width: 75%;
-		/* &#user {
-			display: inline-block;
-			min-width: 200px;
-		} */
 	}
-	/* img {
-		height: 50px;
-		width: 50px;
-		background-color: #777;
-		margin: 10px;
-		float: left;
-	} */
 	.friend {
 		@include option;
 		display: inline-block;
-		/* img {
-			height: 25px;
-			width: 25px;
-		} */
 		a {
-			// border: 1px solid #555;
 			background-color: #000;
 			&::before {
 				content: "\f096";
@@ -336,6 +304,7 @@ div.friends {
 }
 
 
+//suggestions after submission of users and exempted toppings
 div.suggestions {
 	min-height: 150px;
 	overflow: hidden;
@@ -375,16 +344,41 @@ div.suggestions {
 }
 
 
+//on maps page, shows selected pizzas
 div.selected-suggestions {
 	min-height: 75px;
-	margin: 5px;
+	margin-top: 25px;
+	display: inline-block;
+	width: 315px;
 	> div {
 		border: 1px solid #555;
 		background-color: #000;
-		display: inline-block;
-		margin: 3px;
+		display: block;
 		border-radius: $rounded-corners;
-		padding: 1px 5px;
-		font-size: 0.9em;
+		padding: 2px 5px;
+	}
+	* + * {
+		margin-top: 5px;
 	}
 }
+
+//google maps canvas on map page
+div#map-canvas {
+        width: 450px;
+        height: 450px;
+        margin: 25px;
+        float: left;
+		border-radius: $rounded-corners;
+        div {
+        	color: black;
+
+        }
+        div > div {
+        	width: 225px;
+        }
+        a {
+        	color: blue;
+        }
+}
+
+

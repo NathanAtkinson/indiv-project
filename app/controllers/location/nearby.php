@@ -3,7 +3,7 @@
 class Controller extends AppController {
 	protected function init() {
 		
-			$this->view->selected_suggestions .= '<div class="selected-suggestions">';
+			// $this->view->selected_suggestions .= '<div class="selected-suggestions">';
 		
 		//if not thing selected on last page, don't populate div of selections.
 		if(!empty($_POST['pizza-recipe-names'])){
@@ -14,7 +14,7 @@ class Controller extends AppController {
 				$this->view->selected_suggestions .= "<div>$name</div>";
 			}
 		}
-		$this->view->selected_suggestions .= '</div>';
+		// $this->view->selected_suggestions .= '</div>';
 		
         $this->view->map = '<div id="map-canvas">map div</div>';
 	}
@@ -31,11 +31,10 @@ extract($controller->view->vars);
         <a href="/suggestions">BACK</a>
         <a id="sign-out" href="/logout">SIGN OUT</a>
     </nav>
-
-	
-		<?php echo $selected_suggestions ?>
-	
-    <?php echo $map ?>
+    	<?php echo $map ?>
+    	<div class="selected-suggestions">
+    		<?php echo $selected_suggestions ?>
+    	</div>
 </div>
 
 <!-- includes script needed for map -->
