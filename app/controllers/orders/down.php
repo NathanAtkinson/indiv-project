@@ -7,6 +7,11 @@
 
 	protected function init() {
 
+      if (!UserLogin::isLogged()){
+            header('Location: /');
+            exit();
+      }
+
       $user = new User(UserLogin::getUserID());
       $user_ids = $_POST['user_ids'];
       $pizza_recipe_id = $_POST['pizza_recipe_id'];

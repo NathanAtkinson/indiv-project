@@ -60,7 +60,7 @@ extract($controller->view->vars);
 
 <div class="primary-content">
 	<nav>
-		<a id="not-semantic TODO coupons" href="/coupons" style="padding: 0; border: 0;"></a>
+		<!-- <a id="not-semantic TODO coupons" href="/coupons" style="padding: 0; border: 0;"></a> -->
 		<a id="build-suggestion" href="/build">Build Suggestion</a>
 		<a id="settings" href="/settings">Account Settings</a>
 		<a id="sign-out" href="/logout">SIGN OUT</a>

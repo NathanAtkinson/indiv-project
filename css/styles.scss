@@ -12,9 +12,9 @@
 	}
 }
 
+
 $middle-width : 65%;
 $rounded-corners: 5px;
-
 
 html {
     height: 100%
@@ -74,19 +74,22 @@ html {
 
 body {
 	background: 
-		radial-gradient(
+		/* radial-gradient(
 			circle, 
 	      rgba(0, 0, 0, .1),
 	      rgba(0, 0, 0, .5) 
-	    ), url("/app/images/bg06.jpg");
-		background-size: cover;
+	    ),  */url("/app/images/bg06.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-color: black;
+
 	nav {
 		@include stainedglass;
 		background-color: rgba(16, 16, 16, 1);
 		padding: 10px 0;
 		font-weight: 500;
 		> * {
-			width: 31%;
+			// min-width: 31%;
 			display: inline-block;
 			margin-left: 13px;
 			font-size: 1.5em;
@@ -98,7 +101,7 @@ body {
 			right: 5px;
 			text-align: center;
 			font-size: 1em;
-			width: 11%;
+			// minwidth: 20%;
 			top: -34px;
 		}
 		a:nth-child(2){
@@ -107,15 +110,12 @@ body {
 		button {
 			border: 1px solid #333;
 			width: 100%;
-			height: 39px;
+			min-height: 39px;
 			border-radius: $rounded-corners;
 			background-color: #000;
 			&:hover {
 				background-color: #888;
 			}
-		}
-		#settings {
-			text-align: right;
 		}
 	}
 }
@@ -130,7 +130,7 @@ header {
 	}
 	h3 {
 		display: inline-block;
-		width: 50%;
+		width: 35%;
 		text-align: center;
 	}
 	> div {
@@ -163,31 +163,10 @@ footer {
 }
 
 
-//form for updating account info
-.update-form {
-	input {
-		color: #333;
-	} 
-	button {
-		border: 1px solid #333;
-		width: 20%;
-		height: 39px;
-		color: #ddd;
-		border-radius: $rounded-corners;
-		background-color: #000;
-		font-weight: 500;
-		margin-left: 187px;
-		&:hover {
-			background-color: #888;
-		}
-	}
-}
-
-
 //primary content on each page except home
 .primary-content {
 	@include stainedglass;
-	height: 87.5vh;
+	// height: 87.5vh;
 	width: $middle-width;
 	margin: 0 auto;
 	display: relative;
@@ -204,8 +183,9 @@ main.login-main {
 		@include stainedglass;
 		margin:auto;
 		padding: 25px;
-		width: 33%;
+		width: 45%;
 		margin-top: 10%;
+		background-color: rgba(0, 0, 0, .3);
 		label {
 			float: none;
 		}
@@ -264,6 +244,28 @@ div.toppings {
 		@include option;
 		height:  35px;
 		display: inline-block;
+		vertical-align: top;
+	}
+}
+
+
+//form for updating account info
+.update-form {
+	input {
+		color: #333;
+	} 
+	button {
+		border: 1px solid #333;
+		width: 20%;
+		height: 39px;
+		color: #ddd;
+		border-radius: $rounded-corners;
+		background-color: #000;
+		font-weight: 500;
+		margin-left: 187px;
+		&:hover {
+			background-color: #888;
+		}
 	}
 }
 
@@ -349,7 +351,9 @@ div.selected-suggestions {
 	min-height: 75px;
 	margin-top: 25px;
 	display: inline-block;
-	width: 315px;
+	min-width: 315px;
+	float: right;
+	margin: 25px;
 	> div {
 		border: 1px solid #555;
 		background-color: #000;
@@ -364,10 +368,9 @@ div.selected-suggestions {
 
 //google maps canvas on map page
 div#map-canvas {
-        width: 450px;
-        height: 450px;
+        min-width: 450px;
+        min-height: 450px;
         margin: 25px;
-        float: left;
 		border-radius: $rounded-corners;
         div {
         	color: black;

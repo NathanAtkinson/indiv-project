@@ -20,8 +20,8 @@ class Controller extends AjaxController {
 
         //Is there's a user object, redirect to profile with the id.
         if($user){
-            $this->view['redirect'] = '/profile?user_id=' . $user->user_id;
             UserLogin::logIn($user->user_id);
+            $this->view['redirect'] = '/profile';
         
         //otherwise pass back error message
         } else {

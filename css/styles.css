@@ -12,9 +12,10 @@ html {
   height: 100%; }
 
 body {
-  background: -webkit-radial-gradient(circle, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5)), url("/app/images/bg06.jpg");
-  background: radial-gradient(circle, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5)), url("/app/images/bg06.jpg");
-  background-size: cover; }
+  background: url("/app/images/bg06.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: black; }
   body nav {
     margin: 0 auto;
     background-color: rgba(100, 100, 100, 0.3);
@@ -31,7 +32,6 @@ body {
       body nav > a:hover {
         background-color: #777; }
     body nav > * {
-      width: 31%;
       display: inline-block;
       margin-left: 13px;
       font-size: 1.5em;
@@ -42,20 +42,17 @@ body {
       right: 5px;
       text-align: center;
       font-size: 1em;
-      width: 11%;
       top: -34px; }
     body nav a:nth-child(2) {
       text-align: center; }
     body nav button {
       border: 1px solid #333;
       width: 100%;
-      height: 39px;
+      min-height: 39px;
       border-radius: 5px;
       background-color: #000; }
       body nav button:hover {
         background-color: #888; }
-    body nav #settings {
-      text-align: right; }
 
 header {
   position: relative; }
@@ -65,7 +62,7 @@ header {
     width: 30%; }
   header h3 {
     display: inline-block;
-    width: 50%;
+    width: 35%;
     text-align: center; }
   header > div {
     background-color: rgba(0, 0, 0, 0.5);
@@ -89,25 +86,10 @@ footer {
   footer div {
     color: #fff; }
 
-.update-form input {
-  color: #333; }
-.update-form button {
-  border: 1px solid #333;
-  width: 20%;
-  height: 39px;
-  color: #ddd;
-  border-radius: 5px;
-  background-color: #000;
-  font-weight: 500;
-  margin-left: 187px; }
-  .update-form button:hover {
-    background-color: #888; }
-
 .primary-content {
   margin: 0 auto;
   background-color: rgba(100, 100, 100, 0.3);
   position: relative;
-  height: 87.5vh;
   width: 65%;
   margin: 0 auto;
   display: relative; }
@@ -131,8 +113,9 @@ main.login-main {
     position: relative;
     margin: auto;
     padding: 25px;
-    width: 33%;
-    margin-top: 10%; }
+    width: 45%;
+    margin-top: 10%;
+    background-color: rgba(0, 0, 0, 0.3); }
     main.login-main .reptile-form > a {
       padding: 3px 10px;
       font-size: 1.5em;
@@ -183,7 +166,8 @@ div.toppings {
     padding: 2px 15px;
     width: 32%;
     height: 35px;
-    display: inline-block; }
+    display: inline-block;
+    vertical-align: top; }
     div.toppings .topping a {
       display: block;
       padding: 1px 10px;
@@ -204,6 +188,20 @@ div.toppings {
           content: "\f165"; }
       div.toppings .topping a i.fa {
         color: rgba(73, 7, 0, 0.85); }
+
+.update-form input {
+  color: #333; }
+.update-form button {
+  border: 1px solid #333;
+  width: 20%;
+  height: 39px;
+  color: #ddd;
+  border-radius: 5px;
+  background-color: #000;
+  font-weight: 500;
+  margin-left: 187px; }
+  .update-form button:hover {
+    background-color: #888; }
 
 div.friends {
   min-height: 214px;
@@ -283,7 +281,9 @@ div.selected-suggestions {
   min-height: 75px;
   margin-top: 25px;
   display: inline-block;
-  width: 315px; }
+  min-width: 315px;
+  float: right;
+  margin: 25px; }
   div.selected-suggestions > div {
     border: 1px solid #555;
     background-color: #000;
@@ -294,10 +294,9 @@ div.selected-suggestions {
     margin-top: 5px; }
 
 div#map-canvas {
-  width: 450px;
-  height: 450px;
+  min-width: 450px;
+  min-height: 450px;
   margin: 25px;
-  float: left;
   border-radius: 5px; }
   div#map-canvas div {
     color: black; }

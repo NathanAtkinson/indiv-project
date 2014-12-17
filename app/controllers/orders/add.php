@@ -7,6 +7,11 @@
 
 	protected function init() {
 
+      if (!UserLogin::isLogged()){
+            header('Location: /');
+            exit();
+      }
+
       //gets ID of user logged in
       $user = new User(UserLogin::getUserID());
 

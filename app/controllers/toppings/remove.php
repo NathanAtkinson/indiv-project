@@ -7,13 +7,18 @@
 
 	protected function init() {
 
-      $user = new User(UserLogin::getUserID());
+		if (!UserLogin::isLogged()){
+            header('Location: /');
+            exit();
+        }
+        
+		$user = new User(UserLogin::getUserID());
 
-      $topping = new Topping($topping_id);
+		$topping = new Topping($topping_id);
 
-      $input['user_id'] = $user->user_id;
-      $input['topping_id'] = $topping_id;
-      $topping->remove($_POST);
+		$input['user_id'] = $user->user_id;
+		$input['topping_id'] = $topping_id;
+		$topping->remove($_POST);
 	}
 }
 $controller = new Controller();

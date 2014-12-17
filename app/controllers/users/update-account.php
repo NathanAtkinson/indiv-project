@@ -19,7 +19,6 @@ class Controller extends AjaxController {
 		//sends update info to method
 		$results = $user->update($input);
 
-
 		if($user){
 			// $this->view['redirect'] = '/profile';
 		} else {

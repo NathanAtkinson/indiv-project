@@ -81,7 +81,7 @@ class Controller extends AppController {
 			if($suggestion['total'] < 1){
 				$pizza_recipe_id = xss::protection($suggestion['pizza_recipe_id']);
 				$deferredSuggestions[$pizza_recipe_id] = xss::protection($suggestion['name']);
-			
+				$exemptRecipesList[] = $suggestion['pizza_recipe_id'];
 			//if positive vote, creates fragment.
 			} else {
 				$suggestion_populator->pizza_recipe_id = xss::protection($suggestion['pizza_recipe_id']);
@@ -134,9 +134,9 @@ class Controller extends AppController {
 		foreach($deferredSuggestions as $pizza_recipe_id => $name) {
 
 			//recipe may have been created in global recs, don't wnat to present again.
-			if(in_array($deferredSuggestions[$pizza_recipe_id], $exemptRecipesList)){
+			/*if(in_array($deferredSuggestions[$pizza_recipe_id], $exemptRecipesList)){
 				continue;
-			}
+			}*/
 
 			//if suggestions equal to max, then hide for later retrieval
 			if($suggestion_count >= $maxSuggestions) {

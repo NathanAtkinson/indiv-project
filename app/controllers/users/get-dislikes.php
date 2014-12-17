@@ -7,6 +7,11 @@
 class Controller extends AjaxController {
 	protected function init() {
 
+		if (!UserLogin::isLogged()){
+            header('Location: /');
+            exit();
+        }
+        
 		$user_id = $_POST($user_id);
 		$user = new User($user_id);
 
