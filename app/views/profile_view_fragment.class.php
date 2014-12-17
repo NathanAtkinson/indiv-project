@@ -10,7 +10,7 @@ class ProfileViewFragment extends ViewFragment {
   		<div class="profile-info" data-user_id ="{{user_id}}">
   			<div class="image"><img src="/app/images/users/{{picture_id}}.jpg"></div>
   			<h3>{{user_name}}</h3>
-  			<h3>1601 W Fountainhead Parkway</h3>
+  			<h3>{{location}}</h3>
   		</div>
 	</div>
 html;

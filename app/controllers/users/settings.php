@@ -34,23 +34,17 @@ class Controller extends AppController {
 		$profile_creator->picture_id = xss::protection($user_id);
 		$profile_creator->user_id = xss::protection($user_id);
 		if(empty($location)){
-			$profile_creator->location = "Please enter your location in <a href='/settings'>account settings</a>";
+			$profile_creator->location = "";
 		} else {
 			$profile_creator->location = xss::protection($location);
 		}
 		$this->view->profile = $profile_creator->render();
 
-		//gets list of toppings from DB
-		$toppings_from_DB = Topping::getAll();
-
-		//Creates object to populate the topping fragments
-		$topping_populator = new ToppingViewFragment();
-		//Uses results from DB to dynamically create with topping_id and name
-		while($topping = $toppings_from_DB->fetch_assoc()) {
-			$topping_populator->topping_id = xss::protection($topping['topping_id']);
-			$topping_populator->name = xss::protection($topping['name']);
-			$this->view->toppings .= $topping_populator->render();
-		}
+		$this->view->user_id = $user->user_id;
+		$this->view->password = $user->password;
+		$this->view->email = $user->email;
+		$this->view->location = $user->location;
+		
 	}
 }
 $controller = new Controller();
@@ -60,16 +54,18 @@ extract($controller->view->vars);
 
 <div class="primary-content">
 	<nav>
-		<a id="not-semantic TODO coupons" href="/coupons" style="padding: 0; border: 0;"></a>
-		<a id="build-suggestion" href="/build">Build Suggestion</a>
-		<a id="settings" href="/settings">Account Settings</a>
+		<a id="" href="/profile">Back</a>
 		<a id="sign-out" href="/logout">SIGN OUT</a>
+
 	</nav>
 
 	<?php echo $profile ?>
-
-	<div class="user toppings">
-		<h3><?php echo $user_name ?>'s Dislikes:</h3>
-		<?php echo $toppings ?>
+	<div class="update-form">
+		<form action="/update" class="reptile-form">
+			<input class="user_id" type="hidden" name="user_id" value="<?php echo $user_id?>">
+			<input class="email" type="text" name="email" title="Email" value="<?php echo $email?>">
+			<input class="location" type="text" name="location" title="Location" value="<?php echo $location?>">
+			<button class="submit">Submit Changes</button>
+		</form>
 	</div>
 </div>

@@ -20,7 +20,8 @@ class User extends CustomModel {
                 ['options' => function ($value) {
                     return (strlen($value) > 5) ? $value : false;
             }]],
-            'email' => [FILTER_VALIDATE_EMAIL]
+            'email' => [FILTER_VALIDATE_EMAIL],
+            'location' => [FILTER_SANITIZE_STRING]
         ];
     }
 
@@ -53,19 +54,18 @@ sql;
 	public function update($input) {
 
 
-    /*$cleanedInput = $this->cleanInput(
-            ['user_name', 'email', 'password'],
-            $input,
+        $cleanedInput = $this->cleanInput(
+            ['email', 'location'],
+            $input
         );
 
         if (is_string($cleanedInput)) return null;
-        }*/
-
+        
 		// Update
-		/*db::update('user', $sql_values, "WHERE user_id = {$this->user_id}");
+		db::update('user', $cleanedInput, "WHERE user_id = {$this->user_id}");
 		
-		// Return a new instance of this user as an object
-		return new User($this->user_id);*/
+		// // Return a new instance of this user as an object
+		return new User($this->user_id);
 
 	}
 
@@ -130,6 +130,24 @@ sql;
     }
 
 
+
+    //gets the location by using the user_id
+    public function getLocation() {
+
+        $getUserName =<<<sql
+        SELECT location
+        FROM user
+        WHERE user_id = {$this->user_id};
+sql;
+
+        $results = db::execute($getUserName);
+
+        if ($result = $results->fetch_assoc()) {
+            return $result['location'];
+        }
+    }
+
+    
     //pull topping prefs for user
     public function getPreferences(){
 

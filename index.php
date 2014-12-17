@@ -8,6 +8,8 @@ Router::add('/', '/app/controllers/home.php');
 
 // Users
 Router::add('/profile', '/app/controllers/users/profile.php');
+Router::add('/settings', '/app/controllers/users/settings.php');
+Router::add('/update', '/app/controllers/users/update-account.php');
 Router::add('/login', '/app/controllers/users/login.php');
 Router::add('/logout', '/app/controllers/users/logout.php');
 // Router::add('/users/register', '/app/controllers/users/register/form.php');
