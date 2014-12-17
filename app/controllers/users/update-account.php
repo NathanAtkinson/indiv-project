@@ -20,7 +20,7 @@ class Controller extends AjaxController {
 		$results = $user->update($input);
 
 		if($user){
-			// $this->view['redirect'] = '/profile';
+			$this->view['redirect'] = '/profile';
 		} else {
             $this->view['errormsg'] = 'Please enter a valid User Name and Password.';
         }

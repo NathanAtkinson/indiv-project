@@ -55,7 +55,7 @@ sql;
 
 
         $cleanedInput = $this->cleanInput(
-            ['email', 'location'],
+            [/*'email',*/ 'location'],
             $input
         );
 

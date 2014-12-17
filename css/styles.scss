@@ -17,7 +17,7 @@ $middle-width : 65%;
 $rounded-corners: 5px;
 
 html {
-    height: 100%
+    min-height: 100%
 }
 
 
@@ -30,7 +30,7 @@ html {
 	padding: 1px 10px;
 	border-radius: $rounded-corners;
 	background-color: rgba(7, 73, 0, 0.85);
-	margin-left: 15px;
+	margin-left: 10px;
 	&::before {
 		display: inline-block;
 		font: normal normal normal 14px/1 FontAwesome;
@@ -73,12 +73,7 @@ html {
 
 
 body {
-	background: 
-		/* radial-gradient(
-			circle, 
-	      rgba(0, 0, 0, .1),
-	      rgba(0, 0, 0, .5) 
-	    ),  */url("/app/images/bg06.jpg");
+	background: url("/app/images/bg06.jpg");
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-color: black;
@@ -89,7 +84,6 @@ body {
 		padding: 10px 0;
 		font-weight: 500;
 		> * {
-			// min-width: 31%;
 			display: inline-block;
 			margin-left: 13px;
 			font-size: 1.5em;
@@ -101,7 +95,6 @@ body {
 			right: 5px;
 			text-align: center;
 			font-size: 1em;
-			// minwidth: 20%;
 			top: -34px;
 		}
 		a:nth-child(2){
@@ -149,14 +142,17 @@ header {
 	}
 }
 
+div.page {
+	min-height: 650px;
+}
+
 
 footer {
 	margin: 0;
-	width: 60%;
+	width: $middle-width;
 	text-align: center;
-	position:fixed;
 	bottom: 0;
-	left: 20%;
+	left: 15%;
 	div {
 		color: #fff;
 	}
@@ -166,7 +162,7 @@ footer {
 //primary content on each page except home
 .primary-content {
 	@include stainedglass;
-	// height: 87.5vh;
+	min-height: 300px;
 	width: $middle-width;
 	margin: 0 auto;
 	display: relative;
@@ -245,19 +241,25 @@ div.toppings {
 		height:  35px;
 		display: inline-block;
 		vertical-align: top;
+		&:last-child {
+			margin-bottom: 10px;
+		}
 	}
 }
 
 
 //form for updating account info
 .update-form {
+	> .reptile-form {
+		padding: 50px;
+	}
 	input {
 		color: #333;
 	} 
 	button {
 		border: 1px solid #333;
 		width: 20%;
-		height: 39px;
+		min-height: 39px;
 		color: #ddd;
 		border-radius: $rounded-corners;
 		background-color: #000;
@@ -351,9 +353,9 @@ div.selected-suggestions {
 	min-height: 75px;
 	margin-top: 25px;
 	display: inline-block;
-	min-width: 315px;
+	width: 32%;
 	float: right;
-	margin: 25px;
+	margin: 15px;
 	> div {
 		border: 1px solid #555;
 		background-color: #000;
@@ -368,20 +370,19 @@ div.selected-suggestions {
 
 //google maps canvas on map page
 div#map-canvas {
-        min-width: 450px;
-        min-height: 450px;
-        margin: 25px;
-		border-radius: $rounded-corners;
-        div {
-        	color: black;
-
-        }
-        div > div {
-        	width: 225px;
-        }
-        a {
-        	color: blue;
-        }
+    width: 60%;
+    min-height: 400px;
+    margin: 15px;
+	border-radius: $rounded-corners;
+    div {
+    	color: black;
+    }
+    div > div {
+    	width: 225px;
+    }
+    a {
+    	color: blue;
+    }
 }
 
 

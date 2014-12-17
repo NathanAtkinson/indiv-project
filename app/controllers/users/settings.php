@@ -63,7 +63,7 @@ extract($controller->view->vars);
 	<div class="update-form">
 		<form action="/update" class="reptile-form">
 			<input class="user_id" type="hidden" name="user_id"  value="<?php echo $user_id?>">
-			<input class="email" type="email" name="email" title="E-mail" data-exp-name="email" value="<?php echo $email; ?>">
+			<!-- <input class="email" type="email" name="email" title="E-mail" data-exp-name="email" value="<?php echo $email; ?>"> -->
 			<input class="location" type="text" name="location" title="Location" data-exp-name="location" value="<?php echo $location; ?>">
 			<button class="submit">Submit Changes</button>
 		</form>
