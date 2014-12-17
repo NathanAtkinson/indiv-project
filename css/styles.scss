@@ -145,7 +145,7 @@ header {
 
 //contains header and primary content
 div.page {
-	min-height: 650px;
+	min-height: 625px;
 }
 
 
@@ -164,7 +164,7 @@ footer {
 //primary content on each page except home
 .primary-content {
 	@include stainedglass;
-	min-height: 500px;
+	min-height: 490px;
 	width: $middle-width;
 	margin: 0 auto;
 	display: relative;
